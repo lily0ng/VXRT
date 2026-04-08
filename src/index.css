@@ -1,0 +1,66 @@
+/* --- MANAGED FONT IMPORTS START (do not edit manually) --- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* --- MANAGED FONT IMPORTS END --- */
+
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+@custom-variant dark (&:is(.dark *));
+:root {
+  --void-black: #0d0d0f;
+  --dark-base: #1a1a1e;
+  --exploit-red: #c0392b;
+  --ghost-white: #e8e8ea;
+  --steel-gray: #3a3a42;
+  --muted-gray: #6b6b72;
+  --background: #0d0d0f;
+  --foreground: #e8e8ea;
+  --card: #1a1a1e;
+  --card-foreground: #e8e8ea;
+  --popover: #1a1a1e;
+  --popover-foreground: #e8e8ea;
+  --primary: #c0392b;
+  --primary-foreground: #e8e8ea;
+  --secondary: #1a1a1e;
+  --secondary-foreground: #e8e8ea;
+  --muted: #1a1a1e;
+  --muted-foreground: #6b6b72;
+  --accent: #1a1a1e;
+  --accent-foreground: #e8e8ea;
+  --destructive: #c0392b;
+  --destructive-foreground: #e8e8ea;
+  --border: #3a3a42;
+  --input: #3a3a42;
+  --ring: #c0392b;
+  --radius: 0.5rem;
+  --chart-1: #c0392b;
+  --chart-2: #e74c3c;
+  --chart-3: #3a3a42;
+  --chart-4: #6b6b72;
+  --chart-5: #e8e8ea;
+  --sidebar: #0d0d0f;
+  --sidebar-foreground: #e8e8ea;
+  --sidebar-primary: #c0392b;
+  --sidebar-primary-foreground: #e8e8ea;
+  --sidebar-accent: #1a1a1e;
+  --sidebar-accent-foreground: #e8e8ea;
+  --sidebar-border: #3a3a42;
+  --sidebar-ring: #c0392b;
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
