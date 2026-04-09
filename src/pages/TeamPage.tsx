@@ -439,70 +439,82 @@ export function TeamPage() {
 
         {/* Section 4: Team Grid */}
         <section className="mb-32">
-          <SectionHeading title="The Operators" description="Elite Talent" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading title="The Operators" description="Elite Talent" />
+          </motion.div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
             {teamMembers.map((member, idx) =>
             <motion.div
               key={member.name}
-              initial={{
-                opacity: 0,
-                y: 20
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0
-              }}
-              viewport={{
-                once: true
-              }}
-              transition={{
-                delay: idx * 0.1
-              }}
-              className="bg-[#111115] p-6 rounded-xl border border-steel-gray/50 hover:border-exploit-red/50 transition-all duration-300 group hover:shadow-lg hover:shadow-exploit-red/10">
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className={`bg-[#111115] p-5 rounded-xl border ${member.name === 'James Liu' ? 'border-exploit-red/50 shadow-lg shadow-exploit-red/10' : 'border-steel-gray/50 hover:border-exploit-red/30'} transition-all duration-300 group`}>
               
-                <div className="relative mb-6">
+                {/* Status dot */}
+                <div className="flex justify-end mb-2">
+                  <div className="w-2 h-2 bg-exploit-red rounded-full animate-pulse" />
+                </div>
+                
+                {/* Avatar - Hexagon with colored background */}
+                <div className="mb-4">
                   {member.avatar ? (
-                    <img 
-                      src={member.avatar} 
-                      alt={member.name} 
-                      className="w-16 h-16 object-cover rounded-lg border-2 border-steel-gray/50 group-hover:border-exploit-red/50 transition-colors"
-                    />
+                    <div
+                      className="w-14 h-14 flex items-center justify-center overflow-hidden"
+                      style={{
+                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                      }}>
+                      <img 
+                        src={member.avatar} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   ) : (
                     <div
-                    className={`w-16 h-16 flex items-center justify-center text-xl font-heading font-bold ${member.color}`}
-                    style={{
-                      clipPath:
-                      'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                    }}>
-                    
+                      className={`w-14 h-14 flex items-center justify-center text-lg font-heading font-bold ${member.color}`}
+                      style={{
+                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                      }}>
                       {member.initials}
                     </div>
                   )}
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-exploit-red rounded-full animate-pulse opacity-75" />
                 </div>
-                <h3 className="text-lg font-bold text-ghost-white mb-1 group-hover:text-exploit-red transition-colors duration-300">
+                
+                {/* Name & Title */}
+                <h3 className="text-base font-bold text-ghost-white mb-0.5 group-hover:text-exploit-red transition-colors duration-300">
                   {member.name}
                 </h3>
-                <p className="text-sm text-muted-text mb-4">{member.title}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {member.certs.map((cert) =>
-                <span
-                  key={cert}
-                  className="px-2 py-0.5 bg-dark-base border border-steel-gray rounded text-[10px] font-bold text-ghost-white hover:border-exploit-red/50 transition-colors">
-                  
+                <p className="text-xs text-muted-text mb-3">{member.title}</p>
+                
+                {/* Certifications */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {member.certs.slice(0, 3).map((cert) =>
+                    <span
+                      key={cert}
+                      className="px-1.5 py-0.5 bg-dark-base border border-steel-gray/50 rounded text-[9px] font-semibold text-ghost-white">
                       {cert}
                     </span>
-                )}
+                  )}
+                  {member.certs.length > 3 && (
+                    <span className="px-1.5 py-0.5 text-[9px] text-muted-text">+{member.certs.length - 3}</span>
+                  )}
                 </div>
-                <div className="flex items-center gap-3 text-muted-text/50">
+                
+                {/* Social Icons */}
+                <div className="flex items-center gap-3 text-muted-text/50 pt-3 border-t border-steel-gray/30">
                   <Github
-                  size={16}
-                  className="hover:text-exploit-red cursor-pointer transition-all duration-300 transform hover:scale-110" />
-                
+                    size={14}
+                    className="hover:text-exploit-red cursor-pointer transition-all duration-300 hover:scale-110" />
                   <Linkedin
-                  size={16}
-                  className="hover:text-exploit-red cursor-pointer transition-all duration-300 transform hover:scale-110" />
-                
+                    size={14}
+                    className="hover:text-exploit-red cursor-pointer transition-all duration-300 hover:scale-110" />
                 </div>
               </motion.div>
             )}
