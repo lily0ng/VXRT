@@ -64,7 +64,10 @@ import {
   Hexagon,
   BarChart3,
   Building2,
-  Inbox
+  Inbox,
+  Cog,
+  Disc,
+  UploadCloud
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -201,6 +204,17 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Service Offerings',
+    items: [
+      { name: 'Compute Offerings', path: '/portal/compute-offerings', icon: Cloud },
+      { name: 'System Offerings', path: '/portal/system-offerings', icon: Cog },
+      { name: 'Disk Offerings', path: '/portal/disk-offerings', icon: Disc },
+      { name: 'Backup Offerings', path: '/portal/backup-offerings', icon: UploadCloud },
+      { name: 'Network Offerings', path: '/portal/network-offerings', icon: Wifi },
+      { name: 'VPC Offerings', path: '/portal/vpc-offerings', icon: Network }
+    ]
+  },
+  {
     title: 'News & Content',
     items: [
       { name: 'All Articles', path: '/portal/articles', icon: Newspaper },
@@ -256,6 +270,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     'Defensive': false,
     'Compliance': false,
     'Infrastructure': false,
+    'Service Offerings': false,
     'News & Content': false,
     'System': false,
     'Administrator': false

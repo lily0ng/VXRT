@@ -73,6 +73,7 @@ import { UserDetails } from './portal/pages/UserDetails';
 import { Articles } from './portal/pages/Articles';
 import { Images } from './portal/pages/Images';
 import { Infrastructure } from './portal/pages/Infrastructure';
+import { ServiceOfferings } from './portal/pages/ServiceOfferings';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -154,6 +155,12 @@ function PortalRoutes() {
         <Route path="/rss" element={<div className="p-8 text-ghost-white">RSS Feeds Page</div>} />
         <Route path="/media" element={<div className="p-8 text-ghost-white">Media Library Page</div>} />
         
+        {/* Images */}
+        <Route path="/images" element={<Images />} />
+        <Route path="/templates" element={<div className="p-8 text-ghost-white">Templates Page</div>} />
+        <Route path="/isos" element={<div className="p-8 text-ghost-white">ISOs Page</div>} />
+        <Route path="/k8s-isos" element={<div className="p-8 text-ghost-white">Kubernetes ISOs Page</div>} />
+        
         {/* Infrastructure */}
         <Route path="/infrastructure" element={<Infrastructure />} />
         <Route path="/zones" element={<div className="p-8 text-ghost-white">Zones Page</div>} />
@@ -170,6 +177,15 @@ function PortalRoutes() {
         <Route path="/cpu-sockets" element={<div className="p-8 text-ghost-white">CPU Sockets Page</div>} />
         <Route path="/db-usage-server" element={<div className="p-8 text-ghost-white">DB/Usage Server Page</div>} />
         <Route path="/infra-alerts" element={<div className="p-8 text-ghost-white">Alerts Page</div>} />
+        
+        {/* Service Offerings */}
+        <Route path="/service-offerings" element={<ServiceOfferings />} />
+        <Route path="/compute-offerings" element={<div className="p-8 text-ghost-white">Compute Offerings Page</div>} />
+        <Route path="/system-offerings" element={<div className="p-8 text-ghost-white">System Offerings Page</div>} />
+        <Route path="/disk-offerings" element={<div className="p-8 text-ghost-white">Disk Offerings Page</div>} />
+        <Route path="/backup-offerings" element={<div className="p-8 text-ghost-white">Backup Offerings Page</div>} />
+        <Route path="/network-offerings" element={<div className="p-8 text-ghost-white">Network Offerings Page</div>} />
+        <Route path="/vpc-offerings" element={<div className="p-8 text-ghost-white">VPC Offerings Page</div>} />
       </Routes>
     </PortalLayout>
   );
