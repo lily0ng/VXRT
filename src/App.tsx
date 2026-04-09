@@ -74,6 +74,7 @@ import { Articles } from './portal/pages/Articles';
 import { Images } from './portal/pages/Images';
 import { Infrastructure } from './portal/pages/Infrastructure';
 import { ServiceOfferings } from './portal/pages/ServiceOfferings';
+import { Configuration } from './portal/pages/Configuration';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -186,6 +187,17 @@ function PortalRoutes() {
         <Route path="/backup-offerings" element={<div className="p-8 text-ghost-white">Backup Offerings Page</div>} />
         <Route path="/network-offerings" element={<div className="p-8 text-ghost-white">Network Offerings Page</div>} />
         <Route path="/vpc-offerings" element={<div className="p-8 text-ghost-white">VPC Offerings Page</div>} />
+        
+        {/* Configuration */}
+        <Route path="/global-settings" element={<Configuration />} />
+        <Route path="/ldap" element={<div className="p-8 text-ghost-white">LDAP Configuration Page</div>} />
+        <Route path="/oauth" element={<div className="p-8 text-ghost-white">OAuth Configuration Page</div>} />
+        <Route path="/backup-repo" element={<div className="p-8 text-ghost-white">Backup Repository Page</div>} />
+        <Route path="/hypervisor" element={<div className="p-8 text-ghost-white">Hypervisor Capabilities Page</div>} />
+        <Route path="/os-categories" element={<div className="p-8 text-ghost-white">Guest OS Categories Page</div>} />
+        <Route path="/guest-os" element={<div className="p-8 text-ghost-white">Guest OS Page</div>} />
+        <Route path="/os-mappings" element={<div className="p-8 text-ghost-white">Guest OS Mappings Page</div>} />
+        <Route path="/gpu-types" element={<div className="p-8 text-ghost-white">GPU Card Types Page</div>} />
       </Routes>
     </PortalLayout>
   );

@@ -67,7 +67,13 @@ import {
   Inbox,
   Cog,
   Disc,
-  UploadCloud
+  UploadCloud,
+  UsersRound,
+  ArrowLeftRight,
+  Table2,
+  Laptop,
+  Plug,
+  Monitor
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -234,13 +240,27 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Configuration',
+    items: [
+      { name: 'Global Settings', path: '/portal/global-settings', icon: Cog },
+      { name: 'LDAP Configuration', path: '/portal/ldap', icon: UsersRound },
+      { name: 'OAuth Configuration', path: '/portal/oauth', icon: ArrowLeftRight },
+      { name: 'Backup Repository', path: '/portal/backup-repo', icon: Inbox },
+      { name: 'Hypervisor Capabilities', path: '/portal/hypervisor', icon: Server },
+      { name: 'Guest OS Categories', path: '/portal/os-categories', icon: Table2 },
+      { name: 'Guest OS', path: '/portal/guest-os', icon: Laptop },
+      { name: 'Guest OS mappings', path: '/portal/os-mappings', icon: Plug },
+      { name: 'GPU Card Types', path: '/portal/gpu-types', icon: Monitor }
+    ]
+  },
+  {
     title: 'Administrator',
     items: [
       { name: 'User Management', path: '/portal/users', icon: Users },
       { name: 'Role Permissions', path: '/portal/roles', icon: Shield },
       { name: 'System Logs', path: '/portal/logs', icon: FileText },
-      { name: 'Audit Trail', path: '/portal/audit', icon: Clock },
-      { name: 'Global Settings', path: '/portal/global', icon: Settings }
+      { name: 'Audit Trail', path: '/portal/audit', icon: CheckCircle },
+      { name: 'Global Settings', path: '/portal/settings', icon: Settings }
     ]
   }
 ];
@@ -273,6 +293,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     'Service Offerings': false,
     'News & Content': false,
     'System': false,
+    'Configuration': false,
     'Administrator': false
   });
   const location = useLocation();
