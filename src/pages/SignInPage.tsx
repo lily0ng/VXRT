@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 
 export function SignInPage() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -27,6 +28,8 @@ export function SignInPage() {
     e.preventDefault();
     // Handle sign in logic
     console.log('Sign in:', formData);
+    // Redirect to portal dashboard
+    navigate('/portal');
   };
 
   return (
