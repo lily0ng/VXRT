@@ -22,7 +22,7 @@ import {
 const teamMembers = [
 {
   name: '0xff0day',
-  title: 'Senior Security Researcher',
+  title: 'Senior Offensive Security Engineer ( Ethical Hacker )',
   certs: ['OSCP', 'OSCE', 'CRTO'],
   initials: '0D',
   color: 'bg-red-900/50 text-red-400',
@@ -371,7 +371,7 @@ export function TeamPage() {
                 
                 {/* Role description */}
                 <p className="text-muted-text text-sm mb-6 text-center md:text-left">
-                  Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer
+                  Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer , Senior Software Engineer
                 </p>
                 
                 {/* Quote */}
@@ -429,7 +429,7 @@ export function TeamPage() {
                     <div className="h-px flex-1 bg-steel-gray/30" />
                   </div>
                   <p className="text-sm text-ghost-white/80">
-                    HackerOne (Top Hunter) · Bugcrowd (Elite) · Synack Red Team · Intigriti · HTB (Pro Hacker) · TryHackMe (Top 1%) · PortSwigger (All Labs Solved)
+                    HackerOne  · Bugcrowd  · Synack Red Team · Intigriti · HTB  · TryHackMe  · PortSwigger · ExploitDB  · VulnHub  · CTFtime  · GitHub Security Lab
                   </p>
                 </div>
               </div>
@@ -531,7 +531,7 @@ export function TeamPage() {
             We're always looking for elite security professionals. If you have a
             passion for breaking things and building exploits, we want to talk.
           </p>
-
+            
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {openings.map((role, i) =>
             <motion.div

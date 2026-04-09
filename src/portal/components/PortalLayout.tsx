@@ -14,6 +14,7 @@ import {
   X,
   LogOut,
   ChevronDown,
+  ChevronRight,
   Zap,
   AlertTriangle,
   CheckCircle,
@@ -41,6 +42,7 @@ import {
   BookOpen,
   PenTool,
   Folder,
+  FolderOpen,
   Rss,
   Megaphone
 } from 'lucide-react';
@@ -62,7 +64,7 @@ interface NavCategory {
 
 const navCategories: NavCategory[] = [
   {
-    title: 'MAIN',
+    title: 'Main',
     items: [
       { name: 'Dashboard', path: '/portal', icon: LayoutDashboard },
       { name: 'Assessments', path: '/portal/assessments', icon: Target },
@@ -71,7 +73,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'COMPUTE & INSTANCES',
+    title: 'Compute',
     items: [
       { name: 'Compute', path: '/portal/compute', icon: Server },
       { name: 'VPS', path: '/portal/vps', icon: Box },
@@ -80,7 +82,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'CONTAINERS & ORCHESTRATION',
+    title: 'Orcehestration',
     items: [
       { name: 'Kubernetes', path: '/portal/kubernetes', icon: Cloud },
       { name: 'Container Apps', path: '/portal/apps', icon: Box },
@@ -89,7 +91,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'STORAGE',
+    title: 'Storage',
     items: [
       { name: 'Block Storage', path: '/portal/block-storage', icon: HardDrive },
       { name: 'Object Storage', path: '/portal/object-storage', icon: Database },
@@ -100,7 +102,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'NETWORKING',
+    title: 'Networking',
     items: [
       { name: 'Networks', path: '/portal/networks', icon: Network },
       { name: 'Load Balancers', path: '/portal/loadbalancers', icon: Share2 },
@@ -111,7 +113,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'SECURITY - OFFENSIVE',
+    title: 'Offensive',
     items: [
       { name: 'Penetration Testing', path: '/portal/pentesting', icon: Target },
       { name: 'Red Teaming', path: '/portal/redteaming', icon: Target },
@@ -120,7 +122,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'SECURITY - DEFENSIVE',
+    title: 'Defensive',
     items: [
       { name: 'Vulnerability Assessment', path: '/portal/vulnassess', icon: AlertTriangle },
       { name: 'Cloud Security', path: '/portal/cloudsec', icon: CloudLightning },
@@ -130,7 +132,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'SECURITY - COMPLIANCE',
+    title: 'Compliance',
     items: [
       { name: 'Compliance Reports', path: '/portal/compliance', icon: CheckCircle },
       { name: 'Audit Logs', path: '/portal/auditlogs', icon: FileText },
@@ -139,7 +141,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'INFRASTRUCTURE',
+    title: 'Infrastructure',
     items: [
       { name: 'API Access', path: '/portal/api', icon: Terminal },
       { name: 'SSH Keys', path: '/portal/sshkeys', icon: Lock },
@@ -148,7 +150,7 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'NEWS & CONTENT',
+    title: 'News & Content',
     items: [
       { name: 'All Articles', path: '/portal/articles', icon: Newspaper },
       { name: 'Categories', path: '/portal/categories', icon: Folder },
@@ -159,19 +161,28 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'SYSTEM',
+    title: 'System',
     items: [
       { name: 'Settings', path: '/portal/settings', icon: Settings },
       { name: 'Billing', path: '/portal/billing', icon: CreditCard },
-      { name: 'Support', path: '/portal/support', icon: Headphones },
-      { name: 'User Management', path: '/portal/users', icon: Users }
+      { name: 'Support', path: '/portal/support', icon: Headphones }
+    ]
+  },
+  {
+    title: 'Administrator',
+    items: [
+      { name: 'User Management', path: '/portal/users', icon: Users },
+      { name: 'Role Permissions', path: '/portal/roles', icon: Shield },
+      { name: 'System Logs', path: '/portal/logs', icon: FileText },
+      { name: 'Audit Trail', path: '/portal/audit', icon: Clock },
+      { name: 'Global Settings', path: '/portal/global', icon: Settings }
     ]
   }
 ];
 
 // Mock user data
 const currentUser = {
-  name: 'Admin User',
+  name: '0xff 0day',
   email: 'admin@vxrt.com',
   role: 'Security Administrator',
   avatar: 'https://avatars.githubusercontent.com/u/264521594?v=4',
@@ -183,8 +194,29 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [headerProfileOpen, setHeaderProfileOpen] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({
+    'MAIN': true,
+    'COMPUTE & INSTANCES': false,
+    'CONTAINERS & ORCHESTRATION': false,
+    'STORAGE': false,
+    'NETWORKING': false,
+    'SECURITY - OFFENSIVE': false,
+    'SECURITY - DEFENSIVE': false,
+    'SECURITY - COMPLIANCE': false,
+    'INFRASTRUCTURE': false,
+    'NEWS & CONTENT': false,
+    'SYSTEM': false,
+    'ADMINISTRATOR': false
+  });
   const location = useLocation();
   const navigate = useNavigate();
+
+  const toggleCategory = (title: string) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
+  };
 
   const handleLogout = () => {
     navigate('/signin');
@@ -228,57 +260,119 @@ export function PortalLayout({ children }: PortalLayoutProps) {
           </Link>
         </div>
 
-        {/* Navigation - Scrollable */}
-        <nav className="flex-1 p-3 space-y-6 overflow-y-auto overflow-x-hidden">
-          {navCategories.map((category) => (
-            <div key={category.title}>
-              <AnimatePresence>
-                {sidebarOpen && (
-                  <motion.h4
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className="text-xs font-semibold text-muted-gray uppercase tracking-wider mb-2 px-3"
-                  >
-                    {category.title}
-                  </motion.h4>
-                )}
-              </AnimatePresence>
-              <div className="space-y-1">
-                {category.items.map((item: NavItem) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      className={`flex items-center ${sidebarOpen ? 'gap-3 px-3' : 'justify-center px-2'} py-2.5 rounded-lg transition-all duration-200 ${
-                        isActive
-                          ? 'bg-exploit-red/10 text-exploit-red'
-                          : 'text-ghost-white/70 hover:bg-steel-gray/20 hover:text-ghost-white'
-                      }`}
-                      title={item.name}
+        {/* Navigation - Scrollable with Collapsible Directories */}
+        <nav className="flex-1 p-3 space-y-2 overflow-y-auto overflow-x-hidden">
+          {navCategories.map((category) => {
+            const isExpanded = expandedCategories[category.title];
+            const hasActiveItem = category.items.some(item => location.pathname === item.path);
+            
+            return (
+              <div key={category.title} className="space-y-1">
+                {/* Category Header / Folder */}
+                <button
+                  onClick={() => sidebarOpen && toggleCategory(category.title)}
+                  className={`w-full flex items-center ${sidebarOpen ? 'gap-3 px-3' : 'justify-center px-2'} py-2.5 rounded-lg transition-all duration-200 ${
+                    hasActiveItem 
+                      ? 'bg-exploit-red/5 text-exploit-red' 
+                      : 'text-ghost-white/70 hover:bg-steel-gray/20 hover:text-ghost-white'
+                  } ${!sidebarOpen ? 'cursor-default' : 'cursor-pointer'}`}
+                  title={category.title}
+                  disabled={!sidebarOpen}
+                >
+                  {/* Folder Icon */}
+                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                    <AnimatePresence mode="wait">
+                      {isExpanded ? (
+                        <motion.div
+                          key="open"
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.8, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          <FolderOpen className="w-5 h-5 text-exploit-red" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="closed"
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.8, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          <Folder className={`w-5 h-5 ${hasActiveItem ? 'text-exploit-red' : 'text-muted-gray'}`} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  
+                  <AnimatePresence>
+                    {sidebarOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex-1 flex items-center justify-between min-w-0"
+                      >
+                        <span className="font-medium text-sm whitespace-nowrap">
+                          {category.title}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: isExpanded ? 90 : 0 }}
+                          transition={{ duration: 0.2, ease: 'easeInOut' }}
+                        >
+                          <ChevronRight className={`w-4 h-4 ${hasActiveItem ? 'text-exploit-red' : 'text-muted-gray'}`} />
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+
+                {/* Expandable Items Container */}
+                <AnimatePresence>
+                  {sidebarOpen && isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      <AnimatePresence>
-                        {sidebarOpen && (
-                          <motion.span
-                            initial={{ opacity: 0, x: -5 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -5 }}
-                            transition={{ duration: 0.15 }}
-                            className="font-medium text-sm whitespace-nowrap"
-                          >
-                            {item.name}
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </Link>
-                  );
-                })}
+                      <div className="space-y-1 pl-4 border-l-2 border-steel-gray/30 ml-4">
+                        {category.items.map((item: NavItem, index: number) => {
+                          const isActive = location.pathname === item.path;
+                          return (
+                            <motion.div
+                              key={item.name}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05, duration: 0.2 }}
+                            >
+                              <Link
+                                to={item.path}
+                                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
+                                  isActive
+                                    ? 'bg-exploit-red/10 text-exploit-red'
+                                    : 'text-ghost-white/60 hover:bg-steel-gray/20 hover:text-ghost-white'
+                                }`}
+                                title={item.name}
+                              >
+                                <item.icon className="w-4 h-4 flex-shrink-0" />
+                                <span className="font-medium text-sm whitespace-nowrap">
+                                  {item.name}
+                                </span>
+                              </Link>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
 
         {/* Bottom Section - Stats + User Profile */}
@@ -430,34 +524,103 @@ export function PortalLayout({ children }: PortalLayoutProps) {
           </button>
         </div>
 
-        <nav className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-80px)]">
-          {navCategories.map((category) => (
-            <div key={category.title}>
-              <h4 className="text-xs font-semibold text-muted-gray uppercase tracking-wider mb-2 px-4">
-                {category.title}
-              </h4>
-              <div className="space-y-1">
-                {category.items.map((item: NavItem) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
-                        isActive
-                          ? 'bg-exploit-red/10 text-exploit-red'
-                          : 'text-ghost-white/70 hover:bg-steel-gray/20'
-                      }`}
+        <nav className="p-4 space-y-2 overflow-y-auto max-h-[calc(100vh-80px)]">
+          {navCategories.map((category) => {
+            const isExpanded = expandedCategories[category.title];
+            const hasActiveItem = category.items.some(item => location.pathname === item.path);
+            
+            return (
+              <div key={category.title} className="space-y-1">
+                {/* Category Header / Folder */}
+                <button
+                  onClick={() => toggleCategory(category.title)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${
+                    hasActiveItem 
+                      ? 'bg-exploit-red/5 text-exploit-red' 
+                      : 'text-ghost-white/70 hover:bg-steel-gray/20 hover:text-ghost-white'
+                  }`}
+                >
+                  {/* Folder Icon */}
+                  <div className="w-5 h-5 flex-shrink-0 flex items-center justify-center">
+                    <AnimatePresence mode="wait">
+                      {isExpanded ? (
+                        <motion.div
+                          key="open"
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.8, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          <FolderOpen className="w-5 h-5 text-exploit-red" />
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="closed"
+                          initial={{ scale: 0.8, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.8, opacity: 0 }}
+                          transition={{ duration: 0.15 }}
+                        >
+                          <Folder className={`w-5 h-5 ${hasActiveItem ? 'text-exploit-red' : 'text-muted-gray'}`} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  
+                  <span className="flex-1 font-medium text-sm text-left">
+                    {category.title}
+                  </span>
+                  
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 90 : 0 }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
+                  >
+                    <ChevronRight className={`w-4 h-4 ${hasActiveItem ? 'text-exploit-red' : 'text-muted-gray'}`} />
+                  </motion.div>
+                </button>
+
+                {/* Expandable Items Container */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
                     >
-                      <item.icon className="w-5 h-5" />
-                      <span className="font-medium text-sm">{item.name}</span>
-                    </Link>
-                  );
-                })}
+                      <div className="space-y-1 pl-4 border-l-2 border-steel-gray/30 ml-4">
+                        {category.items.map((item: NavItem, index: number) => {
+                          const isActive = location.pathname === item.path;
+                          return (
+                            <motion.div
+                              key={item.name}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05, duration: 0.2 }}
+                            >
+                              <Link
+                                to={item.path}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
+                                  isActive
+                                    ? 'bg-exploit-red/10 text-exploit-red'
+                                    : 'text-ghost-white/60 hover:bg-steel-gray/20'
+                                }`}
+                              >
+                                <item.icon className="w-4 h-4" />
+                                <span className="font-medium text-sm">{item.name}</span>
+                              </Link>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
       </motion.aside>
 
