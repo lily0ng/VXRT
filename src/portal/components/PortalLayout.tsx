@@ -125,9 +125,8 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
-    title: 'Orcehestration',
+    title: 'Orchestration',
     items: [
-      { name: 'Kubernetes', path: '/portal/kubernetes', icon: Cloud },
       { name: 'Container Apps', path: '/portal/apps', icon: Box },
       { name: 'Container Registry', path: '/portal/registry', icon: Database },
       { name: 'Helm Charts', path: '/portal/helm', icon: Layers }
@@ -323,7 +322,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({
     'Main': true,
     'Compute': false,
-    'Orcehestration': false,
+    'Orchestration': false,
     'Images': false,
     'Storage': false,
     'Networking': false,
