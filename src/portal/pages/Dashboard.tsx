@@ -16,6 +16,7 @@ import {
   Calendar,
   ChevronRight
 } from 'lucide-react';
+import { VXRTLogo } from '../../components/shared/VXRTLogo';
 import {
   dashboardStats,
   recentAssessments,
@@ -52,9 +53,12 @@ export function Dashboard() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
       >
-        <div>
-          <h1 className="text-3xl font-heading font-bold text-ghost-white">Dashboard</h1>
-          <p className="text-muted-gray">Welcome back, Admin. Here's your security overview.</p>
+        <div className="flex items-center gap-4">
+          <VXRTLogo className="h-10" />
+          <div>
+            <h1 className="text-3xl font-heading font-bold text-ghost-white">Dashboard</h1>
+            <p className="text-muted-gray">Welcome back, Admin. Here's your security overview.</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm text-muted-gray">Last updated: Just now</span>

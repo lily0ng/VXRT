@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { VXRTLogo } from '../../components/shared/VXRTLogo';
 import {
   Shield,
   LayoutDashboard,
@@ -183,13 +184,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
         {/* Logo */}
         <div className="h-16 flex items-center px-6 border-b border-steel-gray flex-shrink-0">
           <Link to="/portal" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-exploit-red/10 border border-exploit-red/30 rounded-lg flex items-center justify-center">
-              <Shield className="w-6 h-6 text-exploit-red" />
-            </div>
-            <div>
-              <span className="text-xl font-heading font-bold text-ghost-white">VXRT</span>
-              <span className="text-xs text-muted-gray block">Security Portal</span>
-            </div>
+            <VXRTLogo className="h-10" />
           </Link>
         </div>
 
