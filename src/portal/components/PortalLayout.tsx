@@ -76,7 +76,9 @@ import {
   Monitor,
   Wrench,
   MessageSquare,
-  Webhook
+  Webhook,
+  PieChart,
+  Mail
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -243,6 +245,14 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Quota',
+    items: [
+      { name: 'Summary', path: '/portal/quota-summary', icon: List },
+      { name: 'Tariff', path: '/portal/tariff', icon: CreditCard },
+      { name: 'Template type', path: '/portal/template-type', icon: Mail }
+    ]
+  },
+  {
     title: 'Tools',
     items: [
       { name: 'Comments', path: '/portal/comments', icon: MessageSquare },
@@ -306,6 +316,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     'Service Offerings': false,
     'News & Content': false,
     'System': false,
+    'Quota': false,
     'Tools': false,
     'Configuration': false,
     'Administrator': false

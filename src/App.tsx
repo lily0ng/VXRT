@@ -76,6 +76,7 @@ import { Infrastructure } from './portal/pages/Infrastructure';
 import { ServiceOfferings } from './portal/pages/ServiceOfferings';
 import { Configuration } from './portal/pages/Configuration';
 import { Tools } from './portal/pages/Tools';
+import { Quota } from './portal/pages/Quota';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -199,6 +200,11 @@ function PortalRoutes() {
         <Route path="/guest-os" element={<div className="p-8 text-ghost-white">Guest OS Page</div>} />
         <Route path="/os-mappings" element={<div className="p-8 text-ghost-white">Guest OS Mappings Page</div>} />
         <Route path="/gpu-types" element={<div className="p-8 text-ghost-white">GPU Card Types Page</div>} />
+        
+        {/* Quota */}
+        <Route path="/quota-summary" element={<Quota />} />
+        <Route path="/tariff" element={<div className="p-8 text-ghost-white">Tariff Page</div>} />
+        <Route path="/template-type" element={<div className="p-8 text-ghost-white">Template Type Page</div>} />
         
         {/* Tools */}
         <Route path="/tools" element={<Tools />} />
