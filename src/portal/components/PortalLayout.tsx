@@ -73,7 +73,10 @@ import {
   Table2,
   Laptop,
   Plug,
-  Monitor
+  Monitor,
+  Wrench,
+  MessageSquare,
+  Webhook
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -240,6 +243,16 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Tools',
+    items: [
+      { name: 'Comments', path: '/portal/comments', icon: MessageSquare },
+      { name: 'Usage', path: '/portal/usage', icon: FileText },
+      { name: 'Import-Export Instances', path: '/portal/import-export', icon: ArrowLeftRight },
+      { name: 'Import Data Volumes', path: '/portal/import-volumes', icon: HardDrive },
+      { name: 'Webhooks', path: '/portal/webhooks', icon: Webhook }
+    ]
+  },
+  {
     title: 'Configuration',
     items: [
       { name: 'Global Settings', path: '/portal/global-settings', icon: Cog },
@@ -293,6 +306,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     'Service Offerings': false,
     'News & Content': false,
     'System': false,
+    'Tools': false,
     'Configuration': false,
     'Administrator': false
   });

@@ -75,6 +75,7 @@ import { Images } from './portal/pages/Images';
 import { Infrastructure } from './portal/pages/Infrastructure';
 import { ServiceOfferings } from './portal/pages/ServiceOfferings';
 import { Configuration } from './portal/pages/Configuration';
+import { Tools } from './portal/pages/Tools';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -198,6 +199,14 @@ function PortalRoutes() {
         <Route path="/guest-os" element={<div className="p-8 text-ghost-white">Guest OS Page</div>} />
         <Route path="/os-mappings" element={<div className="p-8 text-ghost-white">Guest OS Mappings Page</div>} />
         <Route path="/gpu-types" element={<div className="p-8 text-ghost-white">GPU Card Types Page</div>} />
+        
+        {/* Tools */}
+        <Route path="/tools" element={<Tools />} />
+        <Route path="/comments" element={<div className="p-8 text-ghost-white">Comments Page</div>} />
+        <Route path="/usage" element={<div className="p-8 text-ghost-white">Usage Page</div>} />
+        <Route path="/import-export" element={<div className="p-8 text-ghost-white">Import-Export Instances Page</div>} />
+        <Route path="/import-volumes" element={<div className="p-8 text-ghost-white">Import Data Volumes Page</div>} />
+        <Route path="/webhooks" element={<div className="p-8 text-ghost-white">Webhooks Page</div>} />
       </Routes>
     </PortalLayout>
   );
