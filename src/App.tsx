@@ -68,6 +68,9 @@ import { Monitoring } from './portal/pages/Monitoring';
 import { Settings } from './portal/pages/Settings';
 import { Billing } from './portal/pages/Billing';
 import { Support } from './portal/pages/Support';
+import { UserManagement } from './portal/pages/UserManagement';
+import { UserDetails } from './portal/pages/UserDetails';
+import { Articles } from './portal/pages/Articles';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -138,6 +141,16 @@ function PortalRoutes() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/billing" element={<Billing />} />
         <Route path="/support" element={<Support />} />
+        <Route path="/users" element={<UserManagement />} />
+        <Route path="/users/:userId" element={<UserDetails />} />
+        
+        {/* News & Content */}
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/categories" element={<div className="p-8 text-ghost-white">Categories Page</div>} />
+        <Route path="/authors" element={<div className="p-8 text-ghost-white">Authors Page</div>} />
+        <Route path="/newsletters" element={<div className="p-8 text-ghost-white">Newsletters Page</div>} />
+        <Route path="/rss" element={<div className="p-8 text-ghost-white">RSS Feeds Page</div>} />
+        <Route path="/media" element={<div className="p-8 text-ghost-white">Media Library Page</div>} />
       </Routes>
     </PortalLayout>
   );

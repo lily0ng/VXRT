@@ -36,7 +36,13 @@ import {
   Archive,
   CloudLightning,
   CreditCard,
-  Headphones
+  Headphones,
+  Newspaper,
+  BookOpen,
+  PenTool,
+  Folder,
+  Rss,
+  Megaphone
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -142,11 +148,23 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'NEWS & CONTENT',
+    items: [
+      { name: 'All Articles', path: '/portal/articles', icon: Newspaper },
+      { name: 'Categories', path: '/portal/categories', icon: Folder },
+      { name: 'Authors', path: '/portal/authors', icon: PenTool },
+      { name: 'Newsletters', path: '/portal/newsletters', icon: Megaphone },
+      { name: 'RSS Feeds', path: '/portal/rss', icon: Rss },
+      { name: 'Media Library', path: '/portal/media', icon: BookOpen }
+    ]
+  },
+  {
     title: 'SYSTEM',
     items: [
       { name: 'Settings', path: '/portal/settings', icon: Settings },
       { name: 'Billing', path: '/portal/billing', icon: CreditCard },
-      { name: 'Support', path: '/portal/support', icon: Headphones }
+      { name: 'Support', path: '/portal/support', icon: Headphones },
+      { name: 'User Management', path: '/portal/users', icon: Users }
     ]
   }
 ];
