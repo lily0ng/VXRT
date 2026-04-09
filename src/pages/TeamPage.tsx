@@ -150,123 +150,155 @@ export function TeamPage() {
 
         {/* Section 2: Interactive Org Chart */}
         <section className="mb-32">
-          <SectionHeading
-            title="Command Structure"
-            description="Operational Hierarchy" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="ORGANIZATION"
+              title="Command Structure"
+              description="Operational Hierarchy" />
+          </motion.div>
           
-          <div className="mt-12 relative w-full overflow-x-auto pb-8">
-            <div className="min-w-[800px] flex flex-col items-center">
-              {/* CEO Node */}
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  scale: 0.9
-                }}
-                whileInView={{
-                  opacity: 1,
-                  scale: 1
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  transition: { duration: 0.2 }
-                }}
-                viewport={{
-                  once: true
-                }}
-                className="flex flex-col items-center z-10 cursor-pointer">
-                
-                <div
-                  className="w-16 h-16 bg-dark-base border-2 border-exploit-red flex items-center justify-center text-ghost-white font-heading font-bold text-xl overflow-hidden shadow-lg shadow-exploit-red/20 hover:shadow-xl hover:shadow-exploit-red/30 transition-all duration-300"
-                  style={{
-                    clipPath:
-                    'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                  }}>
-                  
-                  <img 
-                    src="https://avatars.githubusercontent.com/u/264521594?v=4" 
-                    alt="0xff" 
-                    className="w-full h-full object-cover"
-                    style={{
-                      clipPath: 'inherit'
-                    }}
-                  />
-                </div>
-                <div className="mt-2 text-center">
-                  <div className="font-bold text-ghost-white hover:text-exploit-red transition-colors duration-300">0xff</div>
-                  <div className="text-xs text-muted-text">CEO</div>
-                </div>
-              </motion.div>
+          <div className="mt-16 relative w-full overflow-x-auto pb-8">
+            <div className="min-w-[900px] flex flex-col items-center px-4">
+              
+              {/* LEVEL 1: LEADERSHIP */}
+              <div className="flex justify-center gap-8 mb-8">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  className="bg-gradient-to-br from-dark-base to-void-black border-2 border-exploit-red rounded-xl p-5 min-w-[200px] text-center shadow-lg shadow-exploit-red/10 cursor-pointer group">
+                  <div className="w-14 h-14 mx-auto mb-3 rounded-full overflow-hidden border-2 border-exploit-red">
+                    <img 
+                      src="https://avatars.githubusercontent.com/u/264521594?v=4" 
+                      alt="0xff" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="font-heading font-bold text-ghost-white group-hover:text-exploit-red transition-colors">0xff</h3>
+                  <p className="text-xs text-exploit-red font-mono mt-1">Founder & CEO</p>
+                  <div className="mt-2 text-[10px] text-muted-text">Offensive Security Lead</div>
+                </motion.div>
+              </div>
 
-              {/* Lines */}
-              <svg
-                className="w-full h-16 -mt-2 -mb-2 z-0"
-                preserveAspectRatio="none">
-                
-                <motion.path
-                  initial={{
-                    pathLength: 0
-                  }}
-                  whileInView={{
-                    pathLength: 1
-                  }}
-                  viewport={{
-                    once: true
-                  }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.2
-                  }}
-                  d="M 50% 0 L 50% 50% L 20% 50% L 20% 100% M 50% 50% L 40% 50% L 40% 100% M 50% 50% L 60% 50% L 60% 100% M 50% 50% L 80% 50% L 80% 100%"
-                  fill="none"
-                  stroke="#3a3a42"
-                  strokeWidth="2" />
-                
+              {/* CONNECTING LINE: Level 1 to 2 */}
+              <svg className="w-full h-12 overflow-visible" style={{ maxWidth: '700px' }}>
+                <motion.line
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  x1="50%" y1="0" x2="50%" y2="100%"
+                  stroke="#c0392b" strokeWidth="2" />
+                <motion.line
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  x1="12.5%" y1="50%" x2="87.5%" y2="50%"
+                  stroke="#3a3a42" strokeWidth="2" />
+                {/* Vertical lines to each department */}
+                {[12.5, 37.5, 62.5, 87.5].map((x, i) => (
+                  <motion.line
+                    key={i}
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.8 + i * 0.1 }}
+                    x1={`${x}%`} y1="50%" x2={`${x}%`} y2="100%"
+                    stroke="#3a3a42" strokeWidth="2" />
+                ))}
               </svg>
 
-              {/* Departments */}
-              <div className="flex justify-between w-full max-w-4xl px-4 z-10">
-                {['Offensive Ops', 'Research', 'Engineering', 'Operations'].map(
-                  (dept, i) =>
+              {/* LEVEL 2: DEPARTMENT HEADS */}
+              <div className="flex justify-between w-full max-w-5xl gap-4 mb-8">
+                {[
+                  { name: 'Sarah Chen', role: 'Offensive Ops Director', icon: Target },
+                  { name: 'Marcus Webb', role: 'Research Director', icon: Shield },
+                  { name: 'James Liu', role: 'Engineering Lead', icon: Hexagon },
+                  { name: 'Amara Diallo', role: 'Operations Lead', icon: Users }
+                ].map((person, i) => (
                   <motion.div
-                    key={dept}
-                    initial={{
-                      opacity: 0,
-                      y: 20
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      y: 0
-                    }}
-                    whileHover={{
-                      scale: 1.1,
-                      y: -5,
-                      transition: { duration: 0.2 }
-                    }}
-                    viewport={{
-                      once: true
-                    }}
-                    transition={{
-                      delay: 0.4 + i * 0.1
-                    }}
-                    className="flex flex-col items-center cursor-pointer">
-                    
-                      <div
-                      className="w-12 h-12 bg-dark-base border border-steel-gray flex items-center justify-center text-muted-text hover:border-exploit-red hover:text-exploit-red transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-exploit-red/20"
-                      style={{
-                        clipPath:
-                        'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                      }}>
-                      
-                        <Hexagon size={20} />
-                      </div>
-                      <div className="mt-2 text-center">
-                        <div className="text-sm font-bold text-ghost-white hover:text-exploit-red transition-colors duration-300">
-                          {dept}
-                        </div>
-                      </div>
-                    </motion.div>
+                    key={person.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 + i * 0.1 }}
+                    whileHover={{ scale: 1.03, y: -3 }}
+                    className="bg-dark-base border border-steel-gray rounded-lg p-4 min-w-[180px] text-center cursor-pointer group hover:border-exploit-red/50 transition-all duration-300">
+                    <div className="w-10 h-10 mx-auto mb-2 bg-void-black rounded-full flex items-center justify-center border border-steel-gray group-hover:border-exploit-red transition-colors">
+                      <person.icon className="w-5 h-5 text-muted-text group-hover:text-exploit-red" />
+                    </div>
+                    <h4 className="font-heading font-bold text-ghost-white text-sm group-hover:text-exploit-red transition-colors">{person.name}</h4>
+                    <p className="text-[10px] text-muted-text mt-1">{person.role}</p>
+                  </motion.div>
+                ))}
+              </div>
 
-                )}
+              {/* CONNECTING LINES: Level 2 to 3 */}
+              <svg className="w-full h-16 overflow-visible" style={{ maxWidth: '900px' }}>
+                {/* Horizontal connector */}
+                <motion.line
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  x1="10%" y1="0" x2="90%" y2="0"
+                  stroke="#3a3a42" strokeWidth="1" />
+                {/* Vertical lines to teams */}
+                {[10, 30, 50, 70, 90].map((x, i) => (
+                  <motion.line
+                    key={i}
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 1.0 + i * 0.05 }}
+                    x1={`${x}%`} y1="0" x2={`${x}%`} y2="100%"
+                    stroke="#3a3a42" strokeWidth="1" strokeDasharray="4 2" />
+                ))}
+              </svg>
+
+              {/* LEVEL 3: TEAMS */}
+              <div className="grid grid-cols-5 gap-3 w-full max-w-6xl">
+                {[
+                  { name: 'Red Team', members: '8 Operators', color: 'bg-red-900/30' },
+                  { name: 'Penetration Testing', members: '12 Testers', color: 'bg-orange-900/30' },
+                  { name: 'Exploit Dev', members: '6 Researchers', color: 'bg-purple-900/30' },
+                  { name: 'Cloud Security', members: '5 Engineers', color: 'bg-blue-900/30' },
+                  { name: 'Threat Intel', members: '4 Analysts', color: 'bg-teal-900/30' }
+                ].map((team, i) => (
+                  <motion.div
+                    key={team.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1.1 + i * 0.08, type: 'spring', stiffness: 100 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`${team.color} border border-steel-gray/50 rounded-lg p-3 text-center cursor-pointer hover:border-exploit-red/50 transition-all duration-300`}>
+                    <h5 className="font-heading font-semibold text-ghost-white text-xs mb-1">{team.name}</h5>
+                    <p className="text-[10px] text-muted-text">{team.members}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* LEVEL 4: SPECIALISTS */}
+              <div className="mt-8 grid grid-cols-6 gap-2 w-full max-w-5xl">
+                {[
+                  'OSCP', 'OSCE', 'OSWE', 'CRTO', 'GXPN', 'AWS-SA'
+                ].map((cert, i) => (
+                  <motion.div
+                    key={cert}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1.4 + i * 0.05 }}
+                    className="bg-void-black border border-border rounded px-2 py-1.5 text-center">
+                    <span className="text-[10px] font-mono text-muted-text">{cert}</span>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
