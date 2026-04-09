@@ -25,6 +25,49 @@ import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { PortalLayout } from './portal/components/PortalLayout';
 import { Dashboard } from './portal/pages/Dashboard';
+import { Assessments } from './portal/pages/Assessments';
+import { Reports } from './portal/pages/Reports';
+import { Team } from './portal/pages/Team';
+import { Compute } from './portal/pages/Compute';
+import { VPS } from './portal/pages/VPS';
+import { VNFAppliances } from './portal/pages/VNFAppliances';
+import { AutoScaling } from './portal/pages/AutoScaling';
+import { Kubernetes } from './portal/pages/Kubernetes';
+import { ContainerApps } from './portal/pages/ContainerApps';
+import { ContainerRegistry } from './portal/pages/ContainerRegistry';
+import { HelmCharts } from './portal/pages/HelmCharts';
+import { BlockStorage } from './portal/pages/BlockStorage';
+import { ObjectStorage } from './portal/pages/ObjectStorage';
+import { Snapshots } from './portal/pages/Snapshots';
+import { Backups } from './portal/pages/Backups';
+import { Templates } from './portal/pages/Templates';
+import { Volumes } from './portal/pages/Volumes';
+import { Networks } from './portal/pages/Networks';
+import { LoadBalancers } from './portal/pages/LoadBalancers';
+import { DNSManagement } from './portal/pages/DNSManagement';
+import { Firewalls } from './portal/pages/Firewalls';
+import { AffinityGroups } from './portal/pages/AffinityGroups';
+import { VPC } from './portal/pages/VPC';
+import { PenetrationTesting } from './portal/pages/PenetrationTesting';
+import { RedTeaming } from './portal/pages/RedTeaming';
+import { ExploitDevelopment } from './portal/pages/ExploitDevelopment';
+import { VulnerabilityScan } from './portal/pages/VulnerabilityScan';
+import { VulnerabilityAssessment } from './portal/pages/VulnerabilityAssessment';
+import { CloudSecurity } from './portal/pages/CloudSecurity';
+import { PurpleTeaming } from './portal/pages/PurpleTeaming';
+import { SIEMMonitoring } from './portal/pages/SIEMMonitoring';
+import { ThreatIntel } from './portal/pages/ThreatIntel';
+import { ComplianceReports } from './portal/pages/ComplianceReports';
+import { AuditLogs } from './portal/pages/AuditLogs';
+import { SOC2 } from './portal/pages/SOC2';
+import { PCIDSS } from './portal/pages/PCIDSS';
+import { APIAccess } from './portal/pages/APIAccess';
+import { SSHKeys } from './portal/pages/SSHKeys';
+import { Integrations } from './portal/pages/Integrations';
+import { Monitoring } from './portal/pages/Monitoring';
+import { Settings } from './portal/pages/Settings';
+import { Billing } from './portal/pages/Billing';
+import { Support } from './portal/pages/Support';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -34,67 +77,67 @@ function PortalRoutes() {
         <Route path="/" element={<Dashboard />} />
         
         {/* Main */}
-        <Route path="/assessments" element={<div className="text-ghost-white p-8">Assessments Page (Coming Soon)</div>} />
-        <Route path="/reports" element={<div className="text-ghost-white p-8">Reports Page (Coming Soon)</div>} />
-        <Route path="/team" element={<div className="text-ghost-white p-8">Team Page (Coming Soon)</div>} />
+        <Route path="/assessments" element={<Assessments />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/team" element={<Team />} />
         
         {/* Compute & Instances */}
-        <Route path="/compute" element={<div className="text-ghost-white p-8">Compute Page (Coming Soon)</div>} />
-        <Route path="/vps" element={<div className="text-ghost-white p-8">VPS Page (Coming Soon)</div>} />
-        <Route path="/vnf" element={<div className="text-ghost-white p-8">VNF Appliances Page (Coming Soon)</div>} />
-        <Route path="/autoscaling" element={<div className="text-ghost-white p-8">Auto Scaling Page (Coming Soon)</div>} />
+        <Route path="/compute" element={<Compute />} />
+        <Route path="/vps" element={<VPS />} />
+        <Route path="/vnf" element={<VNFAppliances />} />
+        <Route path="/autoscaling" element={<AutoScaling />} />
         
         {/* Containers */}
-        <Route path="/kubernetes" element={<div className="text-ghost-white p-8">Kubernetes Page (Coming Soon)</div>} />
-        <Route path="/apps" element={<div className="text-ghost-white p-8">Container Apps Page (Coming Soon)</div>} />
-        <Route path="/registry" element={<div className="text-ghost-white p-8">Container Registry Page (Coming Soon)</div>} />
-        <Route path="/helm" element={<div className="text-ghost-white p-8">Helm Charts Page (Coming Soon)</div>} />
+        <Route path="/kubernetes" element={<Kubernetes />} />
+        <Route path="/apps" element={<ContainerApps />} />
+        <Route path="/registry" element={<ContainerRegistry />} />
+        <Route path="/helm" element={<HelmCharts />} />
         
         {/* Storage */}
-        <Route path="/block-storage" element={<div className="text-ghost-white p-8">Block Storage Page (Coming Soon)</div>} />
-        <Route path="/object-storage" element={<div className="text-ghost-white p-8">Object Storage Page (Coming Soon)</div>} />
-        <Route path="/snapshots" element={<div className="text-ghost-white p-8">Snapshots Page (Coming Soon)</div>} />
-        <Route path="/backups" element={<div className="text-ghost-white p-8">Backups Page (Coming Soon)</div>} />
-        <Route path="/templates" element={<div className="text-ghost-white p-8">Templates Page (Coming Soon)</div>} />
-        <Route path="/volumes" element={<div className="text-ghost-white p-8">Volumes Page (Coming Soon)</div>} />
+        <Route path="/block-storage" element={<BlockStorage />} />
+        <Route path="/object-storage" element={<ObjectStorage />} />
+        <Route path="/snapshots" element={<Snapshots />} />
+        <Route path="/backups" element={<Backups />} />
+        <Route path="/templates" element={<Templates />} />
+        <Route path="/volumes" element={<Volumes />} />
         
         {/* Networking */}
-        <Route path="/networks" element={<div className="text-ghost-white p-8">Networks Page (Coming Soon)</div>} />
-        <Route path="/loadbalancers" element={<div className="text-ghost-white p-8">Load Balancers Page (Coming Soon)</div>} />
-        <Route path="/dns" element={<div className="text-ghost-white p-8">DNS Management Page (Coming Soon)</div>} />
-        <Route path="/firewalls" element={<div className="text-ghost-white p-8">Firewalls Page (Coming Soon)</div>} />
-        <Route path="/affinity" element={<div className="text-ghost-white p-8">Affinity Groups Page (Coming Soon)</div>} />
-        <Route path="/vpc" element={<div className="text-ghost-white p-8">VPC Page (Coming Soon)</div>} />
+        <Route path="/networks" element={<Networks />} />
+        <Route path="/loadbalancers" element={<LoadBalancers />} />
+        <Route path="/dns" element={<DNSManagement />} />
+        <Route path="/firewalls" element={<Firewalls />} />
+        <Route path="/affinity" element={<AffinityGroups />} />
+        <Route path="/vpc" element={<VPC />} />
         
         {/* Security - Offensive */}
-        <Route path="/pentesting" element={<div className="text-ghost-white p-8">Penetration Testing Page (Coming Soon)</div>} />
-        <Route path="/redteaming" element={<div className="text-ghost-white p-8">Red Teaming Page (Coming Soon)</div>} />
-        <Route path="/exploitdev" element={<div className="text-ghost-white p-8">Exploit Development Page (Coming Soon)</div>} />
-        <Route path="/vulnscan" element={<div className="text-ghost-white p-8">Vulnerability Scan Page (Coming Soon)</div>} />
+        <Route path="/pentesting" element={<PenetrationTesting />} />
+        <Route path="/redteaming" element={<RedTeaming />} />
+        <Route path="/exploitdev" element={<ExploitDevelopment />} />
+        <Route path="/vulnscan" element={<VulnerabilityScan />} />
         
         {/* Security - Defensive */}
-        <Route path="/vulnassess" element={<div className="text-ghost-white p-8">Vulnerability Assessment Page (Coming Soon)</div>} />
-        <Route path="/cloudsec" element={<div className="text-ghost-white p-8">Cloud Security Page (Coming Soon)</div>} />
-        <Route path="/purpleteam" element={<div className="text-ghost-white p-8">Purple Teaming Page (Coming Soon)</div>} />
-        <Route path="/siem" element={<div className="text-ghost-white p-8">SIEM Monitoring Page (Coming Soon)</div>} />
-        <Route path="/threatintel" element={<div className="text-ghost-white p-8">Threat Intel Page (Coming Soon)</div>} />
+        <Route path="/vulnassess" element={<VulnerabilityAssessment />} />
+        <Route path="/cloudsec" element={<CloudSecurity />} />
+        <Route path="/purpleteam" element={<PurpleTeaming />} />
+        <Route path="/siem" element={<SIEMMonitoring />} />
+        <Route path="/threatintel" element={<ThreatIntel />} />
         
         {/* Security - Compliance */}
-        <Route path="/compliance" element={<div className="text-ghost-white p-8">Compliance Reports Page (Coming Soon)</div>} />
-        <Route path="/auditlogs" element={<div className="text-ghost-white p-8">Audit Logs Page (Coming Soon)</div>} />
-        <Route path="/soc2" element={<div className="text-ghost-white p-8">SOC 2 Page (Coming Soon)</div>} />
-        <Route path="/pci" element={<div className="text-ghost-white p-8">PCI-DSS Page (Coming Soon)</div>} />
+        <Route path="/compliance" element={<ComplianceReports />} />
+        <Route path="/auditlogs" element={<AuditLogs />} />
+        <Route path="/soc2" element={<SOC2 />} />
+        <Route path="/pci" element={<PCIDSS />} />
         
         {/* Infrastructure */}
-        <Route path="/api" element={<div className="text-ghost-white p-8">API Access Page (Coming Soon)</div>} />
-        <Route path="/sshkeys" element={<div className="text-ghost-white p-8">SSH Keys Page (Coming Soon)</div>} />
-        <Route path="/integrations" element={<div className="text-ghost-white p-8">Integrations Page (Coming Soon)</div>} />
-        <Route path="/monitoring" element={<div className="text-ghost-white p-8">Monitoring Page (Coming Soon)</div>} />
+        <Route path="/api" element={<APIAccess />} />
+        <Route path="/sshkeys" element={<SSHKeys />} />
+        <Route path="/integrations" element={<Integrations />} />
+        <Route path="/monitoring" element={<Monitoring />} />
         
         {/* System */}
-        <Route path="/settings" element={<div className="text-ghost-white p-8">Settings Page (Coming Soon)</div>} />
-        <Route path="/billing" element={<div className="text-ghost-white p-8">Billing Page (Coming Soon)</div>} />
-        <Route path="/support" element={<div className="text-ghost-white p-8">Support Page (Coming Soon)</div>} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/billing" element={<Billing />} />
+        <Route path="/support" element={<Support />} />
       </Routes>
     </PortalLayout>
   );
