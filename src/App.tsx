@@ -21,6 +21,7 @@ import { ResourcesPage } from './pages/ResourcesPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { ContactPage } from './pages/ContactPage';
+import { PricingPage } from './pages/PricingPage';
 export function App() {
   return (
     <BrowserRouter>
@@ -72,6 +73,7 @@ export function App() {
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </MainLayout>

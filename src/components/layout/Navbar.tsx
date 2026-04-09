@@ -1,509 +1,462 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { VXRTLogo } from '../shared/VXRTLogo';
 import {
-  Menu,
-  X,
-  ChevronDown,
   Server,
-  Cloud,
   Network,
-  Database,
-  Scale,
-  Globe,
   HardDrive,
+  Cpu,
+  Database,
   Shield,
   Target,
-  Search,
-  CloudCog,
-  Code,
+  AlertTriangle,
+  CloudLightning,
+  TerminalSquare,
   Users,
   FileText,
-  AlertTriangle,
-  Lock,
+  Bug,
   BookOpen,
-  Newspaper,
   Wrench,
   MessageSquare,
   Trophy,
-  DollarSign,
-  UserPlus,
   Mail,
-  BoxIcon } from
+  ChevronDown,
+  Menu,
+  X } from
 'lucide-react';
-import { VXRTLogo } from '../shared/VXRTLogo';
-import { Button } from '../ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger } from
-'../ui/navigation-menu';
+// Dropdown Content Components
+const ProductDropdown = () =>
+<div className="w-[600px] p-6 grid grid-cols-2 gap-4">
+    {[
+  {
+    icon: <Cpu size={20} />,
+    title: 'Compute',
+    desc: 'High-performance bare metal'
+  },
+  {
+    icon: <Server size={20} />,
+    title: 'VPS',
+    desc: 'Scalable virtual instances'
+  },
+  {
+    icon: <Network size={20} />,
+    title: 'Load Balancer',
+    desc: 'Global traffic distribution'
+  },
+  {
+    icon: <Database size={20} />,
+    title: 'Kubernetes',
+    desc: 'Managed orchestration'
+  },
+  {
+    icon: <HardDrive size={20} />,
+    title: 'Block Storage',
+    desc: 'NVMe attached storage'
+  },
+  {
+    icon: <CloudLightning size={20} />,
+    title: 'Auto Scaling',
+    desc: 'Dynamic resource allocation'
+  },
+  {
+    icon: <Network size={20} />,
+    title: 'DNS Management',
+    desc: 'Global Anycast network'
+  },
+  {
+    icon: <Database size={20} />,
+    title: 'Object Storage',
+    desc: 'S3-compatible storage'
+  }].
+  map((item, idx) =>
+  <Link
+    to={`/product/${item.title.toLowerCase().replace(' ', '-')}`}
+    key={idx}
+    className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
+    
+        <div className="text-muted-text group-hover:text-ghost-white transition-colors mt-1">
+          {item.icon}
+        </div>
+        <div>
+          <h4 className="text-sm font-bold text-ghost-white mb-1">
+            {item.title}
+          </h4>
+          <p className="text-xs text-muted-text">{item.desc}</p>
+        </div>
+      </Link>
+  )}
+  </div>;
+
+const ServicesDropdown = () =>
+<div className="w-[700px] p-6">
+    <h3 className="text-xs font-heading font-bold text-muted-text uppercase tracking-widest mb-4 pb-2 border-b border-border">
+      Offensive Security Services
+    </h3>
+    <div className="grid grid-cols-2 gap-4 mb-6">
+      {[
+    {
+      icon: <Shield size={20} />,
+      title: 'Penetration Testing',
+      desc: 'Web, API, Net, Mobile, Cloud'
+    },
+    {
+      icon: <Target size={20} />,
+      title: 'Red Teaming',
+      desc: 'Full adversary simulation'
+    },
+    {
+      icon: <AlertTriangle size={20} />,
+      title: 'Vulnerability Assessment',
+      desc: 'Risk scoring & triage'
+    },
+    {
+      icon: <CloudLightning size={20} />,
+      title: 'Cloud Penetration Testing',
+      desc: 'AWS/Azure/GCP full scope'
+    },
+    {
+      icon: <TerminalSquare size={20} />,
+      title: 'Exploit Development',
+      desc: '0-day & CVE development'
+    },
+    {
+      icon: <Users size={20} />,
+      title: 'Purple Teaming',
+      desc: 'Offensive-focused collaboration'
+    }].
+    map((item, idx) =>
+    <Link
+      to={`/services/${item.title.toLowerCase().replace(/ /g, '-')}`}
+      key={idx}
+      className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
+      
+          <div className="text-muted-text group-hover:text-exploit-red transition-colors mt-1">
+            {item.icon}
+          </div>
+          <div>
+            <h4 className="text-sm font-bold text-ghost-white mb-1">
+              {item.title}
+            </h4>
+            <p className="text-xs text-muted-text">{item.desc}</p>
+          </div>
+        </Link>
+    )}
+    </div>
+    <div className="flex justify-between items-center pt-4 border-t border-border">
+      <Link
+      to="/services"
+      className="text-sm text-muted-text hover:text-ghost-white transition-colors">
+      
+        → View all services
+      </Link>
+      <Link
+      to="/contact"
+      className="text-sm text-exploit-red hover:text-white transition-colors font-medium">
+      
+        → Book assessment
+      </Link>
+    </div>
+  </div>;
+
+const ResourcesDropdown = () =>
+<div className="w-[500px] p-6 grid grid-cols-2 gap-4">
+    {[
+  {
+    icon: <FileText size={20} />,
+    title: 'Research Papers',
+    badge: '142 papers'
+  },
+  {
+    icon: <Database size={20} />,
+    title: 'CVE Database',
+    badge: '500+ entries'
+  },
+  {
+    icon: <AlertTriangle size={20} />,
+    title: 'Zero-Day Reports',
+    badge: '28 active'
+  },
+  {
+    icon: <BookOpen size={20} />,
+    title: 'PDF Library',
+    badge: '85 docs'
+  },
+  {
+    icon: <FileText size={20} />,
+    title: 'Security Blog',
+    badge: '200+ posts'
+  },
+  {
+    icon: <Wrench size={20} />,
+    title: 'Tools & Scripts',
+    badge: '45 tools'
+  }].
+  map((item, idx) =>
+  <Link
+    to="/resources"
+    key={idx}
+    className="group flex items-center gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
+    
+        <div className="text-muted-text group-hover:text-ghost-white transition-colors">
+          {item.icon}
+        </div>
+        <div className="flex-1">
+          <h4 className="text-sm font-bold text-ghost-white">{item.title}</h4>
+        </div>
+        <span className="text-[10px] py-0.5 px-2 bg-dark-base rounded-full text-muted-text border border-border group-hover:border-steel-gray">
+          {item.badge}
+        </span>
+      </Link>
+  )}
+  </div>;
+
+const CommunityDropdown = () =>
+<div className="w-[600px] p-6 grid grid-cols-2 gap-6">
+    <div className="col-span-2">
+      <Link
+      to="/community"
+      className="block p-4 rounded-lg bg-[#5865F2]/10 border border-[#5865F2]/30 hover:border-[#5865F2]/60 transition-colors group">
+      
+        <div className="flex items-center gap-3 mb-2">
+          <MessageSquare size={24} className="text-[#5865F2]" />
+          <h4 className="text-base font-bold text-ghost-white">
+            Discord Server
+          </h4>
+        </div>
+        <p className="text-sm text-muted-text mb-3">
+          Join our active community of security researchers, red teamers, and
+          engineers.
+        </p>
+        <span className="inline-block text-xs font-medium text-[#5865F2] bg-[#5865F2]/20 px-2 py-1 rounded">
+          Join 10K+ members
+        </span>
+      </Link>
+    </div>
+    {[
+  {
+    icon: <MessageSquare size={20} />,
+    title: 'Forums'
+  },
+  {
+    icon: <Trophy size={20} />,
+    title: 'CTF Events'
+  },
+  {
+    icon: <Bug size={20} />,
+    title: 'Bug Bounty Tips'
+  },
+  {
+    icon: <Users size={20} />,
+    title: 'Research Groups'
+  },
+  {
+    icon: <Mail size={20} />,
+    title: 'Newsletter'
+  }].
+  map((item, idx) =>
+  <Link
+    to="/community"
+    key={idx}
+    className="group flex items-center gap-3 p-2 rounded-md transition-all duration-200 hover:text-ghost-white text-muted-text">
+    
+        <div className="group-hover:text-exploit-red transition-colors">
+          {item.icon}
+        </div>
+        <span className="text-sm font-medium">{item.title}</span>
+      </Link>
+  )}
+  </div>;
+
 export function Navbar() {
-  const location = useLocation();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const isActive = (path: string) => location.pathname === path;
-  const productItems = [
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navItems = [
   {
-    name: 'Compute',
-    icon: Server,
-    desc: 'High-performance compute for offensive ops',
-    href: '/product/compute'
+    name: 'Product',
+    hasDropdown: true,
+    dropdown: <ProductDropdown />
   },
   {
-    name: 'VPS',
-    icon: Cloud,
-    desc: 'Isolated virtual private servers',
-    href: '/product/vps'
+    name: 'Services',
+    hasDropdown: true,
+    dropdown: <ServicesDropdown />
   },
   {
-    name: 'Load Balancer',
-    icon: Network,
-    desc: 'Distribute traffic across infrastructure',
-    href: '/product/load-balancer'
+    name: 'Team',
+    path: '/team'
   },
   {
-    name: 'Kubernetes',
-    icon: BoxIcon,
-    desc: 'Container orchestration at scale',
-    href: '/product/kubernetes'
+    name: 'Resource Center',
+    hasDropdown: true,
+    dropdown: <ResourcesDropdown />
   },
   {
-    name: 'Block Storage',
-    icon: HardDrive,
-    desc: 'Persistent storage volumes',
-    href: '/product/block-storage'
+    name: 'Community',
+    hasDropdown: true,
+    dropdown: <CommunityDropdown />
   },
   {
-    name: 'Auto Scaling',
-    icon: Scale,
-    desc: 'Dynamic resource scaling',
-    href: '/product/auto-scaling'
+    name: 'Solutions',
+    path: '/solutions'
   },
   {
-    name: 'DNS Management',
-    icon: Globe,
-    desc: 'Global DNS infrastructure',
-    href: '/product/dns-management'
+    name: 'Pricing',
+    path: '/pricing'
   },
   {
-    name: 'Object Storage',
-    icon: Database,
-    desc: 'Scalable object storage',
-    href: '/product/object-storage'
-  }];
-
-  const serviceItems = [
-  {
-    name: 'Penetration Testing',
-    icon: Shield,
-    desc: 'Comprehensive security assessments',
-    href: '/services/penetration-testing'
-  },
-  {
-    name: 'Red Teaming',
-    icon: Target,
-    desc: 'Adversary simulation exercises',
-    href: '/services/red-teaming'
-  },
-  {
-    name: 'Vulnerability Assessment',
-    icon: Search,
-    desc: 'Systematic vulnerability discovery',
-    href: '/services/vulnerability-assessment'
-  },
-  {
-    name: 'Cloud Penetration Testing',
-    icon: CloudCog,
-    desc: 'Cloud-native security testing',
-    href: '/services/cloud-penetration-testing'
-  },
-  {
-    name: 'Exploit Development',
-    icon: Code,
-    desc: 'Custom exploit creation',
-    href: '/services/exploit-development'
-  },
-  {
-    name: 'Purple Teaming',
-    icon: Users,
-    desc: 'Collaborative defense improvement',
-    href: '/services/purple-teaming'
-  }];
-
-  const resourceItems = [
-  {
-    name: 'Research Papers',
-    icon: FileText,
-    badge: '24',
-    href: '/resources#papers'
-  },
-  {
-    name: 'CVE Database',
-    icon: AlertTriangle,
-    badge: '142',
-    href: '/resources#cve'
-  },
-  {
-    name: 'Zero-Day Reports',
-    icon: Lock,
-    badge: '8',
-    href: '/resources#zero-day'
-  },
-  {
-    name: 'PDF Library',
-    icon: BookOpen,
-    badge: '56',
-    href: '/resources#library'
-  },
-  {
-    name: 'Security Blog',
-    icon: Newspaper,
-    badge: '89',
-    href: '/resources#blog'
-  },
-  {
-    name: 'Tools & Scripts',
-    icon: Wrench,
-    badge: '31',
-    href: '/resources#tools'
-  }];
-
-  const communityItems = [
-  {
-    name: 'Discord',
-    icon: MessageSquare,
-    featured: true,
-    desc: 'Join 10K+ members',
-    href: 'https://discord.gg/vxrt'
-  },
-  {
-    name: 'Forums',
-    icon: Users,
-    href: '/community#forums'
-  },
-  {
-    name: 'CTF Events',
-    icon: Trophy,
-    href: '/community#ctf'
-  },
-  {
-    name: 'Bug Bounty Tips',
-    icon: DollarSign,
-    href: '/community#bounty'
-  },
-  {
-    name: 'Research Groups',
-    icon: UserPlus,
-    href: '/community#research'
-  },
-  {
-    name: 'Newsletter',
-    icon: Mail,
-    href: '/community#newsletter'
+    name: 'Contact Us',
+    path: '/contact'
   }];
 
   return (
-    <nav className="sticky top-0 z-50 h-14 border-b border-steel-gray bg-void-black/85 backdrop-blur-xl">
-      <div className="container mx-auto h-full flex items-center justify-between px-4">
-        {/* Logo */}
+    <>
+      <nav className="fixed top-0 left-0 right-0 h-14 bg-void-black/85 backdrop-blur-[12px] border-b border-border z-50 flex items-center justify-between px-6">
         <Link to="/" className="flex-shrink-0">
-          <VXRTLogo size="sm" showWordmark />
+          <VXRTLogo />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-1">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-ghost-white hover:text-exploit-red data-[state=open]:text-exploit-red">
-                  Product
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[720px] p-4">
-                    <div className="grid grid-cols-2 gap-3">
-                      {productItems.map((item) =>
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-dark-base hover:border-l-2 hover:border-exploit-red transition-all group">
-                        
-                          <item.icon className="w-5 h-5 text-exploit-red mt-0.5 flex-shrink-0" />
-                          <div>
-                            <div className="font-heading font-semibold text-ghost-white group-hover:text-exploit-red mb-1">
-                              {item.name}
-                            </div>
-                            <div className="text-sm text-muted-gray font-body">
-                              {item.desc}
-                            </div>
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+        {/* Desktop Nav */}
+        <div className="hidden lg:flex items-center gap-6 h-full">
+          {navItems.map((item) =>
+          <div
+            key={item.name}
+            className="relative h-full flex items-center"
+            onMouseEnter={() =>
+            item.hasDropdown && setActiveDropdown(item.name)
+            }
+            onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}>
+            
+              {item.path ?
+            <Link
+              to={item.path}
+              className="text-sm font-medium text-muted-text hover:text-ghost-white transition-colors">
+              
+                  {item.name}
+                </Link> :
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-ghost-white hover:text-exploit-red data-[state=open]:text-exploit-red">
-                  Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[720px] p-4">
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      {serviceItems.map((item) =>
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-dark-base hover:border-l-2 hover:border-exploit-red transition-all group">
-                        
-                          <item.icon className="w-5 h-5 text-exploit-red mt-0.5 flex-shrink-0" />
-                          <div>
-                            <div className="font-heading font-semibold text-ghost-white group-hover:text-exploit-red mb-1">
-                              {item.name}
-                            </div>
-                            <div className="text-sm text-muted-gray font-body">
-                              {item.desc}
-                            </div>
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                    <div className="flex gap-3 pt-3 border-t border-steel-gray">
-                      <Link
-                        to="/services"
-                        className="text-sm text-exploit-red hover:underline font-body">
-                        
-                        → View all services
-                      </Link>
-                      <Link
-                        to="/contact"
-                        className="text-sm text-exploit-red hover:underline font-body">
-                        
-                        → Book assessment
-                      </Link>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+            <button
+              className={`text-sm font-medium flex items-center gap-1 transition-colors ${activeDropdown === item.name ? 'text-ghost-white' : 'text-muted-text hover:text-ghost-white'}`}>
+              
+                  {item.name}
+                  <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+              
+                </button>
+            }
 
-              <NavigationMenuItem>
-                <Link
-                  to="/team"
-                  className={`px-4 py-2 text-sm font-body transition-colors ${isActive('/team') ? 'text-exploit-red' : 'text-ghost-white hover:text-exploit-red'}`}>
-                  
-                  Team
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-ghost-white hover:text-exploit-red data-[state=open]:text-exploit-red">
-                  Resource Center
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[480px] p-4">
-                    <div className="grid grid-cols-2 gap-3">
-                      {resourceItems.map((item) =>
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-base transition-all group">
-                        
-                          <item.icon className="w-5 h-5 text-exploit-red flex-shrink-0" />
-                          <div className="flex-1">
-                            <div className="font-heading text-sm font-semibold text-ghost-white group-hover:text-exploit-red">
-                              {item.name}
-                            </div>
-                          </div>
-                          <div className="text-xs font-mono text-muted-gray bg-steel-gray/30 px-2 py-0.5 rounded">
-                            {item.badge}
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-ghost-white hover:text-exploit-red data-[state=open]:text-exploit-red">
-                  Community
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[480px] p-4">
-                    {communityItems.map((item) =>
-                    item.featured ?
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="flex items-center gap-3 p-4 mb-3 rounded-lg bg-gradient-to-r from-[#5865F2]/10 to-transparent border border-[#5865F2]/30 hover:border-[#5865F2]/50 transition-all group">
-                      
-                          <item.icon className="w-6 h-6 text-[#5865F2]" />
-                          <div>
-                            <div className="font-heading font-semibold text-ghost-white group-hover:text-[#5865F2] mb-1">
-                              {item.name}
-                            </div>
-                            <div className="text-sm text-muted-gray font-body">
-                              {item.desc}
-                            </div>
-                          </div>
-                        </Link> :
-
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-dark-base transition-all group">
-                      
-                          <item.icon className="w-4 h-4 text-exploit-red" />
-                          <div className="font-body text-sm text-ghost-white group-hover:text-exploit-red">
-                            {item.name}
-                          </div>
-                        </Link>
-
-                    )}
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link
-                  to="/solutions"
-                  className={`px-4 py-2 text-sm font-body transition-colors ${isActive('/solutions') ? 'text-exploit-red' : 'text-ghost-white hover:text-exploit-red'}`}>
-                  
-                  Solutions
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link
-                  to="/contact"
-                  className={`px-4 py-2 text-sm font-body transition-colors ${isActive('/contact') ? 'text-exploit-red' : 'text-ghost-white hover:text-exploit-red'}`}>
-                  
-                  Contact Us
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+              {/* Dropdown Panel */}
+              {item.hasDropdown &&
+            <AnimatePresence>
+                  {activeDropdown === item.name &&
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 10
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0
+                }}
+                exit={{
+                  opacity: 0,
+                  y: 10
+                }}
+                transition={{
+                  duration: 0.2
+                }}
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-dark-base border border-border rounded-lg shadow-2xl overflow-hidden">
+                
+                      {item.dropdown}
+                    </motion.div>
+              }
+                </AnimatePresence>
+            }
+            </div>
+          )}
         </div>
 
-        {/* Auth Buttons (Desktop) */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="border border-steel-gray text-ghost-white hover:text-exploit-red">
+        {/* Auth Buttons */}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link
+            to="/signin"
+            className="text-sm font-medium text-ghost-white px-4 py-1.5 rounded border border-border hover:bg-accent transition-colors">
             
             Sign In
-          </Button>
-          <Button
-            size="sm"
-            className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white">
+          </Link>
+          <Link
+            to="/signup"
+            className="text-sm font-medium text-ghost-white bg-exploit-red px-4 py-1.5 rounded hover:bg-red-700 transition-colors flex items-center gap-1">
             
-            Sign Up →
-          </Button>
+            Sign Up <span className="text-xs">→</span>
+          </Link>
         </div>
 
-        {/* Mobile Menu */}
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild className="lg:hidden">
-            <Button variant="ghost" size="icon">
-              <Menu className="w-5 h-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-[300px] bg-void-black border-steel-gray overflow-y-auto">
-            
-            <div className="flex flex-col gap-6 pt-8">
-              <div className="space-y-4">
-                <div className="font-heading text-sm font-semibold text-muted-gray mb-2">
-                  PRODUCT
+        {/* Mobile Menu Toggle */}
+        <button
+          className="lg:hidden text-ghost-white"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen &&
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -20
+          }}
+          animate={{
+            opacity: 1,
+            y: 0
+          }}
+          exit={{
+            opacity: 0,
+            y: -20
+          }}
+          className="fixed inset-0 top-14 bg-void-black z-40 overflow-y-auto p-6 lg:hidden">
+          
+            <div className="flex flex-col gap-6">
+              {navItems.map((item) =>
+            <div key={item.name} className="border-b border-border pb-4">
+                  {item.path ?
+              <Link
+                to={item.path}
+                className="text-lg font-medium text-ghost-white block"
+                onClick={() => setMobileMenuOpen(false)}>
+                
+                      {item.name}
+                    </Link> :
+
+              <div className="text-lg font-medium text-ghost-white mb-2">
+                      {item.name}
+                    </div>
+              }
+                  {/* Simplified mobile dropdown content could go here if needed */}
                 </div>
-                {productItems.map((item) =>
+            )}
+              <div className="flex flex-col gap-4 mt-4">
                 <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 text-ghost-white hover:text-exploit-red transition-colors">
-                  
-                    <item.icon className="w-4 h-4" />
-                    <span className="font-body text-sm">{item.name}</span>
-                  </Link>
-                )}
-              </div>
-
-              <div className="space-y-4">
-                <div className="font-heading text-sm font-semibold text-muted-gray mb-2">
-                  SERVICES
-                </div>
-                {serviceItems.map((item) =>
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 text-ghost-white hover:text-exploit-red transition-colors">
-                  
-                    <item.icon className="w-4 h-4" />
-                    <span className="font-body text-sm">{item.name}</span>
-                  </Link>
-                )}
-              </div>
-
-              <div className="space-y-4">
-                <Link
-                  to="/team"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-ghost-white hover:text-exploit-red font-body">
-                  
-                  Team
-                </Link>
-                <Link
-                  to="/resources"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-ghost-white hover:text-exploit-red font-body">
-                  
-                  Resource Center
-                </Link>
-                <Link
-                  to="/community"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-ghost-white hover:text-exploit-red font-body">
-                  
-                  Community
-                </Link>
-                <Link
-                  to="/solutions"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-ghost-white hover:text-exploit-red font-body">
-                  
-                  Solutions
-                </Link>
-                <Link
-                  to="/contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-ghost-white hover:text-exploit-red font-body">
-                  
-                  Contact Us
-                </Link>
-              </div>
-
-              <div className="pt-6 border-t border-steel-gray space-y-3">
-                <Button
-                  variant="ghost"
-                  className="w-full border border-steel-gray text-ghost-white">
-                  
+                to="/signin"
+                className="text-center text-sm font-medium text-ghost-white py-3 rounded border border-border">
+                
                   Sign In
-                </Button>
-                <Button className="w-full bg-exploit-red hover:bg-exploit-red/90 text-ghost-white">
+                </Link>
+                <Link
+                to="/signup"
+                className="text-center text-sm font-medium text-ghost-white bg-exploit-red py-3 rounded">
+                
                   Sign Up →
-                </Button>
+                </Link>
               </div>
             </div>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </nav>);
+          </motion.div>
+        }
+      </AnimatePresence>
+    </>);
 
 }
