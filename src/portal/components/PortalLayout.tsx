@@ -78,7 +78,11 @@ import {
   MessageSquare,
   Webhook,
   PieChart,
-  Mail
+  Mail,
+  Calendar,
+  FolderKanban,
+  UserCog,
+  Plus
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -226,6 +230,14 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Images',
+    items: [
+      { name: 'Templates', path: '/portal/templates', icon: Box },
+      { name: 'ISOs', path: '/portal/isos', icon: HardDrive },
+      { name: 'Kubernetes ISOs', path: '/portal/k8s-isos', icon: Cloud }
+    ]
+  },
+  {
     title: 'News & Content',
     items: [
       { name: 'All Articles', path: '/portal/articles', icon: Newspaper },
@@ -239,6 +251,12 @@ const navCategories: NavCategory[] = [
   {
     title: 'System',
     items: [
+      { name: 'Events', path: '/portal/events', icon: Calendar },
+      { name: 'Projects', path: '/portal/projects', icon: FolderKanban },
+      { name: 'Roles', path: '/portal/roles', icon: UserCog },
+      { name: 'Accounts', path: '/portal/accounts', icon: Building2 },
+      { name: 'Domains', path: '/portal/domains', icon: Globe },
+      { name: 'Extensions', path: '/portal/extensions', icon: Plus },
       { name: 'Settings', path: '/portal/settings', icon: Settings },
       { name: 'Billing', path: '/portal/billing', icon: CreditCard },
       { name: 'Support', path: '/portal/support', icon: Headphones }

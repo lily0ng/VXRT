@@ -77,6 +77,12 @@ import { ServiceOfferings } from './portal/pages/ServiceOfferings';
 import { Configuration } from './portal/pages/Configuration';
 import { Tools } from './portal/pages/Tools';
 import { Quota } from './portal/pages/Quota';
+import { Events } from './portal/pages/Events';
+import { Projects } from './portal/pages/Projects';
+import { Roles } from './portal/pages/Roles';
+import { Accounts } from './portal/pages/Accounts';
+import { Domains } from './portal/pages/Domains';
+import { Extensions } from './portal/pages/Extensions';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -203,6 +209,14 @@ function PortalRoutes() {
         
         {/* Quota */}
         <Route path="/quota-summary" element={<Quota />} />
+        
+        {/* System */}
+        <Route path="/events" element={<Events />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/roles" element={<Roles />} />
+        <Route path="/accounts" element={<Accounts />} />
+        <Route path="/domains" element={<Domains />} />
+        <Route path="/extensions" element={<Extensions />} />
         <Route path="/tariff" element={<div className="p-8 text-ghost-white">Tariff Page</div>} />
         <Route path="/template-type" element={<div className="p-8 text-ghost-white">Template Type Page</div>} />
         
