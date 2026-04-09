@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './components/layout/MainLayout';
 import { HomePage } from './pages/HomePage';
@@ -22,12 +21,18 @@ import { CommunityPage } from './pages/CommunityPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { ContactPage } from './pages/ContactPage';
 import { PricingPage } from './pages/PricingPage';
+import { SignInPage } from './pages/SignInPage';
+import { SignUpPage } from './pages/SignUpPage';
 export function App() {
   return (
     <BrowserRouter>
       <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          
+          {/* Auth Routes */}
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
 
           {/* Product Routes */}
           <Route path="/product/compute" element={<ComputePage />} />

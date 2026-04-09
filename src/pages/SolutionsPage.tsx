@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
@@ -25,7 +24,11 @@ import {
   Stethoscope,
   Shield,
   Check,
-  ArrowRight } from
+  ArrowRight,
+  Search,
+  Target,
+  Zap,
+  FileText } from
 'lucide-react';
 export function SolutionsPage() {
   return (
@@ -472,6 +475,265 @@ export function SolutionsPage() {
               </TableBody>
             </Table>
           </div>
+        </div>
+      </section>
+
+      {/* Section: Our Methodology */}
+      <section className="py-20 border-t border-steel-gray/30 bg-gradient-to-b from-void-black to-dark-base">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}>
+            <SectionHeading
+              badge="PROCESS"
+              title="Our Offensive Methodology"
+              description="A battle-tested approach to uncovering critical vulnerabilities"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+            {[
+              {
+                step: '01',
+                title: 'Reconnaissance',
+                desc: 'Deep OSINT gathering, infrastructure mapping, and attack surface analysis.',
+                icon: Search
+              },
+              {
+                step: '02',
+                title: 'Weaponization',
+                desc: 'Custom exploit development, payload crafting, and tool preparation.',
+                icon: Target
+              },
+              {
+                step: '03',
+                title: 'Execution',
+                desc: 'Controlled exploitation with real-time monitoring and risk mitigation.',
+                icon: Zap
+              },
+              {
+                step: '04',
+                title: 'Reporting',
+                desc: 'Executive summaries, technical findings, and actionable remediation.',
+                icon: FileText
+              }
+            ].map((phase, i) => (
+              <motion.div
+                key={phase.step}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="bg-dark-base border border-steel-gray rounded-xl p-6 relative overflow-hidden group hover:border-exploit-red/50 transition-all">
+                
+                <div className="absolute -top-4 -right-4 text-6xl font-heading font-bold text-steel-gray/20 group-hover:text-exploit-red/10 transition-colors">
+                  {phase.step}
+                </div>
+                
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-12 h-12 bg-exploit-red/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-exploit-red/20 transition-colors">
+                  <phase.icon className="w-6 h-6 text-exploit-red" />
+                </motion.div>
+                
+                <h3 className="text-lg font-heading font-bold text-ghost-white mb-2">{phase.title}</h3>
+                <p className="text-sm text-muted-gray">{phase.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Process Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { value: '98%', label: 'Success Rate', sub: 'Initial access achieved' },
+              { value: '24hrs', label: 'Avg. Detection', sub: 'Time to compromise' },
+              { value: '<48hrs', label: 'Report Delivery', sub: 'From test completion' },
+              { value: '30d', label: 'Free Retest', sub: 'Included with all tests' }
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 + i * 0.1 }}
+                className="text-center p-4 bg-void-black/50 rounded-lg border border-steel-gray/30">
+                <div className="text-2xl font-heading font-bold text-exploit-red mb-1">{stat.value}</div>
+                <div className="text-sm font-semibold text-ghost-white">{stat.label}</div>
+                <div className="text-xs text-muted-gray">{stat.sub}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section: Success Stories */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="RESULTS"
+              title="Success Stories"
+              description="Real impact from our offensive security operations"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+            {[
+              {
+                client: 'Fortune 500 Financial',
+                industry: 'Banking',
+                result: '$2.3M Saved',
+                desc: 'Identified critical RCE vulnerability in trading platform before Q4 earnings release.',
+                metric: '3 Critical CVEs',
+                icon: Landmark
+              },
+              {
+                client: 'Global Healthcare System',
+                industry: 'Healthcare',
+                result: 'Zero Breaches',
+                desc: 'Continuous red team operations for 18 months with no successful real-world attacks.',
+                metric: '500+ Beds Protected',
+                icon: Stethoscope
+              },
+              {
+                client: 'Defense Contractor',
+                industry: 'Defense',
+                result: 'Compliance Met',
+                desc: 'Achieved CMMC Level 3 compliance through adversary simulation and gap remediation.',
+                metric: '100% Pass Rate',
+                icon: Shield
+              }
+            ].map((story, i) => (
+              <motion.div
+                key={story.client}
+                initial={{ opacity: 0, y: 30, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-gradient-to-br from-dark-base to-void-black border border-steel-gray rounded-2xl p-8 relative overflow-hidden group hover:border-exploit-red/50 transition-all">
+                
+                <div className="flex items-center gap-4 mb-6">
+                  <motion.div
+                    whileHover={{ rotate: 15 }}
+                    className="w-12 h-12 bg-exploit-red/10 rounded-xl flex items-center justify-center group-hover:bg-exploit-red/20 transition-colors">
+                    <story.icon className="w-6 h-6 text-exploit-red" />
+                  </motion.div>
+                  <div>
+                    <p className="text-xs text-muted-gray uppercase tracking-wider">{story.industry}</p>
+                    <h4 className="font-heading font-bold text-ghost-white">{story.client}</h4>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <span className="text-3xl font-heading font-bold text-exploit-red">{story.result}</span>
+                </div>
+                
+                <p className="text-sm text-muted-gray mb-4 leading-relaxed">{story.desc}</p>
+                
+                <div className="flex items-center gap-2 text-sm text-ghost-white/80">
+                  <Check className="w-4 h-4 text-green-500" />
+                  {story.metric}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section: Technology Stack */}
+      <section className="py-20 border-t border-steel-gray/30 bg-dark-base">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="TOOLS"
+              title="Our Arsenal"
+              description="Industry-leading tools and custom-developed exploits"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-12">
+            {[
+              { name: 'Burp Suite', category: 'Web' },
+              { name: 'Cobalt Strike', category: 'C2' },
+              { name: 'Metasploit', category: 'Exploitation' },
+              { name: 'BloodHound', category: 'AD' },
+              { name: 'Nmap', category: 'Recon' },
+              { name: 'Wireshark', category: 'Network' },
+              { name: 'IDA Pro', category: 'Reverse' },
+              { name: 'Ghidra', category: 'Reverse' },
+              { name: 'Hashcat', category: 'Crypto' },
+              { name: 'Impacket', category: 'AD' },
+              { name: 'SQLMap', category: 'Web' },
+              { name: 'Custom Tools', category: 'Internal' }
+            ].map((tool, i) => (
+              <motion.div
+                key={tool.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, type: 'spring', stiffness: 150 }}
+                whileHover={{ scale: 1.08, y: -4 }}
+                className="bg-void-black border border-steel-gray/50 rounded-xl p-4 text-center group hover:border-exploit-red/50 transition-all cursor-default">
+                <p className="text-sm font-semibold text-ghost-white group-hover:text-exploit-red transition-colors">{tool.name}</p>
+                <p className="text-xs text-muted-gray mt-1">{tool.category}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Custom Tools Highlight */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-12 bg-gradient-to-r from-exploit-red/5 to-transparent border border-steel-gray rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-1">
+                <h3 className="text-2xl font-heading font-bold text-ghost-white mb-4">Proprietary Exploit Framework</h3>
+                <p className="text-muted-gray mb-6">
+                  Our in-house developed framework contains over 200+ private exploits and zero-day research. 
+                  This gives us capabilities that off-the-shelf tools simply cannot match.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  {['200+ Private Exploits', 'Zero-day Research', 'Custom C2 Infrastructure', 'Stealth Evasion'].map((item, i) => (
+                    <motion.span
+                      key={item}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + i * 0.1 }}
+                      className="px-4 py-2 bg-void-black border border-steel-gray/50 rounded-full text-sm text-ghost-white/80">
+                      {item}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, type: 'spring' }}
+                className="w-32 h-32 bg-exploit-red/10 rounded-full flex items-center justify-center border border-exploit-red/30">
+                <span className="text-4xl font-heading font-bold text-exploit-red">200+</span>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

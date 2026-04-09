@@ -24,7 +24,19 @@ import {
   FileText,
   Headphones,
   Mail,
-  Phone
+  Phone,
+  Calculator,
+  Database,
+  Network,
+  Cpu,
+  HardDrive,
+  Cloud,
+  Activity,
+  Archive,
+  Building,
+  GitBranch,
+  Settings,
+  Award
 } from 'lucide-react';
 
 const pricingPlans = [
@@ -527,7 +539,884 @@ export function PricingPage() {
         </div>
       </section>
 
-      {/* Section 7: CTA */}
+      {/* Section 7: Product Pricing with Calculator */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="INFRASTRUCTURE"
+              title="Product Pricing"
+              description="Secure cloud infrastructure with built-in offensive security monitoring"
+              align="center" />
+          </motion.div>
+
+          {/* Price Calculator */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-12 mb-16 bg-gradient-to-br from-dark-base to-void-black border border-steel-gray rounded-2xl p-6 md:p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <Calculator className="w-6 h-6 text-exploit-red" />
+              <h3 className="text-xl font-heading font-bold text-ghost-white">Custom Price Calculator</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* VPS Calculator */}
+              <div className="space-y-4">
+                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                  <Globe className="w-4 h-4 text-green-500" />
+                  VPS Instances
+                </label>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="20" 
+                  defaultValue="2"
+                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    const el = document.getElementById('vps-count');
+                    const price = document.getElementById('vps-price');
+                    if (el) el.textContent = val.toString();
+                    if (price) price.textContent = `$${(val * 49).toLocaleString()}`;
+                    window.dispatchEvent(new CustomEvent('priceUpdate'));
+                  }}
+                />
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-text">Count: <span id="vps-count" className="text-ghost-white font-bold">2</span></span>
+                  <span className="text-green-500 font-bold" id="vps-price">$98</span>
+                </div>
+              </div>
+
+              {/* Compute Calculator */}
+              <div className="space-y-4">
+                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                  <Server className="w-4 h-4 text-blue-500" />
+                  Compute Hours
+                </label>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="1000" 
+                  step="10"
+                  defaultValue="100"
+                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    const el = document.getElementById('compute-count');
+                    const price = document.getElementById('compute-price');
+                    if (el) el.textContent = val.toString();
+                    if (price) price.textContent = `$${(val * 0.015).toFixed(2)}`;
+                    window.dispatchEvent(new CustomEvent('priceUpdate'));
+                  }}
+                />
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-text">Hours: <span id="compute-count" className="text-ghost-white font-bold">100</span></span>
+                  <span className="text-blue-500 font-bold" id="compute-price">$1.50</span>
+                </div>
+              </div>
+
+              {/* Kubernetes Calculator */}
+              <div className="space-y-4">
+                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                  <Zap className="w-4 h-4 text-purple-500" />
+                  K8s Clusters
+                </label>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="10" 
+                  defaultValue="1"
+                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    const el = document.getElementById('k8s-count');
+                    const price = document.getElementById('k8s-price');
+                    if (el) el.textContent = val.toString();
+                    if (price) price.textContent = `$${(val * 199).toLocaleString()}`;
+                    window.dispatchEvent(new CustomEvent('priceUpdate'));
+                  }}
+                />
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-text">Clusters: <span id="k8s-count" className="text-ghost-white font-bold">1</span></span>
+                  <span className="text-purple-500 font-bold" id="k8s-price">$199</span>
+                </div>
+              </div>
+
+              {/* Storage Calculator */}
+              <div className="space-y-4">
+                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                  <Lock className="w-4 h-4 text-orange-500" />
+                  Storage (GB)
+                </label>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="10000" 
+                  step="100"
+                  defaultValue="500"
+                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    const el = document.getElementById('storage-count');
+                    const price = document.getElementById('storage-price');
+                    if (el) el.textContent = val.toLocaleString();
+                    if (price) price.textContent = `$${(val * 0.02).toFixed(2)}`;
+                    window.dispatchEvent(new CustomEvent('priceUpdate'));
+                  }}
+                />
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-text">GB: <span id="storage-count" className="text-ghost-white font-bold">500</span></span>
+                  <span className="text-orange-500 font-bold" id="storage-price">$10.00</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Total Price Display */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="mt-8 pt-6 border-t border-steel-gray/30 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <p className="text-muted-text text-sm">Estimated Monthly Cost</p>
+                <motion.p 
+                  className="text-4xl font-heading font-bold text-exploit-red"
+                  id="total-price"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 0.3 }}>
+                  $308.50
+                </motion.p>
+              </div>
+              <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-8 py-6 text-lg">
+                <CreditCard className="w-5 h-5 mr-2" />
+                Get Started
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Product Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {[
+              {
+                name: 'Compute',
+                icon: Server,
+                price: '$0.015',
+                unit: '/hour',
+                description: 'High-performance bare metal servers',
+                specs: ['Up to 128 vCPUs', '512 GB RAM', 'NVMe SSD Storage', '10Gbps Network'],
+                color: 'from-blue-500/20 to-blue-600/5',
+                borderColor: 'border-blue-500/30'
+              },
+              {
+                name: 'VPS',
+                icon: Globe,
+                price: '$49',
+                unit: '/month',
+                description: 'Virtual private servers with DDoS protection',
+                specs: ['4-32 vCPUs', '8-128 GB RAM', '200GB-2TB SSD', 'DDoS Protection'],
+                color: 'from-green-500/20 to-green-600/5',
+                borderColor: 'border-green-500/30',
+                featured: true
+              },
+              {
+                name: 'Kubernetes',
+                icon: Zap,
+                price: '$199',
+                unit: '/month',
+                description: 'Managed K8s with security scanning',
+                specs: ['Managed Control Plane', 'Auto-scaling', 'Container Security', '24/7 Support'],
+                color: 'from-purple-500/20 to-purple-600/5',
+                borderColor: 'border-purple-500/30'
+              },
+              {
+                name: 'Cloud Storage',
+                icon: Lock,
+                price: '$0.02',
+                unit: '/GB',
+                description: 'Encrypted object storage with compliance',
+                specs: ['AES-256 Encryption', '99.99% Uptime', 'Global CDN', 'SOC 2 Compliant'],
+                color: 'from-orange-500/20 to-orange-600/5',
+                borderColor: 'border-orange-500/30'
+              },
+              {
+                name: 'Database',
+                icon: Database,
+                price: '$29',
+                unit: '/month',
+                description: 'Managed PostgreSQL, MySQL, Redis clusters',
+                specs: ['Automated Backups', 'Read Replicas', 'Connection Pooling', 'SSL Encryption'],
+                color: 'from-pink-500/20 to-pink-600/5',
+                borderColor: 'border-pink-500/30'
+              },
+              {
+                name: 'Load Balancer',
+                icon: Network,
+                price: '$19',
+                unit: '/month',
+                description: 'High-availability traffic distribution',
+                specs: ['HTTP/HTTPS/TCP', 'Health Checks', 'Auto-scaling', 'DDoS Protection'],
+                color: 'from-cyan-500/20 to-cyan-600/5',
+                borderColor: 'border-cyan-500/30'
+              },
+              {
+                name: 'CDN & WAF',
+                icon: Shield,
+                price: '$0.01',
+                unit: '/GB',
+                description: 'Global content delivery with web firewall',
+                specs: ['140+ Edge Locations', 'DDoS Mitigation', 'Bot Protection', 'Real-time Analytics'],
+                color: 'from-yellow-500/20 to-yellow-600/5',
+                borderColor: 'border-yellow-500/30'
+              },
+              {
+                name: 'GPU Instances',
+                icon: Cpu,
+                price: '$1.99',
+                unit: '/hour',
+                description: 'NVIDIA A100, H100, RTX A6000 for AI/ML',
+                specs: ['Up to 8x A100', '640 GB GPU Memory', 'NVLink Support', 'CUDA Optimized'],
+                color: 'from-indigo-500/20 to-indigo-600/5',
+                borderColor: 'border-indigo-500/30'
+              },
+              {
+                name: 'Bare Metal',
+                icon: HardDrive,
+                price: '$299',
+                unit: '/month',
+                description: 'Dedicated physical servers with full control',
+                specs: ['No Virtualization', 'Full Hardware Access', 'Custom RAID', 'IPMI/KVM'],
+                color: 'from-rose-500/20 to-rose-600/5',
+                borderColor: 'border-rose-500/30'
+              },
+              {
+                name: 'Private Cloud',
+                icon: Cloud,
+                price: '$999',
+                unit: '/month',
+                description: 'Isolated infrastructure for compliance',
+                specs: ['Dedicated Hardware', 'Isolated Network', 'Custom Compliance', 'White-glove Support'],
+                color: 'from-emerald-500/20 to-emerald-600/5',
+                borderColor: 'border-emerald-500/30'
+              },
+              {
+                name: 'Monitoring',
+                icon: Activity,
+                price: '$9',
+                unit: '/month',
+                description: 'Infrastructure monitoring and alerting',
+                specs: ['Real-time Metrics', 'Custom Dashboards', 'SMS/Email Alerts', 'Log Aggregation'],
+                color: 'from-violet-500/20 to-violet-600/5',
+                borderColor: 'border-violet-500/30'
+              },
+              {
+                name: 'Backup & DR',
+                icon: Archive,
+                price: '$0.05',
+                unit: '/GB',
+                description: 'Automated backups and disaster recovery',
+                specs: ['Cross-region Replication', 'Point-in-time Recovery', 'RPO < 1 hour', 'Encrypted Storage'],
+                color: 'from-amber-500/20 to-amber-600/5',
+                borderColor: 'border-amber-500/30'
+              }
+            ].map((product, i) => (
+              <motion.div
+                key={product.name}
+                initial={{ opacity: 0, y: 20, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
+                className={`bg-gradient-to-br ${product.color} border ${product.borderColor} ${product.featured ? 'ring-2 ring-green-500/30' : ''} rounded-xl p-6 relative overflow-hidden group`}>
+                
+                {product.featured && (
+                  <motion.div 
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute top-0 right-0 bg-green-500 text-void-black text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+                    POPULAR
+                  </motion.div>
+                )}
+                
+                <motion.div 
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  className="w-12 h-12 bg-void-black/50 rounded-lg flex items-center justify-center mb-4 transition-transform">
+                  <product.icon className="w-6 h-6 text-ghost-white" />
+                </motion.div>
+                
+                <h3 className="text-xl font-heading font-bold text-ghost-white mb-1">{product.name}</h3>
+                <p className="text-sm text-muted-text mb-4">{product.description}</p>
+                
+                <div className="mb-4">
+                  <motion.span 
+                    className="text-3xl font-heading font-bold text-ghost-white"
+                    whileHover={{ color: '#c0392b' }}>
+                    {product.price}
+                  </motion.span>
+                  <span className="text-muted-text text-sm">{product.unit}</span>
+                </div>
+                
+                <ul className="space-y-2 mb-6">
+                  {product.specs.map((spec, idx) => (
+                    <motion.li 
+                      key={spec} 
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + idx * 0.05 }}
+                      className="flex items-center gap-2 text-sm text-muted-text">
+                      <Check className="w-4 h-4 text-green-500 shrink-0" />
+                      {spec}
+                    </motion.li>
+                  ))}
+                </ul>
+                
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button className="w-full bg-void-black/50 border border-steel-gray hover:bg-exploit-red hover:border-exploit-red text-ghost-white transition-all">
+                    Configure
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 8: Compare Infrastructure Plans */}
+      <section className="py-20 bg-dark-base border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="COMPARE"
+              title="Find Your Perfect Setup"
+              description="Detailed comparison of all infrastructure options"
+              align="center" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-12 overflow-x-auto">
+            <table className="w-full min-w-[800px]">
+              <thead>
+                <tr className="border-b border-steel-gray">
+                  <th className="text-left py-4 px-4 font-heading text-ghost-white">Feature</th>
+                  <th className="text-center py-4 px-4 font-heading text-blue-500">Compute</th>
+                  <th className="text-center py-4 px-4 font-heading text-green-500">VPS</th>
+                  <th className="text-center py-4 px-4 font-heading text-purple-500">Kubernetes</th>
+                  <th className="text-center py-4 px-4 font-heading text-orange-500">Storage</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {[
+                  { feature: 'Starting Price', compute: '$0.015/hr', vps: '$49/mo', k8s: '$199/mo', storage: '$0.02/GB' },
+                  { feature: 'vCPU Cores', compute: 'Up to 128', vps: '4-32', k8s: 'Auto-scaling', storage: 'N/A' },
+                  { feature: 'Memory', compute: 'Up to 512 GB', vps: '8-128 GB', k8s: 'Flexible', storage: 'N/A' },
+                  { feature: 'Storage Type', compute: 'NVMe SSD', vps: 'SSD', k8s: 'Persistent Volumes', storage: 'Object' },
+                  { feature: 'Network Speed', compute: '10 Gbps', vps: '1 Gbps', k8s: 'Container Network', storage: 'CDN' },
+                  { feature: 'DDoS Protection', compute: '✓', vps: '✓', k8s: '✓', storage: '✓' },
+                  { feature: 'Backups', compute: 'Optional', vps: 'Daily', k8s: 'Snapshot', storage: 'Versioned' },
+                  { feature: 'Support', compute: 'Standard', vps: 'Priority', k8s: '24/7 Dedicated', storage: 'Standard' },
+                ].map((row, i) => (
+                  <motion.tr
+                    key={row.feature}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
+                    className="border-b border-steel-gray/30 hover:bg-steel-gray/10 transition-colors">
+                    <td className="py-3 px-4 text-muted-text">{row.feature}</td>
+                    <td className="py-3 px-4 text-center text-ghost-white">{row.compute}</td>
+                    <td className="py-3 px-4 text-center text-ghost-white">{row.vps}</td>
+                    <td className="py-3 px-4 text-center text-ghost-white">{row.k8s}</td>
+                    <td className="py-3 px-4 text-center text-ghost-white">{row.storage}</td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 9: Why Choose VXRT Infrastructure */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="WHY US"
+              title="Why Choose VXRT Infrastructure"
+              description="Security-first cloud built by offensive security experts"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            {[
+              {
+                icon: Shield,
+                title: 'Attack-Resistant by Design',
+                description: 'Every node is hardened using the same techniques we use to break into systems. We know every attack vector because we exploit them daily.'
+              },
+              {
+                icon: Zap,
+                title: 'Zero-Day Protection',
+                description: 'Our threat intelligence team monitors dark web forums and CVE databases 24/7. Critical patches are applied within hours, not days.'
+              },
+              {
+                icon: Target,
+                title: 'Compliance Ready',
+                description: 'SOC 2, ISO 27001, PCI-DSS, and HIPAA compliant infrastructure. Audit reports available for enterprise customers.'
+              }
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-gradient-to-br from-dark-base to-void-black border border-steel-gray rounded-xl p-6 text-center group hover:border-exploit-red/30 transition-colors">
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-16 h-16 mx-auto mb-4 bg-exploit-red/10 rounded-full flex items-center justify-center group-hover:bg-exploit-red/20 transition-colors">
+                  <item.icon className="w-8 h-8 text-exploit-red" />
+                </motion.div>
+                <h3 className="text-lg font-heading font-bold text-ghost-white mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-text leading-relaxed">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Stats Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+            {[
+              { value: '99.99%', label: 'Uptime SLA' },
+              { value: '<50ms', label: 'Avg. Latency' },
+              { value: '15+', label: 'Global Regions' },
+              { value: '24/7', label: 'Security Ops' }
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.1, type: 'spring' }}
+                className="text-center p-4 bg-void-black/50 rounded-lg border border-steel-gray/30">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                  className="text-2xl md:text-3xl font-heading font-bold text-exploit-red">
+                  {stat.value}
+                </motion.div>
+                <div className="text-xs text-muted-text mt-1">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 10: Integration Partners */}
+      <section className="py-16 bg-dark-base border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8">
+            <p className="text-sm text-muted-text uppercase tracking-widest">Works seamlessly with</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            {['Terraform', 'Ansible', 'Kubernetes', 'Docker', 'GitHub Actions', 'GitLab CI', 'AWS CLI', 'Azure CLI'].map((partner, i) => (
+              <motion.div
+                key={partner}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ scale: 1.1, y: -2 }}
+                className="px-4 py-2 bg-void-black border border-steel-gray/50 rounded-lg text-sm text-muted-text hover:text-ghost-white hover:border-exploit-red/50 transition-all cursor-default">
+                {partner}
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 11: Product FAQ */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="FAQ"
+              title="Product & Infrastructure Questions"
+              description="Common questions about our cloud infrastructure"
+              align="center" />
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto mt-12 space-y-4">
+            {[
+              {
+                question: 'How does billing work for compute resources?',
+                answer: 'Compute resources are billed by the hour with per-second granularity. You only pay for what you use with no minimum commitments. Billing stops automatically when you delete or power off instances.'
+              },
+              {
+                question: 'Can I migrate my existing workloads to VXRT?',
+                answer: 'Yes! We provide migration tools and dedicated support for moving from AWS, Azure, GCP, or on-premises infrastructure. Our team can help plan and execute zero-downtime migrations.'
+              },
+              {
+                question: 'What security monitoring is included?',
+                answer: 'All infrastructure includes real-time threat detection, DDoS protection, automated vulnerability scanning, and security event logging. Enterprise plans include 24/7 SOC monitoring.'
+              },
+              {
+                question: 'Do you offer custom hardware configurations?',
+                answer: 'Yes, for enterprise customers we can provision custom bare metal configurations including GPU instances, high-memory nodes, and specialized security appliances.'
+              },
+              {
+                question: 'Is there a free tier for testing?',
+                answer: 'New accounts receive $100 in credits valid for 30 days. This is perfect for testing our infrastructure before committing to a paid plan.'
+              }
+            ].map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-dark-base border border-steel-gray rounded-xl overflow-hidden hover:border-exploit-red/30 transition-colors">
+                <div className="p-5">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-exploit-red/10 rounded-lg flex items-center justify-center shrink-0">
+                      <span className="text-exploit-red font-bold text-sm">{i + 1}</span>
+                    </div>
+                    <div>
+                      <h4 className="font-heading font-semibold text-ghost-white mb-2">{faq.question}</h4>
+                      <p className="text-sm text-muted-text leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 12: Enterprise Solutions */}
+      <section className="py-20 bg-gradient-to-br from-dark-base via-void-black to-dark-base border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="ENTERPRISE"
+              title="Enterprise Solutions"
+              description="Custom infrastructure for large-scale operations"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12">
+            {[
+              {
+                name: 'Dedicated Infrastructure',
+                price: 'Custom',
+                icon: Building,
+                description: 'Fully isolated hardware and network for maximum security and compliance.',
+                features: ['Isolated hardware racks', 'Custom network topology', 'Private cloud options', 'Compliance certifications']
+              },
+              {
+                name: 'Hybrid Cloud',
+                price: 'Custom',
+                icon: GitBranch,
+                description: 'Seamlessly connect on-premise infrastructure with VXRT cloud.',
+                features: ['Direct Connect', 'VPN Gateway', 'Multi-cloud orchestration', 'Unified management']
+              },
+              {
+                name: 'Managed Services',
+                price: 'Custom',
+                icon: Settings,
+                description: 'We manage your infrastructure so you can focus on your business.',
+                features: ['24/7 monitoring', 'Patch management', 'Security hardening', 'Performance optimization']
+              }
+            ].map((solution, i) => (
+              <motion.div
+                key={solution.name}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-gradient-to-br from-dark-base to-void-black border border-steel-gray rounded-2xl p-8 relative overflow-hidden group hover:border-exploit-red/50 transition-all duration-300">
+                
+                <motion.div
+                  whileHover={{ rotate: 15, scale: 1.1 }}
+                  className="w-14 h-14 bg-exploit-red/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-exploit-red/20 transition-colors">
+                  <solution.icon className="w-7 h-7 text-exploit-red" />
+                </motion.div>
+
+                <h3 className="text-2xl font-heading font-bold text-ghost-white mb-2">{solution.name}</h3>
+                <p className="text-3xl font-heading font-bold text-exploit-red mb-4">{solution.price}</p>
+                <p className="text-muted-text mb-6">{solution.description}</p>
+
+                <ul className="space-y-3">
+                  {solution.features.map((feature, idx) => (
+                    <motion.li
+                      key={feature}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + idx * 0.1 }}
+                      className="flex items-center gap-3 text-sm text-ghost-white/80">
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+
+                <motion.div className="mt-8" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button className="w-full bg-exploit-red/10 border border-exploit-red/50 hover:bg-exploit-red text-ghost-white transition-all">
+                    Contact Sales
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 13: Security Certifications & Compliance */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="TRUST & SECURITY"
+              title="Certifications & Compliance"
+              description="Enterprise-grade security and compliance standards"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-12">
+            {[
+              { name: 'SOC 2 Type II', icon: Award },
+              { name: 'ISO 27001', icon: Shield },
+              { name: 'PCI DSS', icon: CreditCard },
+              { name: 'HIPAA', icon: Lock },
+              { name: 'GDPR', icon: Globe },
+              { name: 'FedRAMP', icon: Building }
+            ].map((cert, i) => (
+              <motion.div
+                key={cert.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, type: 'spring', stiffness: 150 }}
+                whileHover={{ scale: 1.08, y: -4 }}
+                className="bg-dark-base border border-steel-gray rounded-xl p-4 text-center group hover:border-exploit-red/50 transition-all cursor-pointer">
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-12 h-12 mx-auto mb-3 bg-exploit-red/10 rounded-lg flex items-center justify-center group-hover:bg-exploit-red/20 transition-colors">
+                  <cert.icon className="w-6 h-6 text-exploit-red" />
+                </motion.div>
+                <p className="text-sm font-semibold text-ghost-white">{cert.name}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Security Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-12 bg-gradient-to-r from-exploit-red/5 to-transparent border border-steel-gray rounded-2xl p-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                { value: '99.99%', label: 'Uptime SLA', sub: 'Guaranteed availability' },
+                { value: '0', label: 'Data Breaches', sub: 'Since inception' },
+                { value: '<1hr', label: 'Incident Response', sub: 'Average time' },
+                { value: '24/7', label: 'SOC Monitoring', sub: 'Always watching' }
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                  className="text-center">
+                  <div className="text-3xl font-heading font-bold text-exploit-red mb-1">{stat.value}</div>
+                  <div className="text-sm font-semibold text-ghost-white">{stat.label}</div>
+                  <div className="text-xs text-muted-text">{stat.sub}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 14: Custom Solutions */}
+      <section className="py-20 bg-dark-base border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-exploit-red/10 border border-exploit-red/30 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-exploit-red" />
+                <span className="text-sm font-medium text-exploit-red">Custom Solutions</span>
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-4">
+                Need something tailored?
+              </h2>
+              <p className="text-muted-text mb-6 leading-relaxed">
+                We understand that every organization has unique security requirements. Our team can design custom offensive security programs, specialized training, and bespoke tools that align with your specific threat model and compliance needs.
+              </p>
+              
+              <div className="space-y-4 mb-8">
+                {[
+                  'Custom exploit development for your tech stack',
+                  'Bespoke training programs for your team',
+                  'Dedicated red team retainer contracts',
+                  'Compliance-specific assessments (PCI-DSS, HIPAA, SOC 2)'
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 + i * 0.1 }}
+                    className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-exploit-red/10 rounded-full flex items-center justify-center shrink-0">
+                      <Check className="w-4 h-4 text-exploit-red" />
+                    </div>
+                    <span className="text-ghost-white">{item}</span>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <Link to="/contact">
+                <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-8 py-6">
+                  <MessageSquare className="w-5 h-5 mr-2" />
+                  Discuss Your Requirements
+                </Button>
+              </Link>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative">
+              <div className="bg-void-black border border-steel-gray rounded-2xl p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-exploit-red/5 rounded-full blur-3xl" />
+                
+                <div className="relative z-10 grid grid-cols-2 gap-4">
+                  {[
+                    { label: 'Custom Projects', value: '150+' },
+                    { label: 'Client Retention', value: '94%' },
+                    { label: 'Avg. Response Time', value: '<4h' },
+                    { label: 'Industries Served', value: '12+' }
+                  ].map((stat, i) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + i * 0.1 }}
+                      className="bg-dark-base border border-steel-gray/50 rounded-xl p-4 text-center">
+                      <div className="text-2xl font-heading font-bold text-exploit-red mb-1">{stat.value}</div>
+                      <div className="text-xs text-muted-text">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <div className="mt-6 pt-6 border-t border-steel-gray/30">
+                  <p className="text-sm text-muted-text text-center">
+                    "VXRT built a custom adversary simulation that identified critical gaps our previous assessments missed."
+                  </p>
+                  <div className="text-center mt-3">
+                    <span className="text-sm text-ghost-white">— CISO, Fortune 500 Healthcare</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 9: Trust & Guarantees */}
+      <section className="py-16 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: 'Money-Back Guarantee',
+                description: 'If we don\'t find any critical or high vulnerabilities during your assessment, we\'ll refund 50% of the engagement fee.'
+              },
+              {
+                icon: Clock,
+                title: 'On-Time Delivery',
+                description: 'We commit to delivering your report within 5 business days after testing completion, or your retest is free.'
+              },
+              {
+                icon: Lock,
+                title: 'NDA & Confidentiality',
+                description: 'All engagements are protected by comprehensive NDAs. Your data and findings never leave our secure environment.'
+              }
+            ].map((guarantee, i) => (
+              <motion.div
+                key={guarantee.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col items-center text-center p-6">
+                <div className="w-16 h-16 bg-exploit-red/10 rounded-full flex items-center justify-center mb-4">
+                  <guarantee.icon className="w-8 h-8 text-exploit-red" />
+                </div>
+                <h3 className="text-lg font-heading font-bold text-ghost-white mb-2">{guarantee.title}</h3>
+                <p className="text-sm text-muted-text">{guarantee.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 10: CTA */}
       <section className="py-20 border-t border-steel-gray/30">
         <div className="container mx-auto px-4">
           <motion.div
