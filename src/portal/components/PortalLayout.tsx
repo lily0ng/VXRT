@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { VXRTLogo } from '../../components/shared/VXRTLogo';
 import {
   Shield,
   LayoutDashboard,
@@ -165,6 +164,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [headerProfileOpen, setHeaderProfileOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -176,25 +176,57 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     <div className="min-h-screen bg-void-black flex">
       {/* Desktop Sidebar */}
       <motion.aside
-        initial={{ x: -280 }}
-        animate={{ x: sidebarOpen ? 0 : -280 }}
+        initial={{ width: 288 }}
+        animate={{ width: sidebarOpen ? 288 : 80 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="fixed lg:static inset-y-0 left-0 z-40 w-72 bg-dark-base border-r border-steel-gray hidden lg:block flex flex-col"
+        className="fixed lg:static inset-y-0 left-0 z-40 bg-dark-base border-r border-steel-gray hidden lg:block flex flex-col overflow-hidden"
       >
         {/* Logo */}
         <div className="h-16 flex items-center px-6 border-b border-steel-gray flex-shrink-0">
           <Link to="/portal" className="flex items-center gap-3">
-            <VXRTLogo className="h-10" />
+            <img
+              src="/VXRT_Icon_Dark_1080x1080.png"
+              alt="VXRT"
+              className="h-8 w-8 object-contain flex-shrink-0"
+            />
+            <AnimatePresence>
+              {sidebarOpen && (
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex flex-col overflow-hidden"
+                >
+                  <span className="font-heading font-bold text-ghost-white text-lg leading-none tracking-wider whitespace-nowrap">
+                    VXRT
+                  </span>
+                  <span className="font-sans text-[8px] text-exploit-red font-bold tracking-widest leading-none mt-[2px] whitespace-nowrap">
+                    OFFENSIVE SECURITY
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Link>
         </div>
 
         {/* Navigation - Scrollable */}
-        <nav className="flex-1 p-4 space-y-6 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-6 overflow-y-auto overflow-x-hidden">
           {navCategories.map((category) => (
             <div key={category.title}>
-              <h4 className="text-xs font-semibold text-muted-gray uppercase tracking-wider mb-2 px-4">
-                {category.title}
-              </h4>
+              <AnimatePresence>
+                {sidebarOpen && (
+                  <motion.h4
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="text-xs font-semibold text-muted-gray uppercase tracking-wider mb-2 px-3"
+                  >
+                    {category.title}
+                  </motion.h4>
+                )}
+              </AnimatePresence>
               <div className="space-y-1">
                 {category.items.map((item: NavItem) => {
                   const isActive = location.pathname === item.path;
@@ -202,14 +234,27 @@ export function PortalLayout({ children }: PortalLayoutProps) {
                     <Link
                       key={item.name}
                       to={item.path}
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${
+                      className={`flex items-center ${sidebarOpen ? 'gap-3 px-3' : 'justify-center px-2'} py-2.5 rounded-lg transition-all duration-200 ${
                         isActive
-                          ? 'bg-exploit-red/10 text-exploit-red border-l-2 border-exploit-red'
+                          ? 'bg-exploit-red/10 text-exploit-red'
                           : 'text-ghost-white/70 hover:bg-steel-gray/20 hover:text-ghost-white'
                       }`}
+                      title={item.name}
                     >
-                      <item.icon className="w-5 h-5" />
-                      <span className="font-medium text-sm">{item.name}</span>
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      <AnimatePresence>
+                        {sidebarOpen && (
+                          <motion.span
+                            initial={{ opacity: 0, x: -5 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -5 }}
+                            transition={{ duration: 0.15 }}
+                            className="font-medium text-sm whitespace-nowrap"
+                          >
+                            {item.name}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
                     </Link>
                   );
                 })}
@@ -219,54 +264,68 @@ export function PortalLayout({ children }: PortalLayoutProps) {
         </nav>
 
         {/* Bottom Section - Stats + User Profile */}
-        <div className="flex-shrink-0 border-t border-steel-gray">
+        <div className={`flex-shrink-0 border-t border-steel-gray ${sidebarOpen ? '' : 'px-2'}`}>
           {/* Stats Widget */}
-          <div className="px-4 py-3">
-            <div className="bg-void-black border border-steel-gray rounded-xl p-3">
-              <h4 className="text-sm font-semibold text-ghost-white mb-2">Security Status</h4>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-muted-gray">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    Systems Online
+          {sidebarOpen && (
+            <div className="px-4 py-3">
+              <div className="bg-void-black border border-steel-gray rounded-xl p-3">
+                <h4 className="text-sm font-semibold text-ghost-white mb-2">Security Status</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-muted-gray">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      Systems Online
+                    </div>
+                    <span className="text-xs text-green-500">98%</span>
                   </div>
-                  <span className="text-xs text-green-500">98%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-muted-gray">
-                    <AlertTriangle className="w-4 h-4 text-yellow-500" />
-                    Active Alerts
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-muted-gray">
+                      <AlertTriangle className="w-4 h-4 text-yellow-500" />
+                      Active Alerts
+                    </div>
+                    <span className="text-xs text-yellow-500">3</span>
                   </div>
-                  <span className="text-xs text-yellow-500">3</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-muted-gray">
-                    <Clock className="w-4 h-4 text-blue-500" />
-                    Last Scan
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-muted-gray">
+                      <Clock className="w-4 h-4 text-blue-500" />
+                      Last Scan
+                    </div>
+                    <span className="text-xs text-blue-500">2h ago</span>
                   </div>
-                  <span className="text-xs text-blue-500">2h ago</span>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* User Profile */}
-          <div className="px-4 pb-4">
+          <div className={`${sidebarOpen ? 'px-4 pb-4' : 'px-2 py-3'}`}>
             <div className="relative">
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-steel-gray/20 transition-colors"
+                className={`flex items-center ${sidebarOpen ? 'gap-3 w-full p-3' : 'justify-center w-12 h-12'} rounded-lg hover:bg-steel-gray/20 transition-colors`}
               >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="w-10 h-10 rounded-lg object-cover border border-steel-gray"
+                  className="w-10 h-10 rounded-lg object-cover border border-steel-gray flex-shrink-0"
                 />
-                <div className="flex-1 text-left">
-                  <p className="text-sm font-medium text-ghost-white">{currentUser.name}</p>
-                  <p className="text-xs text-muted-gray">{currentUser.role}</p>
-                </div>
-                <ChevronDown className={`w-4 h-4 text-muted-gray transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
+                <AnimatePresence>
+                  {sidebarOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -5 }}
+                      transition={{ duration: 0.15 }}
+                      className="flex items-center gap-3 flex-1"
+                    >
+                      <div className="flex-1 text-left overflow-hidden">
+                        <p className="text-sm font-medium text-ghost-white truncate">{currentUser.name}</p>
+                        <p className="text-xs text-muted-gray truncate">{currentUser.role}</p>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-muted-gray transition-transform flex-shrink-0 ${profileOpen ? 'rotate-180' : ''}`} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </button>
 
               <AnimatePresence>
@@ -281,13 +340,45 @@ export function PortalLayout({ children }: PortalLayoutProps) {
                       <p className="text-sm text-muted-gray">Signed in as</p>
                       <p className="text-sm font-medium text-ghost-white">{currentUser.email}</p>
                     </div>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 transition-colors"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Sign Out
-                    </button>
+                    <div className="p-2 space-y-1">
+                      <button
+                        onClick={() => { setProfileOpen(false); navigate('/portal/settings'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-ghost-white hover:bg-steel-gray/20 rounded-lg transition-colors"
+                      >
+                        <Users className="w-4 h-4" />
+                        Profile
+                      </button>
+                      <button
+                        onClick={() => { setProfileOpen(false); navigate('/portal/settings'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-ghost-white hover:bg-steel-gray/20 rounded-lg transition-colors"
+                      >
+                        <Settings className="w-4 h-4" />
+                        Settings
+                      </button>
+                      <button
+                        onClick={() => { setProfileOpen(false); navigate('/portal/settings'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-ghost-white hover:bg-steel-gray/20 rounded-lg transition-colors"
+                      >
+                        <Zap className="w-4 h-4" />
+                        Appearance
+                      </button>
+                      <button
+                        onClick={() => { setProfileOpen(false); navigate('/portal/assessments'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-exploit-red hover:bg-exploit-red/10 rounded-lg transition-colors"
+                      >
+                        <Zap className="w-4 h-4" />
+                        New Assessment
+                      </button>
+                    </div>
+                    <div className="border-t border-steel-gray p-2">
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -392,15 +483,60 @@ export function PortalLayout({ children }: PortalLayoutProps) {
               )}
             </button>
 
-            {/* Quick Action */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-exploit-red text-ghost-white rounded-lg text-sm font-medium hover:bg-exploit-red/90 transition-colors"
-            >
-              <Zap className="w-4 h-4" />
-              New Assessment
-            </motion.button>
+            {/* Header Profile */}
+            <div className="relative">
+              <button
+                onClick={() => setHeaderProfileOpen(!headerProfileOpen)}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-steel-gray/20 transition-colors"
+              >
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  className="w-8 h-8 rounded-full object-cover border border-steel-gray"
+                />
+              </button>
+
+              <AnimatePresence>
+                {headerProfileOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute right-0 top-full mt-2 w-48 bg-dark-base border border-steel-gray rounded-xl overflow-hidden shadow-xl z-50"
+                  >
+                    <div className="p-3 border-b border-steel-gray">
+                      <p className="text-sm font-medium text-ghost-white">{currentUser.name}</p>
+                      <p className="text-xs text-muted-gray">{currentUser.email}</p>
+                    </div>
+                    <div className="p-2 space-y-1">
+                      <button
+                        onClick={() => { setHeaderProfileOpen(false); navigate('/portal/settings'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-ghost-white hover:bg-steel-gray/20 rounded-lg transition-colors"
+                      >
+                        <Users className="w-4 h-4" />
+                        Profile
+                      </button>
+                      <button
+                        onClick={() => { setHeaderProfileOpen(false); navigate('/portal/settings'); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-ghost-white hover:bg-steel-gray/20 rounded-lg transition-colors"
+                      >
+                        <Settings className="w-4 h-4" />
+                        Settings
+                      </button>
+                    </div>
+                    <div className="border-t border-steel-gray p-2">
+                      <button
+                        onClick={() => { setHeaderProfileOpen(false); handleLogout(); }}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </header>
 
