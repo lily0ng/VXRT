@@ -44,7 +44,15 @@ import {
   Folder,
   FolderOpen,
   Rss,
-  Megaphone
+  Megaphone,
+  Cpu,
+  Copy,
+  KeyRound,
+  FileCode,
+  Settings2,
+  Group,
+  Upload,
+  Files
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -75,10 +83,15 @@ const navCategories: NavCategory[] = [
   {
     title: 'Compute',
     items: [
-      { name: 'Compute', path: '/portal/compute', icon: Server },
-      { name: 'VPS', path: '/portal/vps', icon: Box },
-      { name: 'VNF Appliances', path: '/portal/vnf', icon: Cloud },
-      { name: 'Auto Scaling', path: '/portal/autoscaling', icon: Activity }
+      { name: 'Instances', path: '/portal/compute', icon: Server },
+      { name: 'Instance Snapshots', path: '/portal/snapshots', icon: Camera },
+      { name: 'Kubernetes', path: '/portal/kubernetes', icon: Cloud },
+      { name: 'AutoScaling Groups', path: '/portal/autoscaling', icon: Activity },
+      { name: 'Instance Groups', path: '/portal/instance-groups', icon: Group },
+      { name: 'SSH Key Pairs', path: '/portal/sshkeys', icon: KeyRound },
+      { name: 'User Data Library', path: '/portal/user-data', icon: FileCode },
+      { name: 'CNI Configuration', path: '/portal/cni', icon: Settings2 },
+      { name: 'Affinity Groups', path: '/portal/affinity', icon: Copy }
     ]
   },
   {
@@ -93,12 +106,11 @@ const navCategories: NavCategory[] = [
   {
     title: 'Storage',
     items: [
-      { name: 'Block Storage', path: '/portal/block-storage', icon: HardDrive },
-      { name: 'Object Storage', path: '/portal/object-storage', icon: Database },
-      { name: 'Snapshots', path: '/portal/snapshots', icon: Camera },
-      { name: 'Backups', path: '/portal/backups', icon: Archive },
-      { name: 'Templates', path: '/portal/templates', icon: Box },
-      { name: 'Volumes', path: '/portal/volumes', icon: HardDrive }
+      { name: 'Volumes', path: '/portal/volumes', icon: HardDrive },
+      { name: 'Volume Snapshots', path: '/portal/snapshots', icon: Camera },
+      { name: 'Backups', path: '/portal/backups', icon: Upload },
+      { name: 'Buckets', path: '/portal/object-storage', icon: Database },
+      { name: 'Shared FileSystems', path: '/portal/block-storage', icon: Files }
     ]
   },
   {
@@ -195,18 +207,18 @@ export function PortalLayout({ children }: PortalLayoutProps) {
   const [profileOpen, setProfileOpen] = useState(false);
   const [headerProfileOpen, setHeaderProfileOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({
-    'MAIN': true,
-    'COMPUTE & INSTANCES': false,
-    'CONTAINERS & ORCHESTRATION': false,
-    'STORAGE': false,
-    'NETWORKING': false,
-    'SECURITY - OFFENSIVE': false,
-    'SECURITY - DEFENSIVE': false,
-    'SECURITY - COMPLIANCE': false,
-    'INFRASTRUCTURE': false,
-    'NEWS & CONTENT': false,
-    'SYSTEM': false,
-    'ADMINISTRATOR': false
+    'Main': true,
+    'Compute': false,
+    'Orcehestration': false,
+    'Storage': false,
+    'Networking': false,
+    'Offensive': false,
+    'Defensive': false,
+    'Compliance': false,
+    'Infrastructure': false,
+    'News & Content': false,
+    'System': false,
+    'Administrator': false
   });
   const location = useLocation();
   const navigate = useNavigate();
@@ -261,7 +273,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
         </div>
 
         {/* Navigation - Scrollable with Collapsible Directories */}
-        <nav className="flex-1 p-3 space-y-2 overflow-y-auto overflow-x-hidden">
+        <nav className="flex-1 min-h-0 p-3 space-y-2 overflow-y-auto overflow-x-hidden">
           {navCategories.map((category) => {
             const isExpanded = expandedCategories[category.title];
             const hasActiveItem = category.items.some(item => location.pathname === item.path);
@@ -375,39 +387,66 @@ export function PortalLayout({ children }: PortalLayoutProps) {
           })}
         </nav>
 
-        {/* Bottom Section - Stats + User Profile */}
-        <div className={`flex-shrink-0 border-t border-steel-gray ${sidebarOpen ? '' : 'px-2'}`}>
-          {/* Stats Widget */}
-          {sidebarOpen && (
-            <div className="px-4 py-3">
-              <div className="bg-void-black border border-steel-gray rounded-xl p-3">
-                <h4 className="text-sm font-semibold text-ghost-white mb-2">Security Status</h4>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-gray">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                      Systems Online
+        {/* Bottom Section - Stats + User Profile - Always Fixed at Bottom */}
+        <div className={`flex-shrink-0 border-t border-steel-gray bg-dark-base ${sidebarOpen ? '' : 'px-2'}`}>
+          {/* Stats Widget - Shows in both expanded and collapsed modes */}
+          <AnimatePresence mode="wait">
+            {sidebarOpen ? (
+              <motion.div
+                key="expanded"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="px-4 py-3"
+              >
+                <div className="bg-void-black border border-steel-gray rounded-xl p-3">
+                  <h4 className="text-sm font-semibold text-ghost-white mb-2">Security Status</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-muted-gray">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        Systems Online
+                      </div>
+                      <span className="text-xs text-green-500">98%</span>
                     </div>
-                    <span className="text-xs text-green-500">98%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-gray">
-                      <AlertTriangle className="w-4 h-4 text-yellow-500" />
-                      Active Alerts
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-muted-gray">
+                        <AlertTriangle className="w-4 h-4 text-yellow-500" />
+                        Active Alerts
+                      </div>
+                      <span className="text-xs text-yellow-500">3</span>
                     </div>
-                    <span className="text-xs text-yellow-500">3</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-gray">
-                      <Clock className="w-4 h-4 text-blue-500" />
-                      Last Scan
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-muted-gray">
+                        <Clock className="w-4 h-4 text-blue-500" />
+                        Last Scan
+                      </div>
+                      <span className="text-xs text-blue-500">2h ago</span>
                     </div>
-                    <span className="text-xs text-blue-500">2h ago</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="collapsed"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                className="px-2 py-3 flex justify-center"
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 bg-void-black border border-steel-gray rounded-xl flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-green-500" />
+                  </div>
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full text-[8px] flex items-center justify-center text-void-black font-bold">
+                    98
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* User Profile */}
           <div className={`${sidebarOpen ? 'px-4 pb-4' : 'px-2 py-3'}`}>
