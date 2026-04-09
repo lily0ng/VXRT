@@ -71,6 +71,8 @@ import { Support } from './portal/pages/Support';
 import { UserManagement } from './portal/pages/UserManagement';
 import { UserDetails } from './portal/pages/UserDetails';
 import { Articles } from './portal/pages/Articles';
+import { Images } from './portal/pages/Images';
+import { Infrastructure } from './portal/pages/Infrastructure';
 
 // Portal routes wrapper
 function PortalRoutes() {
@@ -151,6 +153,23 @@ function PortalRoutes() {
         <Route path="/newsletters" element={<div className="p-8 text-ghost-white">Newsletters Page</div>} />
         <Route path="/rss" element={<div className="p-8 text-ghost-white">RSS Feeds Page</div>} />
         <Route path="/media" element={<div className="p-8 text-ghost-white">Media Library Page</div>} />
+        
+        {/* Infrastructure */}
+        <Route path="/infrastructure" element={<Infrastructure />} />
+        <Route path="/zones" element={<div className="p-8 text-ghost-white">Zones Page</div>} />
+        <Route path="/pods" element={<div className="p-8 text-ghost-white">Pods Page</div>} />
+        <Route path="/clusters" element={<div className="p-8 text-ghost-white">Clusters Page</div>} />
+        <Route path="/hosts" element={<div className="p-8 text-ghost-white">Hosts Page</div>} />
+        <Route path="/primary-storage" element={<div className="p-8 text-ghost-white">Primary Storage Page</div>} />
+        <Route path="/secondary-storage" element={<div className="p-8 text-ghost-white">Secondary Storage Page</div>} />
+        <Route path="/infra-object-storage" element={<div className="p-8 text-ghost-white">Object Storage Page</div>} />
+        <Route path="/system-vms" element={<div className="p-8 text-ghost-white">System VMs Page</div>} />
+        <Route path="/virtual-routers" element={<div className="p-8 text-ghost-white">Virtual Routers Page</div>} />
+        <Route path="/internal-lb" element={<div className="p-8 text-ghost-white">Internal LB Page</div>} />
+        <Route path="/management-servers" element={<div className="p-8 text-ghost-white">Management Servers Page</div>} />
+        <Route path="/cpu-sockets" element={<div className="p-8 text-ghost-white">CPU Sockets Page</div>} />
+        <Route path="/db-usage-server" element={<div className="p-8 text-ghost-white">DB/Usage Server Page</div>} />
+        <Route path="/infra-alerts" element={<div className="p-8 text-ghost-white">Alerts Page</div>} />
       </Routes>
     </PortalLayout>
   );

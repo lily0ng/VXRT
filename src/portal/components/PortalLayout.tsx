@@ -52,7 +52,19 @@ import {
   Settings2,
   Group,
   Upload,
-  Files
+  Files,
+  Wifi,
+  MapPin,
+  List,
+  RefreshCw,
+  Hash,
+  Grid3X3,
+  Image,
+  LayoutGrid,
+  Hexagon,
+  BarChart3,
+  Building2,
+  Inbox
 } from 'lucide-react';
 
 interface PortalLayoutProps {
@@ -104,6 +116,14 @@ const navCategories: NavCategory[] = [
     ]
   },
   {
+    title: 'Images',
+    items: [
+      { name: 'Templates', path: '/portal/templates', icon: Box },
+      { name: 'ISOs', path: '/portal/isos', icon: HardDrive },
+      { name: 'Kubernetes ISOs', path: '/portal/k8s-isos', icon: Cloud }
+    ]
+  },
+  {
     title: 'Storage',
     items: [
       { name: 'Volumes', path: '/portal/volumes', icon: HardDrive },
@@ -116,12 +136,20 @@ const navCategories: NavCategory[] = [
   {
     title: 'Networking',
     items: [
-      { name: 'Networks', path: '/portal/networks', icon: Network },
-      { name: 'Load Balancers', path: '/portal/loadbalancers', icon: Share2 },
-      { name: 'DNS Management', path: '/portal/dns', icon: Globe },
-      { name: 'Firewalls', path: '/portal/firewalls', icon: Lock },
-      { name: 'Affinity Groups', path: '/portal/affinity', icon: Layers },
-      { name: 'VPC', path: '/portal/vpc', icon: Globe }
+      { name: 'Guest Networks', path: '/portal/networks', icon: Wifi },
+      { name: 'VPC', path: '/portal/vpc', icon: Network },
+      { name: 'Security Groups', path: '/portal/firewalls', icon: Shield },
+      { name: 'VNF Appliances', path: '/portal/vnf', icon: Box },
+      { name: 'Public IP Addresses', path: '/portal/public-ips', icon: MapPin },
+      { name: 'AS Numbers', path: '/portal/as-numbers', icon: Hash },
+      { name: 'Site-to-site VPN', path: '/portal/vpn-site', icon: Lock },
+      { name: 'VPN Connections', path: '/portal/vpn-connections', icon: RefreshCw },
+      { name: 'Network ACLs', path: '/portal/acls', icon: List },
+      { name: 'VPN Users', path: '/portal/vpn-users', icon: Users },
+      { name: 'VPN Customer Gateway', path: '/portal/vpn-gateway', icon: Globe },
+      { name: 'Tungsten Fabric', path: '/portal/tungsten', icon: Grid3X3 },
+      { name: 'Guest VLAN', path: '/portal/vlan', icon: Folder },
+      { name: 'IPv4 Subnets', path: '/portal/subnets', icon: Layers }
     ]
   },
   {
@@ -155,10 +183,21 @@ const navCategories: NavCategory[] = [
   {
     title: 'Infrastructure',
     items: [
-      { name: 'API Access', path: '/portal/api', icon: Terminal },
-      { name: 'SSH Keys', path: '/portal/sshkeys', icon: Lock },
-      { name: 'Integrations', path: '/portal/integrations', icon: Share2 },
-      { name: 'Monitoring', path: '/portal/monitoring', icon: Activity }
+      { name: 'Summary', path: '/portal/infrastructure', icon: BookOpen },
+      { name: 'Zones', path: '/portal/zones', icon: Globe },
+      { name: 'Pods', path: '/portal/pods', icon: LayoutGrid },
+      { name: 'Clusters', path: '/portal/clusters', icon: Hexagon },
+      { name: 'Hosts', path: '/portal/hosts', icon: Server },
+      { name: 'Primary Storage', path: '/portal/primary-storage', icon: HardDrive },
+      { name: 'Secondary Storage', path: '/portal/secondary-storage', icon: Image },
+      { name: 'Object Storage', path: '/portal/infra-object-storage', icon: Database },
+      { name: 'System VMs', path: '/portal/system-vms', icon: Zap },
+      { name: 'Virtual Routers', path: '/portal/virtual-routers', icon: Share2 },
+      { name: 'Internal LB', path: '/portal/internal-lb', icon: Activity },
+      { name: 'Management Servers', path: '/portal/management-servers', icon: Building2 },
+      { name: 'CPU Sockets', path: '/portal/cpu-sockets', icon: Cpu },
+      { name: 'DB/Usage Server', path: '/portal/db-usage-server', icon: BarChart3 },
+      { name: 'Alerts', path: '/portal/infra-alerts', icon: Bell }
     ]
   },
   {
@@ -210,6 +249,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
     'Main': true,
     'Compute': false,
     'Orcehestration': false,
+    'Images': false,
     'Storage': false,
     'Networking': false,
     'Offensive': false,
