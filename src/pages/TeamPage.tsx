@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/shared/SectionHeading';
+import ProfileCard from '../components/ProfileCard';
 import {
   Hexagon,
   Github,
@@ -437,7 +438,7 @@ export function TeamPage() {
           </motion.div>
         </section>
 
-        {/* Section 4: Team Grid */}
+        {/* Section 4: Team Grid - Profile Card Style */}
         <section className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -446,76 +447,35 @@ export function TeamPage() {
             <SectionHeading title="The Operators" description="Elite Talent" />
           </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 justify-items-center">
             {teamMembers.map((member, idx) =>
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.08 }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`bg-[#111115] p-5 rounded-xl border ${member.name === 'James Liu' ? 'border-exploit-red/50 shadow-lg shadow-exploit-red/10' : 'border-steel-gray/50 hover:border-exploit-red/30'} transition-all duration-300 group`}>
-              
-                {/* Status dot */}
-                <div className="flex justify-end mb-2">
-                  <div className="w-2 h-2 bg-exploit-red rounded-full animate-pulse" />
-                </div>
-                
-                {/* Avatar - Hexagon with colored background */}
-                <div className="mb-4">
-                  {member.avatar ? (
-                    <div
-                      className="w-14 h-14 flex items-center justify-center overflow-hidden"
-                      style={{
-                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                      }}>
-                      <img 
-                        src={member.avatar} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className={`w-14 h-14 flex items-center justify-center text-lg font-heading font-bold ${member.color}`}
-                      style={{
-                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                      }}>
-                      {member.initials}
-                    </div>
-                  )}
-                </div>
-                
-                {/* Name & Title */}
-                <h3 className="text-base font-bold text-ghost-white mb-0.5 group-hover:text-exploit-red transition-colors duration-300">
-                  {member.name}
-                </h3>
-                <p className="text-xs text-muted-text mb-3">{member.title}</p>
-                
-                {/* Certifications */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {member.certs.slice(0, 3).map((cert) =>
-                    <span
-                      key={cert}
-                      className="px-1.5 py-0.5 bg-dark-base border border-steel-gray/50 rounded text-[9px] font-semibold text-ghost-white">
-                      {cert}
-                    </span>
-                  )}
-                  {member.certs.length > 3 && (
-                    <span className="px-1.5 py-0.5 text-[9px] text-muted-text">+{member.certs.length - 3}</span>
-                  )}
-                </div>
-                
-                {/* Social Icons */}
-                <div className="flex items-center gap-3 text-muted-text/50 pt-3 border-t border-steel-gray/30">
-                  <Github
-                    size={14}
-                    className="hover:text-exploit-red cursor-pointer transition-all duration-300 hover:scale-110" />
-                  <Linkedin
-                    size={14}
-                    className="hover:text-exploit-red cursor-pointer transition-all duration-300 hover:scale-110" />
-                </div>
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, type: 'spring', stiffness: 100 }}
+                className="w-full max-w-[320px]"
+              >
+                <ProfileCard
+                  name={member.name}
+                  title={member.title}
+                  handle={member.name.toLowerCase().replace(/\s+/g, '')}
+                  status="Online"
+                  contactText="View Profile"
+                  avatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
+                  miniAvatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
+                  certs={member.certs}
+                  showUserInfo={true}
+                  enableTilt={true}
+                  enableMobileTilt={false}
+                  behindGlowEnabled={true}
+                  behindGlowColor="rgba(192, 57, 43, 0.6)"
+                  behindGlowSize="60%"
+                  innerGradient="linear-gradient(180deg, rgba(30, 35, 50, 0.95) 0%, rgba(17, 17, 21, 0.98) 50%, rgba(10, 10, 15, 1) 100%)"
+                  onContactClick={() => console.log(`Contact ${member.name}`)}
+                  className="w-full"
+                />
               </motion.div>
             )}
           </div>
