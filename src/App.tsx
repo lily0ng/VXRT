@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './components/layout/MainLayout';
 import { HomePage } from './pages/HomePage';
-import { Compute as ComputePage } from './portal/pages/Compute';
+import { ComputePage } from './pages/product/ComputePage';
 import { VPSPage } from './pages/product/VPSPage';
 import { LoadBalancerPage } from './pages/product/LoadBalancerPage';
 import { KubernetesPage } from './pages/product/KubernetesPage';
