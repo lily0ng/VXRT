@@ -83,70 +83,125 @@ export function LoadingScreen({ onComplete, minDuration = 2500 }: LoadingScreenP
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center">
-        {/* Animated Logo Container */}
-        <div className="relative w-32 h-32 mb-8">
-          {/* Outer Ring */}
-          <motion.div
-            className="absolute inset-0 rounded-full border-2 border-exploit-red/30"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-exploit-red rounded-full" />
-          </motion.div>
-
-          {/* Middle Ring */}
-          <motion.div
-            className="absolute inset-4 rounded-full border-2 border-exploit-red/50"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-exploit-red/70 rounded-full" />
-          </motion.div>
-
-          {/* Inner Ring */}
-          <motion.div
-            className="absolute inset-8 rounded-full border-2 border-exploit-red/70"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-exploit-red rounded-full" />
-          </motion.div>
-
-          {/* Center Logo */}
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <svg viewBox="0 0 100 100" className="w-16 h-16">
-              <motion.polygon
-                points="50,10 90,30 90,70 50,90 10,70 10,30"
-                fill="none"
-                stroke="#c0392b"
-                strokeWidth="2"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-              />
-              <motion.circle
-                cx="50"
-                cy="50"
-                r="8"
-                fill="#c0392b"
-                initial={{ scale: 0 }}
-                animate={{ scale: [0, 1.2, 1] }}
-                transition={{ duration: 0.5, delay: 1 }}
-              />
-            </svg>
-          </motion.div>
-
-          {/* Pulse Effect */}
-          <motion.div
-            className="absolute inset-0 rounded-full bg-exploit-red/20"
-            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
+        {/* Hero-Style Animated Logo Container */}
+        <div className="relative w-40 h-40 flex items-center justify-center mb-8">
+          {/* Animated Rings - Hero Style */}
+          <motion.div 
+            className="absolute -top-5 -left-5 w-[200px] h-[200px] rounded-full border border-[rgba(192,57,43,0.18)]"
+            animate={{ 
+              scale: [1, 1.03, 1],
+              opacity: [0.15, 0.45, 0.15]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
+          <motion.div 
+            className="absolute -top-[50px] -left-[50px] w-[260px] h-[260px] rounded-full border border-[rgba(192,57,43,0.18)]"
+            animate={{ 
+              scale: [1, 1.03, 1],
+              opacity: [0.15, 0.45, 0.15]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+          />
+          <motion.div 
+            className="absolute -top-20 -left-20 w-[320px] h-[320px] rounded-full border border-[rgba(192,57,43,0.18)]"
+            animate={{ 
+              scale: [1, 1.03, 1],
+              opacity: [0.15, 0.45, 0.15]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+          />
+
+          {/* Scan Line */}
+          <motion.div 
+            className="absolute -left-20 -right-20 h-px bg-[rgba(192,57,43,0.5)]"
+            animate={{ 
+              top: ['-80px', '240px'],
+              opacity: [0, 1, 1, 0]
+            }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* SVG Hexagon - Hero Style */}
+          <svg
+            viewBox="0 0 100 100"
+            fill="none"
+            className="w-40 h-40 overflow-visible"
+          >
+            <motion.polygon
+              points="50,6 88,28 88,72 50,94 12,72 12,28"
+              fill="#0d0d10"
+              stroke="#c0392b"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+            />
+            <motion.polygon
+              points="50,18 76,33 76,67 50,82 24,67 24,33"
+              fill="none"
+              stroke="#2a2a32"
+              strokeWidth="0.8"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
+            />
+            <motion.line
+              x1="50"
+              y1="6"
+              x2="50"
+              y2="94"
+              stroke="#c0392b"
+              strokeWidth="0.6"
+              opacity="0.4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+            />
+            <motion.line
+              x1="12"
+              y1="28"
+              x2="88"
+              y2="72"
+              stroke="#c0392b"
+              strokeWidth="0.6"
+              opacity="0.4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+            />
+            <motion.line
+              x1="88"
+              y1="28"
+              x2="12"
+              y2="72"
+              stroke="#c0392b"
+              strokeWidth="0.6"
+              opacity="0.4"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.8 }}
+            />
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="8"
+              fill="#c0392b"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 1.2 }}
+            />
+            <motion.circle 
+              cx="50" 
+              cy="50" 
+              r="3" 
+              fill="#0a0a0c" 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 1.3 }}
+            />
+          </svg>
         </div>
 
         {/* Brand Name */}
