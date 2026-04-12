@@ -34,6 +34,7 @@ import { ContactPage } from './pages/ContactPage';
 import { PricingPage } from './pages/PricingPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { NotFound } from './pages/NotFound';
 import { PortalLayout } from './portal/components/PortalLayout';
 import { Dashboard } from './portal/pages/Dashboard';
@@ -250,6 +251,7 @@ function AppContent() {
       {/* Auth Routes - No MainLayout */}
       <Route path="/signin" element={<AnimatedLogin redirectPath="/portal" />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/login-new" element={<AnimatedLogin redirectPath="/portal" />} />
       
       {/* Portal Routes - Special Layout */}
