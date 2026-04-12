@@ -4,7 +4,11 @@ import {
   AlertTriangle,
   CloudLightning,
   TerminalSquare,
-  Users } from
+  Users,
+  Globe,
+  Smartphone,
+  Siren,
+  ClipboardCheck } from
 'lucide-react';
 
 export const services = {
@@ -414,5 +418,273 @@ export const services = {
       'Increased their detection coverage for tested techniques from 25% to 85%. Created 40 new high-fidelity SIEM alerts and tuned existing rules to reduce false positives by 60%.'
     },
     certifications: ['GCIH', 'GCFA', 'Blue Team Level 1/2']
+  },
+  'web-app-testing': {
+    name: 'Web Application Testing',
+    icon: Globe,
+    powerStatement: 'Deep-dive security assessment of web applications',
+    description:
+    'Comprehensive testing of web applications to identify OWASP Top 10 vulnerabilities, business logic flaws, and authentication weaknesses.',
+    whatWeDo: [
+    'Our Web Application Testing service provides a thorough security assessment of your web applications, APIs, and backend systems.',
+    'We identify vulnerabilities ranging from SQL injection and XSS to complex business logic flaws that could lead to unauthorized access or data breaches.',
+    'Using a combination of automated tools and manual testing, we provide actionable recommendations to secure your web applications before attackers can exploit them.'
+    ],
+    stats: [
+    { value: '1000+', label: 'Apps Tested' },
+    { value: '95%', label: 'Vulnerability Coverage' },
+    { value: 'OWASP', label: 'Top 10 Focus' }
+    ],
+    methodology: [
+    {
+      title: 'Reconnaissance',
+      description:
+      'Mapping the application structure, identifying entry points, and understanding the technology stack.'
+    },
+    {
+      title: 'Authentication Testing',
+      description:
+      'Testing login mechanisms, session management, and multi-factor authentication implementations.'
+    },
+    {
+      title: 'Input Validation',
+      description:
+      'Testing for SQL injection, XSS, command injection, and other input-based vulnerabilities.'
+    },
+    {
+      title: 'Business Logic',
+      description:
+      'Identifying flaws in application workflows that could be abused for unauthorized actions.'
+    },
+    {
+      title: 'API Testing',
+      description:
+      'Testing REST and GraphQL APIs for authentication bypasses and data exposure.'
+    },
+    {
+      title: 'Reporting',
+      description:
+      'Providing detailed vulnerability reports with proof-of-concept and remediation steps.'
+    }
+    ],
+    deliverables: [
+    'Executive Summary Report',
+    'Technical Vulnerability Details',
+    'OWASP Top 10 Mapping',
+    'Business Logic Flaw Analysis',
+    'API Security Assessment',
+    'Remediation Roadmap'
+    ],
+    caseStudy: {
+      industry: 'E-commerce Platform',
+      challenge:
+      'A major e-commerce platform needed to secure their checkout process and customer portal before peak holiday season traffic.',
+      approach:
+      'We conducted comprehensive web application testing focusing on payment flows, user account management, and API endpoints.',
+      results:
+      'Discovered a critical vulnerability in the payment flow that could have allowed fraudulent transactions. Remediated before peak season, ensuring secure customer transactions worth millions.'
+    },
+    certifications: ['OSCP', 'OSWE', 'GWAPT', 'Burp Suite Certified']
+  },
+  'mobile-app-testing': {
+    name: 'Mobile Application Testing',
+    icon: Smartphone,
+    powerStatement: 'iOS and Android security assessment',
+    description:
+    'Comprehensive security testing of mobile applications to identify vulnerabilities in client-side code, APIs, and backend integration.',
+    whatWeDo: [
+    'Our Mobile Application Testing service covers both iOS and Android platforms, assessing client-side security, network communication, and backend API interactions.',
+    'We reverse engineer mobile apps to identify hardcoded credentials, insecure data storage, and weak cryptographic implementations.',
+    'Testing includes both static analysis and dynamic runtime testing to uncover vulnerabilities that could expose user data or compromise the application.'
+    ],
+    stats: [
+    { value: '500+', label: 'Mobile Apps Tested' },
+    { value: 'iOS/Android', label: 'Both Platforms' },
+    { value: 'MSTG', label: 'Compliant Testing' }
+    ],
+    methodology: [
+    {
+      title: 'Static Analysis',
+      description:
+      'Reverse engineering the application to identify hardcoded secrets and insecure code patterns.'
+    },
+    {
+      title: 'Dynamic Testing',
+      description:
+      'Runtime analysis using instrumentation to identify runtime vulnerabilities and data leakage.'
+    },
+    {
+      title: 'Network Analysis',
+      description:
+      'Intercepting and analyzing network traffic for insecure communication and API vulnerabilities.'
+    },
+    {
+      title: 'Storage Assessment',
+      description:
+      'Testing local data storage for sensitive data exposure and weak encryption.'
+    },
+    {
+      title: 'Anti-Tampering',
+      description:
+      'Assessing the application\'s resilience to modification and repackaging attacks.'
+    },
+    {
+      title: 'Reporting',
+      description:
+      'Delivering platform-specific recommendations for securing mobile applications.'
+    }
+    ],
+    deliverables: [
+    'iOS & Android Security Report',
+    'Reverse Engineering Findings',
+    'API Security Assessment',
+    'Data Storage Analysis',
+    'Network Security Report',
+    'Remediation Guidelines'
+    ],
+    caseStudy: {
+      industry: 'FinTech Mobile Banking',
+      challenge:
+      'A mobile banking app needed to meet strict financial regulations and ensure customer data protection on both iOS and Android.',
+      approach:
+      'We performed comprehensive mobile app testing including jailbreak/root detection bypass, runtime manipulation, and cryptographic implementation review.',
+      results:
+      'Identified critical vulnerabilities in the certificate pinning implementation and insecure key storage. Fixed issues helped the app pass compliance audits and achieve banking certification.'
+    },
+    certifications: ['OSCP', 'GMOB', 'OWASP MASVS']
+  },
+  'incident-response': {
+    name: 'Incident Response',
+    icon: Siren,
+    powerStatement: 'Rapid response to security incidents and breaches',
+    description:
+    '24/7 emergency incident response services to contain breaches, eradicate threats, and restore operations quickly.',
+    whatWeDo: [
+    'Our Incident Response team provides rapid, expert assistance when security incidents occur. We help contain the threat, preserve evidence, and restore normal operations.',
+    'We specialize in ransomware response, data breach investigations, and advanced persistent threat (APT) remediation.',
+    'Our retainer-based service ensures immediate response when minutes matter, with pre-established protocols and direct access to our senior responders.'
+    ],
+    stats: [
+    { value: '< 1 Hour', label: 'Response Time' },
+    { value: '24/7', label: 'Availability' },
+    { value: '500+', label: 'Incidents Handled' }
+    ],
+    methodology: [
+    {
+      title: 'Immediate Response',
+      description:
+      'Rapid deployment of incident responders to assess the situation and begin containment.'
+    },
+    {
+      title: 'Containment',
+      description:
+      'Isolating affected systems to prevent further spread and preserve evidence.'
+    },
+    {
+      title: 'Investigation',
+      description:
+      'Forensic analysis to determine the scope, timeline, and impact of the incident.'
+    },
+    {
+      title: 'Eradication',
+      description:
+      'Removing threat actor presence, backdoors, and malware from the environment.'
+    },
+    {
+      title: 'Recovery',
+      description:
+      'Restoring systems and verifying integrity before returning to normal operations.'
+    },
+    {
+      title: 'Post-Incident',
+      description:
+      'Detailed reporting and recommendations to prevent future incidents.'
+    }
+    ],
+    deliverables: [
+    'Incident Timeline & Analysis',
+    'Threat Actor Assessment',
+    'Forensic Evidence Report',
+    'Recovery Documentation',
+    'Security Improvement Plan',
+    'Executive Briefing'
+    ],
+    caseStudy: {
+      industry: 'Healthcare Provider',
+      challenge:
+      'A hospital discovered ransomware had encrypted critical patient data and systems, threatening patient care and requiring immediate response.',
+      approach:
+      'Our incident response team deployed within 2 hours, isolated affected networks, and coordinated with the client\'s IT team to restore critical systems.',
+      results:
+      'Contained the ransomware within 6 hours and restored critical patient care systems within 24 hours. No patient data was exfiltrated, and the hospital avoided regulatory penalties.'
+    },
+    certifications: ['GCIH', 'GCFA', 'GCFE', 'EnCE']
+  },
+  'security-audit': {
+    name: 'Security Audit',
+    icon: ClipboardCheck,
+    powerStatement: 'Comprehensive compliance and security assessments',
+    description:
+    'In-depth security audits for compliance frameworks including ISO 27001, SOC 2, PCI-DSS, and HIPAA.',
+    whatWeDo: [
+    'Our Security Audit services provide comprehensive assessments against industry standards and regulatory frameworks.',
+    'We help organizations prepare for certification, maintain compliance, and identify gaps in their security posture.',
+    'From policy reviews to technical testing, we provide a complete picture of your security compliance status.'
+    ],
+    stats: [
+    { value: '100%', label: 'Audit Success Rate' },
+    { value: '10+', label: 'Frameworks Covered' },
+    { value: '50+', label: 'Audits Completed' }
+    ],
+    methodology: [
+    {
+      title: 'Planning',
+      description:
+      'Defining the audit scope, criteria, and requirements based on the target framework.'
+    },
+    {
+      title: 'Documentation Review',
+      description:
+      'Reviewing policies, procedures, and evidence to assess compliance documentation.'
+    },
+    {
+      title: 'Technical Testing',
+      description:
+      'Performing vulnerability assessments and configuration reviews of systems.'
+    },
+    {
+      title: 'Interviews',
+      description:
+      'Conducting staff interviews to verify understanding and implementation of controls.'
+    },
+    {
+      title: 'Gap Analysis',
+      description:
+      'Identifying gaps between current state and framework requirements.'
+    },
+    {
+      title: 'Reporting',
+      description:
+      'Providing detailed audit reports with findings and remediation recommendations.'
+    }
+    ],
+    deliverables: [
+    'Audit Findings Report',
+    'Compliance Scorecard',
+    'Gap Analysis',
+    'Remediation Plan',
+    'Policy Recommendations',
+    'Executive Summary'
+    ],
+    caseStudy: {
+      industry: 'SaaS Provider',
+      challenge:
+      'A growing SaaS company needed to achieve SOC 2 Type II certification to meet enterprise customer requirements and demonstrate security maturity.',
+      approach:
+      'We conducted a comprehensive security audit covering all five Trust Services Criteria, from security policies to technical implementations.',
+      results:
+      'Identified and helped remediate 15 gaps before the formal audit. The client successfully achieved SOC 2 Type II certification on their first attempt, enabling enterprise sales.'
+    },
+    certifications: ['CISA', 'CISM', 'CISSP', 'ISO 27001 Lead Auditor']
   }
 };

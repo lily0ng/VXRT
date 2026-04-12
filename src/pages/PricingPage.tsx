@@ -43,8 +43,10 @@ const pricingPlans = [
   {
     name: 'Essential',
     description: 'Perfect for startups and small businesses',
-    price: '$2,500',
+    price: 2500,
+    annualPrice: 2000,
     period: 'per engagement',
+    annualPeriod: 'annual retainer',
     icon: Shield,
     color: 'border-steel-gray',
     featured: false,
@@ -67,8 +69,10 @@ const pricingPlans = [
   {
     name: 'Professional',
     description: 'Comprehensive security for growing companies',
-    price: '$7,500',
+    price: 7500,
+    annualPrice: 6000,
     period: 'per engagement',
+    annualPeriod: 'annual retainer',
     icon: Target,
     color: 'border-exploit-red',
     featured: true,
@@ -93,8 +97,10 @@ const pricingPlans = [
   {
     name: 'Enterprise',
     description: 'Full-scale offensive security program',
-    price: 'Custom',
+    price: 0,
+    annualPrice: 0,
     period: 'annual contract',
+    annualPeriod: 'annual contract',
     icon: Zap,
     color: 'border-yellow-500',
     featured: false,
@@ -303,8 +309,15 @@ export function PricingPage() {
                   </div>
 
                   <div className="mb-6">
-                    <span className="text-4xl font-heading font-bold text-ghost-white">{plan.price}</span>
-                    <span className="text-muted-text text-sm ml-2">{plan.period}</span>
+                    <span className="text-4xl font-heading font-bold text-ghost-white">
+                      {plan.price === 0 ? 'Custom' : billingCycle === 'annual' ? `$${plan.annualPrice.toLocaleString()}` : `$${plan.price.toLocaleString()}`}
+                    </span>
+                    <span className="text-muted-text text-sm ml-2">
+                      {billingCycle === 'annual' ? plan.annualPeriod : plan.period}
+                    </span>
+                    {billingCycle === 'annual' && plan.price > 0 && (
+                      <span className="ml-2 text-xs text-exploit-red line-through">${plan.price.toLocaleString()}</span>
+                    )}
                   </div>
 
                   <Button className={`w-full mb-6 ${plan.featured ? 'bg-exploit-red hover:bg-exploit-red/90' : 'bg-void-black border border-steel-gray hover:border-exploit-red'}`}>

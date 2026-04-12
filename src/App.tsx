@@ -9,12 +9,20 @@ import { BlockStoragePage } from './pages/product/BlockStoragePage';
 import { AutoScalingPage } from './pages/product/AutoScalingPage';
 import { DNSManagementPage } from './pages/product/DNSManagementPage';
 import { ObjectStoragePage } from './pages/product/ObjectStoragePage';
+import { BareMetalPage } from './pages/product/BareMetalPage';
+import { DatabasePage } from './pages/product/DatabasePage';
+import { CdnPage } from './pages/product/CdnPage';
+import { MessageQueuePage } from './pages/product/MessageQueuePage';
 import { PenetrationTestingPage } from './pages/service/PenetrationTestingPage';
 import { RedTeamingPage } from './pages/service/RedTeamingPage';
 import { VulnerabilityAssessmentPage } from './pages/service/VulnerabilityAssessmentPage';
 import { CloudPenetrationTestingPage } from './pages/service/CloudPenetrationTestingPage';
 import { ExploitDevelopmentPage } from './pages/service/ExploitDevelopmentPage';
 import { PurpleTeamingPage } from './pages/service/PurpleTeamingPage';
+import { WebAppTestingPage } from './pages/service/WebAppTestingPage';
+import { MobileAppTestingPage } from './pages/service/MobileAppTestingPage';
+import { IncidentResponsePage } from './pages/service/IncidentResponsePage';
+import { SecurityAuditPage } from './pages/service/SecurityAuditPage';
 import { TeamPage } from './pages/TeamPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { CommunityPage } from './pages/CommunityPage';
@@ -23,6 +31,7 @@ import { ContactPage } from './pages/ContactPage';
 import { PricingPage } from './pages/PricingPage';
 import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { NotFound } from './pages/NotFound';
 import { PortalLayout } from './portal/components/PortalLayout';
 import { Dashboard } from './portal/pages/Dashboard';
 import { Assessments } from './portal/pages/Assessments';
@@ -269,6 +278,11 @@ function MainLayoutRoutes() {
             path="/product/object-storage"
             element={<ObjectStoragePage />} />
           
+          {/* Additional Product Routes */}
+          <Route path="/product/bare-metal" element={<BareMetalPage />} />
+          <Route path="/product/database" element={<DatabasePage />} />
+          <Route path="/product/cdn" element={<CdnPage />} />
+          <Route path="/product/message-queue" element={<MessageQueuePage />} />
 
           {/* Service Routes */}
           <Route
@@ -292,6 +306,11 @@ function MainLayoutRoutes() {
             path="/services/purple-teaming"
             element={<PurpleTeamingPage />} />
           
+          {/* Additional Service Routes */}
+          <Route path="/services/web-app-testing" element={<WebAppTestingPage />} />
+          <Route path="/services/mobile-app-testing" element={<MobileAppTestingPage />} />
+          <Route path="/services/incident-response" element={<IncidentResponsePage />} />
+          <Route path="/services/security-audit" element={<SecurityAuditPage />} />
 
           {/* Other Pages */}
           <Route path="/team" element={<TeamPage />} />
@@ -300,6 +319,9 @@ function MainLayoutRoutes() {
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          
+          {/* 404 Catch-all */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
     );
