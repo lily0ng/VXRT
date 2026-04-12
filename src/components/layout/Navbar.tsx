@@ -23,11 +23,17 @@ import {
   Mail,
   ChevronDown,
   Menu,
-  X } from
+  X,
+  Zap,
+  Globe,
+  Layers,
+  Smartphone,
+  Siren,
+  ClipboardCheck } from
 'lucide-react';
 // Dropdown Content Components
 const ProductDropdown = () =>
-<div className="w-[600px] p-6 grid grid-cols-2 gap-4">
+<div className="w-[700px] p-6 grid grid-cols-2 gap-4">
     {[
   {
     icon: <Cpu size={20} />,
@@ -68,13 +74,33 @@ const ProductDropdown = () =>
     icon: <Database size={20} />,
     title: 'Object Storage',
     desc: 'S3-compatible storage'
+  },
+  {
+    icon: <Zap size={20} />,
+    title: 'Bare Metal',
+    desc: 'Dedicated physical servers'
+  },
+  {
+    icon: <Database size={20} />,
+    title: 'Database',
+    desc: 'Managed PostgreSQL, MySQL, Redis'
+  },
+  {
+    icon: <Globe size={20} />,
+    title: 'CDN',
+    desc: 'Global content delivery'
+  },
+  {
+    icon: <Layers size={20} />,
+    title: 'Message Queue',
+    desc: 'Kafka, RabbitMQ, Redis Streams'
   }].
   map((item, idx) =>
   <Link
     to={`/product/${item.title.toLowerCase().replace(' ', '-')}`}
     key={idx}
     className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
-    
+
         <div className="text-muted-text group-hover:text-ghost-white transition-colors mt-1">
           {item.icon}
         </div>
@@ -89,7 +115,7 @@ const ProductDropdown = () =>
   </div>;
 
 const ServicesDropdown = () =>
-<div className="w-[700px] p-6">
+<div className="w-[800px] p-6">
     <h3 className="text-xs font-heading font-bold text-muted-text uppercase tracking-widest mb-4 pb-2 border-b border-border">
       Offensive Security Services
     </h3>
@@ -124,13 +150,33 @@ const ServicesDropdown = () =>
       icon: <Users size={20} />,
       title: 'Purple Teaming',
       desc: 'Offensive-focused collaboration'
+    },
+    {
+      icon: <Globe size={20} />,
+      title: 'Web App Testing',
+      desc: 'OWASP Top 10 assessment'
+    },
+    {
+      icon: <Smartphone size={20} />,
+      title: 'Mobile App Testing',
+      desc: 'iOS & Android security'
+    },
+    {
+      icon: <Siren size={20} />,
+      title: 'Incident Response',
+      desc: '24/7 emergency response'
+    },
+    {
+      icon: <ClipboardCheck size={20} />,
+      title: 'Security Audit',
+      desc: 'Compliance assessments'
     }].
     map((item, idx) =>
     <Link
       to={`/services/${item.title.toLowerCase().replace(/ /g, '-')}`}
       key={idx}
       className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
-      
+
           <div className="text-muted-text group-hover:text-exploit-red transition-colors mt-1">
             {item.icon}
           </div>
@@ -147,13 +193,13 @@ const ServicesDropdown = () =>
       <Link
       to="/services"
       className="text-sm text-muted-text hover:text-ghost-white transition-colors">
-      
+
         → View all services
       </Link>
       <Link
       to="/contact"
       className="text-sm text-exploit-red hover:text-white transition-colors font-medium">
-      
+
         → Book assessment
       </Link>
     </div>
