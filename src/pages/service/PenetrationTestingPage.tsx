@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, ShieldAlert, BadgeCheck } from 'lucide-react';
+import { Check, ArrowRight, Shield, ShieldAlert, BadgeCheck } from 'lucide-react';
 import { SectionHeading } from '../../components/shared/SectionHeading';
+import { ServicePriceCalculator } from '../../components/shared/ServicePriceCalculator';
 import { services } from '../data/services';
 
 export function PenetrationTestingPage() {
@@ -235,7 +236,32 @@ export function PenetrationTestingPage() {
         </div>
       </section>
 
-      {/* Section 7: CTA */}
+      {/* Section 7: Price Calculator */}
+      <section className="py-24 bg-dark-base/30 border-t border-border">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 bg-exploit-red/10 border border-exploit-red/30 rounded-full text-sm font-heading font-semibold text-exploit-red">
+              <Shield className="w-4 h-4" />
+              Instant Quote
+            </span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-4">
+              Calculate Your Assessment Cost
+            </h2>
+            <p className="text-lg text-muted-text max-w-2xl mx-auto">
+              Get an instant estimate for your penetration testing engagement based on scope, timeline, and requirements.
+            </p>
+          </motion.div>
+
+          <ServicePriceCalculator />
+        </div>
+      </section>
+
+      {/* Section 8: CTA */}
       <section className="py-32 bg-dark-base/30 border-t border-border relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10 text-center max-w-3xl">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-ghost-white mb-6">

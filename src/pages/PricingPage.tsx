@@ -566,150 +566,200 @@ export function PricingPage() {
               align="center" />
           </motion.div>
 
-          {/* Price Calculator */}
+          {/* Enhanced Price Calculator */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 mb-16 bg-gradient-to-br from-dark-base to-void-black border border-steel-gray rounded-2xl p-6 md:p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <Calculator className="w-6 h-6 text-exploit-red" />
-              <h3 className="text-xl font-heading font-bold text-ghost-white">Custom Price Calculator</h3>
+            className="mt-12 mb-16 bg-gradient-to-br from-dark-base via-[#111115] to-void-black border border-border rounded-2xl overflow-hidden"
+          >
+            {/* Calculator Header */}
+            <div className="bg-gradient-to-r from-exploit-red/20 via-exploit-red/10 to-transparent border-b border-border p-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-exploit-red/20 rounded-xl flex items-center justify-center">
+                  <Calculator className="w-6 h-6 text-exploit-red" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-heading font-bold text-ghost-white">Infrastructure Cost Calculator</h3>
+                  <p className="text-sm text-muted-text">Estimate your monthly cloud infrastructure costs</p>
+                </div>
+              </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* VPS Calculator */}
-              <div className="space-y-4">
-                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                  <Globe className="w-4 h-4 text-green-500" />
-                  VPS Instances
-                </label>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="20" 
-                  defaultValue="2"
-                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    const el = document.getElementById('vps-count');
-                    const price = document.getElementById('vps-price');
-                    if (el) el.textContent = val.toString();
-                    if (price) price.textContent = `$${(val * 49).toLocaleString()}`;
-                    window.dispatchEvent(new CustomEvent('priceUpdate'));
-                  }}
-                />
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-text">Count: <span id="vps-count" className="text-ghost-white font-bold">2</span></span>
-                  <span className="text-green-500 font-bold" id="vps-price">$98</span>
+
+            <div className="p-6 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* VPS Calculator */}
+                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
+                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-green-500" />
+                    </div>
+                    VPS Instances
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="20"
+                    defaultValue="2"
+                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      const el = document.getElementById('vps-count');
+                      const price = document.getElementById('vps-price');
+                      if (el) el.textContent = val.toString();
+                      if (price) price.textContent = `$${(val * 49).toLocaleString()}`;
+                      window.dispatchEvent(new CustomEvent('priceUpdate'));
+                    }}
+                  />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-text">Count: <span id="vps-count" className="text-ghost-white font-bold">2</span></span>
+                    <span className="text-green-500 font-bold bg-green-500/10 px-2 py-1 rounded" id="vps-price">$98</span>
+                  </div>
+                </div>
+
+                {/* Compute Calculator */}
+                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
+                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                      <Server className="w-4 h-4 text-blue-500" />
+                    </div>
+                    Compute Hours
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    step="10"
+                    defaultValue="100"
+                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      const el = document.getElementById('compute-count');
+                      const price = document.getElementById('compute-price');
+                      if (el) el.textContent = val.toString();
+                      if (price) price.textContent = `$${(val * 0.015).toFixed(2)}`;
+                      window.dispatchEvent(new CustomEvent('priceUpdate'));
+                    }}
+                  />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-text">Hours: <span id="compute-count" className="text-ghost-white font-bold">100</span></span>
+                    <span className="text-blue-500 font-bold bg-blue-500/10 px-2 py-1 rounded" id="compute-price">$1.50</span>
+                  </div>
+                </div>
+
+                {/* Kubernetes Calculator */}
+                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
+                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-purple-500" />
+                    </div>
+                    K8s Clusters
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    defaultValue="1"
+                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      const el = document.getElementById('k8s-count');
+                      const price = document.getElementById('k8s-price');
+                      if (el) el.textContent = val.toString();
+                      if (price) price.textContent = `$${(val * 199).toLocaleString()}`;
+                      window.dispatchEvent(new CustomEvent('priceUpdate'));
+                    }}
+                  />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-text">Clusters: <span id="k8s-count" className="text-ghost-white font-bold">1</span></span>
+                    <span className="text-purple-500 font-bold bg-purple-500/10 px-2 py-1 rounded" id="k8s-price">$199</span>
+                  </div>
+                </div>
+
+                {/* Storage Calculator */}
+                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
+                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
+                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                      <Lock className="w-4 h-4 text-orange-500" />
+                    </div>
+                    Storage (GB)
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="10000"
+                    step="100"
+                    defaultValue="500"
+                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      const el = document.getElementById('storage-count');
+                      const price = document.getElementById('storage-price');
+                      if (el) el.textContent = val.toLocaleString();
+                      if (price) price.textContent = `$${(val * 0.02).toFixed(2)}`;
+                      window.dispatchEvent(new CustomEvent('priceUpdate'));
+                    }}
+                  />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-text">GB: <span id="storage-count" className="text-ghost-white font-bold">500</span></span>
+                    <span className="text-orange-500 font-bold bg-orange-500/10 px-2 py-1 rounded" id="storage-price">$10.00</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Compute Calculator */}
-              <div className="space-y-4">
-                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                  <Server className="w-4 h-4 text-blue-500" />
-                  Compute Hours
-                </label>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="1000" 
-                  step="10"
-                  defaultValue="100"
-                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    const el = document.getElementById('compute-count');
-                    const price = document.getElementById('compute-price');
-                    if (el) el.textContent = val.toString();
-                    if (price) price.textContent = `$${(val * 0.015).toFixed(2)}`;
-                    window.dispatchEvent(new CustomEvent('priceUpdate'));
-                  }}
-                />
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-text">Hours: <span id="compute-count" className="text-ghost-white font-bold">100</span></span>
-                  <span className="text-blue-500 font-bold" id="compute-price">$1.50</span>
-                </div>
-              </div>
-
-              {/* Kubernetes Calculator */}
-              <div className="space-y-4">
-                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                  <Zap className="w-4 h-4 text-purple-500" />
-                  K8s Clusters
-                </label>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="10" 
-                  defaultValue="1"
-                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    const el = document.getElementById('k8s-count');
-                    const price = document.getElementById('k8s-price');
-                    if (el) el.textContent = val.toString();
-                    if (price) price.textContent = `$${(val * 199).toLocaleString()}`;
-                    window.dispatchEvent(new CustomEvent('priceUpdate'));
-                  }}
-                />
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-text">Clusters: <span id="k8s-count" className="text-ghost-white font-bold">1</span></span>
-                  <span className="text-purple-500 font-bold" id="k8s-price">$199</span>
-                </div>
-              </div>
-
-              {/* Storage Calculator */}
-              <div className="space-y-4">
-                <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                  <Lock className="w-4 h-4 text-orange-500" />
-                  Storage (GB)
-                </label>
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="10000" 
-                  step="100"
-                  defaultValue="500"
-                  className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value);
-                    const el = document.getElementById('storage-count');
-                    const price = document.getElementById('storage-price');
-                    if (el) el.textContent = val.toLocaleString();
-                    if (price) price.textContent = `$${(val * 0.02).toFixed(2)}`;
-                    window.dispatchEvent(new CustomEvent('priceUpdate'));
-                  }}
-                />
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-text">GB: <span id="storage-count" className="text-ghost-white font-bold">500</span></span>
-                  <span className="text-orange-500 font-bold" id="storage-price">$10.00</span>
-                </div>
+              {/* Additional Resources */}
+              <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { icon: Database, name: 'Database', price: 29, color: 'text-pink-500', bg: 'bg-pink-500/10' },
+                  { icon: Network, name: 'Load Balancer', price: 19, color: 'text-cyan-500', bg: 'bg-cyan-500/10' },
+                  { icon: Shield, name: 'CDN & WAF', price: 50, color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
+                  { icon: Activity, name: 'Monitoring', price: 9, color: 'text-violet-500', bg: 'bg-violet-500/10' },
+                ].map((resource) => (
+                  <div key={resource.name} className="flex items-center justify-between p-3 bg-[#111115]/50 rounded-lg border border-border">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-6 h-6 ${resource.bg} rounded flex items-center justify-center`}>
+                        <resource.icon className={`w-3 h-3 ${resource.color}`} />
+                      </div>
+                      <span className="text-sm text-muted-text">{resource.name}</span>
+                    </div>
+                    <span className={`text-sm font-semibold ${resource.color}`}>${resource.price}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Total Price Display */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="mt-8 pt-6 border-t border-steel-gray/30 flex flex-col md:flex-row items-center justify-between gap-4">
-              <div>
-                <p className="text-muted-text text-sm">Estimated Monthly Cost</p>
-                <motion.p 
-                  className="text-4xl font-heading font-bold text-exploit-red"
-                  id="total-price"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 0.3 }}>
-                  $308.50
-                </motion.p>
+              className="bg-gradient-to-r from-[#111115] via-dark-base to-[#111115] border-t border-border p-6"
+            >
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="text-center md:text-left">
+                  <p className="text-sm text-muted-text mb-1">Estimated Monthly Cost</p>
+                  <motion.p
+                    className="text-4xl md:text-5xl font-heading font-bold text-exploit-red"
+                    id="total-price"
+                    animate={{ scale: [1, 1.02, 1] }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    $308.50
+                  </motion.p>
+                  <p className="text-xs text-muted-text mt-1">*Pricing excludes additional resources and taxes</p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button variant="outline" className="border-steel-gray text-ghost-white hover:bg-steel-gray/20 px-6">
+                    <FileText className="w-4 h-4 mr-2" />
+                    Download Estimate
+                  </Button>
+                  <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-8 py-6 text-lg">
+                    <CreditCard className="w-5 h-5 mr-2" />
+                    Get Started
+                  </Button>
+                </div>
               </div>
-              <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-8 py-6 text-lg">
-                <CreditCard className="w-5 h-5 mr-2" />
-                Get Started
-              </Button>
             </motion.div>
           </motion.div>
 

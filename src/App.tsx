@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { MainLayout } from './components/layout/MainLayout';
+import { LoadingScreen } from './components/shared/LoadingScreen';
+import { AnimatedLogin } from './components/shared/AnimatedLogin';
 import { HomePage } from './pages/HomePage';
 import { ComputePage } from './pages/product/ComputePage';
 import { VPSPage } from './pages/product/VPSPage';
@@ -245,8 +248,9 @@ function AppContent() {
   return (
     <Routes>
       {/* Auth Routes - No MainLayout */}
-      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signin" element={<AnimatedLogin redirectPath="/portal" />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/login-new" element={<AnimatedLogin redirectPath="/portal" />} />
       
       {/* Portal Routes - Special Layout */}
       <Route path="/portal/*" element={<PortalRoutes />} />
@@ -327,10 +331,30 @@ function MainLayoutRoutes() {
     );
 }
 
+function AppWithLoading() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if this is the first visit
+    const hasVisited = sessionStorage.getItem('vxrt_visited');
+    if (hasVisited) {
+      setIsLoading(false);
+    } else {
+      sessionStorage.setItem('vxrt_visited', 'true');
+    }
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
+  }
+
+  return <AppContent />;
+}
+
 export function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <AppWithLoading />
     </BrowserRouter>
   );
 }
