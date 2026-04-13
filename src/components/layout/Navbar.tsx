@@ -211,36 +211,42 @@ const ResourcesDropdown = () =>
   {
     icon: <FileText size={20} />,
     title: 'Research Papers',
-    badge: '142 papers'
+    badge: '142 papers',
+    path: '/resources/research'
   },
   {
     icon: <Database size={20} />,
     title: 'CVE Database',
-    badge: '500+ entries'
+    badge: '500+ entries',
+    path: '/resources/cve'
   },
   {
     icon: <AlertTriangle size={20} />,
     title: 'Zero-Day Reports',
-    badge: '28 active'
+    badge: '28 active',
+    path: '/resources/zero-day'
   },
   {
     icon: <BookOpen size={20} />,
     title: 'PDF Library',
-    badge: '85 docs'
+    badge: '85 docs',
+    path: '/resources/pdf'
   },
   {
     icon: <FileText size={20} />,
     title: 'Security Blog',
-    badge: '200+ posts'
+    badge: '200+ posts',
+    path: '/resources/blog'
   },
   {
     icon: <Wrench size={20} />,
     title: 'Tools & Scripts',
-    badge: '45 tools'
+    badge: '45 tools',
+    path: '/resources/tools'
   }].
   map((item, idx) =>
   <Link
-    to="/resources"
+    to={item.path}
     key={idx}
     className="group flex items-center gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
     

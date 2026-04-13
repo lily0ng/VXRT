@@ -28,6 +28,18 @@ import { IncidentResponsePage } from './pages/service/IncidentResponsePage';
 import { SecurityAuditPage } from './pages/service/SecurityAuditPage';
 import { TeamPage } from './pages/TeamPage';
 import { ResourcesPage } from './pages/ResourcesPage';
+import { ResearchPapersPage } from './pages/resources/ResearchPapersPage';
+import { ResearchPaperDetailPage } from './pages/resources/ResearchPaperDetailPage';
+import { CVEDatabasePage } from './pages/resources/CVEDatabasePage';
+import { CVEDetailPage } from './pages/resources/CVEDetailPage';
+import { ZeroDayReportsPage } from './pages/resources/ZeroDayReportsPage';
+import { ZeroDayReportDetailPage } from './pages/resources/ZeroDayReportDetailPage';
+import { PDFLibraryPage } from './pages/resources/PDFLibraryPage';
+import { PDFDetailPage } from './pages/resources/PDFDetailPage';
+import { SecurityBlogPage } from './pages/resources/SecurityBlogPage';
+import { BlogPostDetailPage } from './pages/resources/BlogPostDetailPage';
+import { ToolsAndScriptsPage } from './pages/resources/ToolsAndScriptsPage';
+import { ToolDetailPage } from './pages/resources/ToolDetailPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { ContactPage } from './pages/ContactPage';
@@ -321,6 +333,21 @@ function MainLayoutRoutes() {
           {/* Other Pages */}
           <Route path="/team" element={<TeamPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
+          
+          {/* Resource Detail Pages */}
+          <Route path="/resources/research" element={<ResearchPapersPage />} />
+          <Route path="/resources/research/:id" element={<ResearchPaperDetailPage />} />
+          <Route path="/resources/cve" element={<CVEDatabasePage />} />
+          <Route path="/resources/cve/:id" element={<CVEDetailPage />} />
+          <Route path="/resources/zero-day" element={<ZeroDayReportsPage />} />
+          <Route path="/resources/zero-day/:id" element={<ZeroDayReportDetailPage />} />
+          <Route path="/resources/pdf" element={<PDFLibraryPage />} />
+          <Route path="/resources/pdf/:id" element={<PDFDetailPage />} />
+          <Route path="/resources/blog" element={<SecurityBlogPage />} />
+          <Route path="/resources/blog/:id" element={<BlogPostDetailPage />} />
+          <Route path="/resources/tools" element={<ToolsAndScriptsPage />} />
+          <Route path="/resources/tools/:id" element={<ToolDetailPage />} />
+          
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/pricing" element={<PricingPage />} />

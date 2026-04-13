@@ -28,8 +28,22 @@ import {
   Search,
   Target,
   Zap,
-  FileText } from
-'lucide-react';
+  FileText,
+  ShoppingCart,
+  Factory,
+  Zap as ZapIcon,
+  Cpu,
+  Award,
+  Users,
+  Clock,
+  Globe,
+  Lock,
+  Server,
+  HardDrive,
+  Wifi,
+  Cloud,
+  Database
+} from 'lucide-react';
 export function SolutionsPage() {
   return (
     <div className="w-full bg-void-black min-h-screen pb-24">
@@ -48,6 +62,16 @@ export function SolutionsPage() {
       {/* Who Uses VXRT */}
       <section className="py-12">
         <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <span className="text-exploit-red font-mono text-sm tracking-wider">INDUSTRIES</span>
+            <h2 className="text-3xl font-heading font-bold text-ghost-white mt-2">Trusted Across Sectors</h2>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
             {
@@ -69,14 +93,106 @@ export function SolutionsPage() {
               icon: Shield,
               name: 'Government / Defense',
               desc: 'Cleared operators executing highly classified offensive assessments.'
+            },
+            {
+              icon: ShoppingCart,
+              name: 'E-Commerce',
+              desc: 'Protecting payment systems and customer data from sophisticated cyber threats.'
+            },
+            {
+              icon: Factory,
+              name: 'Manufacturing',
+              desc: 'Industrial control systems and OT security for smart factories.'
+            },
+            {
+              icon: ZapIcon,
+              name: 'Energy & Utilities',
+              desc: 'Critical infrastructure protection against targeted nation-state attacks.'
+            },
+            {
+              icon: Cpu,
+              name: 'Technology',
+              desc: 'Deep security assessments for SaaS platforms and tech startups.'
             }].
             map((ind, i) =>
-            <Card
+            <motion.div
               key={i}
-              className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors group cursor-pointer">
-              
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, type: 'spring', stiffness: 100 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+            >
+              <Card className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors group cursor-pointer h-full">
                 <CardContent className="p-6">
-                  <ind.icon className="w-10 h-10 text-exploit-red mb-4" />
+                  {/* Object Animation Container */}
+                  <div className="relative w-16 h-16 mb-4 group/icon">
+                    {/* Floating background glow */}
+                    <motion.div
+                      className="absolute inset-0 bg-exploit-red/20 rounded-2xl blur-xl"
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.5, 0.3]
+                      }}
+                      transition={{ 
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.2
+                      }}
+                    />
+                    {/* Rotating ring - continuous */}
+                    <motion.div
+                      className="absolute inset-0 border-2 border-exploit-red/30 rounded-2xl"
+                      animate={{ rotate: 360 }}
+                      transition={{ 
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: i * 0.1
+                      }}
+                    />
+                    {/* Icon container - scale on hover but keep float */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover/icon:scale-110"
+                      animate={{ 
+                        y: [0, -6, 0, -3, 0],
+                        rotate: [0, 5, 0, -5, 0]
+                      }}
+                      transition={{ 
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.15
+                      }}
+                    >
+                      <ind.icon className="w-10 h-10 text-exploit-red drop-shadow-[0_0_10px_rgba(192,57,43,0.5)] transition-transform duration-300 group-hover/icon:rotate-12" />
+                    </motion.div>
+                    {/* Orbiting particles */}
+                    {[0, 1, 2].map((particle) => (
+                      <motion.div
+                        key={particle}
+                        className="absolute w-1.5 h-1.5 bg-exploit-red/60 rounded-full"
+                        style={{
+                          left: '50%',
+                          top: '50%',
+                          marginLeft: -3,
+                          marginTop: -3,
+                        }}
+                        animate={{
+                          x: [0, Math.cos(particle * 2.09) * 35, 0],
+                          y: [0, Math.sin(particle * 2.09) * 35, 0],
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: particle * 0.3 + i * 0.1
+                        }}
+                      />
+                    ))}
+                  </div>
                   <h3 className="text-xl font-heading font-bold text-ghost-white mb-2">
                     {ind.name}
                   </h3>
@@ -88,6 +204,7 @@ export function SolutionsPage() {
                   </span>
                 </CardContent>
               </Card>
+            </motion.div>
             )}
           </div>
         </div>
@@ -784,6 +901,245 @@ export function SolutionsPage() {
               </AccordionItem>
             )}
           </Accordion>
+        </div>
+      </section>
+
+      {/* Section: Why Choose VXRT */}
+      <section className="py-20 border-t border-steel-gray/30 bg-gradient-to-b from-dark-base/50 to-void-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-exploit-red/10 border border-exploit-red/30 rounded-full text-sm font-mono text-exploit-red mb-4">
+              <Award className="w-4 h-4" />
+              WHY VXRT
+            </span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-4">
+              The Offensive Security Advantage
+            </h2>
+            <p className="text-lg text-muted-gray max-w-2xl mx-auto">
+              What sets us apart from traditional security testing firms
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Users,
+                title: 'Elite Operators',
+                desc: 'Average 10+ years experience with active security clearances and advanced certifications.',
+                stat: '50+',
+                statLabel: 'Certified Experts'
+              },
+              {
+                icon: Clock,
+                title: 'Rapid Response',
+                desc: 'Emergency response capabilities with teams deployable within 24 hours globally.',
+                stat: '24h',
+                statLabel: 'Deployment Time'
+              },
+              {
+                icon: Lock,
+                title: 'Zero-Day Research',
+                desc: 'In-house vulnerability research team discovering critical vulnerabilities before they\'re public.',
+                stat: '200+',
+                statLabel: 'CVEs Discovered'
+              },
+              {
+                icon: Globe,
+                title: 'Global Presence',
+                desc: 'Operations in 40+ countries with local language support and regional compliance expertise.',
+                stat: '40+',
+                statLabel: 'Countries'
+              },
+              {
+                icon: Server,
+                title: 'Custom Infrastructure',
+                desc: 'Proprietary C2 infrastructure and tools built specifically for stealth and evasion.',
+                stat: '99%',
+                statLabel: 'Evasion Rate'
+              },
+              {
+                icon: Database,
+                title: 'Intelligence Feed',
+                desc: 'Real-time threat intelligence integrated into every engagement for current TTPs.',
+                stat: '10K+',
+                statLabel: 'IOCs Daily'
+              }
+            ].map((benefit, i) => (
+              <motion.div
+                key={benefit.title}
+                initial={{ opacity: 0, y: 30, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-dark-base border border-steel-gray rounded-2xl p-6 relative overflow-hidden group hover:border-exploit-red/50 transition-all"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-exploit-red/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-exploit-red/10 transition-colors" />
+                
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-14 h-14 bg-exploit-red/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-exploit-red/20 transition-colors"
+                >
+                  <benefit.icon className="w-7 h-7 text-exploit-red" />
+                </motion.div>
+                
+                <h3 className="text-xl font-heading font-bold text-ghost-white mb-2">{benefit.title}</h3>
+                <p className="text-sm text-muted-gray mb-4 leading-relaxed">{benefit.desc}</p>
+                
+                <div className="flex items-baseline gap-2 pt-4 border-t border-steel-gray/30">
+                  <span className="text-2xl font-heading font-bold text-exploit-red">{benefit.stat}</span>
+                  <span className="text-xs text-muted-gray">{benefit.statLabel}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section: Global Infrastructure */}
+      <section className="py-20 border-t border-steel-gray/30 bg-dark-base relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-exploit-red/10 border border-exploit-red/30 rounded-full text-sm font-mono text-exploit-red mb-4">
+              <Globe className="w-4 h-4" />
+              INFRASTRUCTURE
+            </span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-4">
+              Global Operations Network
+            </h2>
+            <p className="text-lg text-muted-gray max-w-2xl mx-auto">
+              Distributed attack infrastructure for realistic adversary simulation
+            </p>
+          </motion.div>
+
+          {/* Animated Infrastructure Map */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative h-[400px] bg-void-black border border-steel-gray rounded-2xl overflow-hidden mb-12"
+          >
+            {/* Grid Lines */}
+            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#3a3a42" strokeWidth="0.5" opacity="0.3"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+
+            {/* Region Nodes */}
+            {[
+              { name: 'North America', x: '20%', y: '35%', status: 'active' },
+              { name: 'Europe', x: '50%', y: '30%', status: 'active' },
+              { name: 'Asia Pacific', x: '75%', y: '45%', status: 'active' },
+              { name: 'South America', x: '28%', y: '70%', status: 'standby' },
+              { name: 'Middle East', x: '55%', y: '50%', status: 'active' },
+              { name: 'Africa', x: '48%', y: '60%', status: 'standby' },
+              { name: 'Oceania', x: '85%', y: '75%', status: 'active' }
+            ].map((region, i) => (
+              <motion.div
+                key={region.name}
+                className="absolute"
+                style={{ left: region.x, top: region.y }}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, type: 'spring' }}
+              >
+                <div className="relative -translate-x-1/2 -translate-y-1/2">
+                  {/* Pulse Ring */}
+                  <motion.div
+                    className={`absolute inset-0 rounded-full ${region.status === 'active' ? 'bg-exploit-red/30' : 'bg-steel-gray/30'}`}
+                    style={{ width: 60, height: 60, margin: -10 }}
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                  />
+                  {/* Core */}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
+                    region.status === 'active' 
+                      ? 'bg-exploit-red/20 border-exploit-red' 
+                      : 'bg-steel-gray/20 border-steel-gray'
+                  }`}>
+                    <div className={`w-3 h-3 rounded-full ${region.status === 'active' ? 'bg-exploit-red' : 'bg-steel-gray'}`} />
+                  </div>
+                  {/* Label */}
+                  <div className="absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <p className="text-xs font-semibold text-ghost-white">{region.name}</p>
+                    <p className={`text-[10px] uppercase tracking-wider ${region.status === 'active' ? 'text-exploit-red' : 'text-muted-gray'}`}>
+                      {region.status}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Connection Lines (Animated) */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none">
+              {[
+                { from: { x: '20%', y: '35%' }, to: { x: '50%', y: '30%' } },
+                { from: { x: '50%', y: '30%' }, to: { x: '75%', y: '45%' } },
+                { from: { x: '75%', y: '45%' }, to: { x: '85%', y: '75%' } },
+                { from: { x: '50%', y: '30%' }, to: { x: '55%', y: '50%' } },
+                { from: { x: '20%', y: '35%' }, to: { x: '28%', y: '70%' } }
+              ].map((line, i) => (
+                <motion.line
+                  key={i}
+                  x1={line.from.x}
+                  y1={line.from.y}
+                  x2={line.to.x}
+                  y2={line.to.y}
+                  stroke="#c0392b"
+                  strokeWidth="1"
+                  strokeDasharray="5 5"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 0.3 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, delay: 0.5 + i * 0.2 }}
+                />
+              ))}
+            </svg>
+          </motion.div>
+
+          {/* Infrastructure Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { icon: Server, label: 'Edge Nodes', value: '150+' },
+              { icon: Cloud, label: 'Cloud Regions', value: '25+' },
+              { icon: Wifi, label: 'Uptime', value: '99.99%' },
+              { icon: HardDrive, label: 'Data Processed', value: '500TB+' }
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-void-black border border-steel-gray/50 rounded-xl p-6 text-center"
+              >
+                <stat.icon className="w-8 h-8 text-exploit-red mx-auto mb-3" />
+                <p className="text-2xl font-heading font-bold text-ghost-white">{stat.value}</p>
+                <p className="text-sm text-muted-gray">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     </div>);
