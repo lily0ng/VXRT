@@ -176,6 +176,189 @@ const teamMembers: Record<string, TeamMember> = {
       reports: 45,
       tools: 6
     }
+  },
+  'david-okafor': {
+    id: '4',
+    name: 'David Okafor',
+    handle: 'dokafor',
+    role: 'Senior Penetration Tester',
+    department: 'Offensive Operations',
+    bio: 'David is a seasoned penetration tester with expertise in web application security and network infrastructure testing. He has conducted over 200 security assessments across financial, healthcare, and technology sectors.',
+    avatar: 'https://ui-avatars.com/api/?name=David+Okafor&background=22c55e&color=fff',
+    location: 'Lagos, Nigeria',
+    joinedDate: '2020-08-15',
+    email: 'david.okafor@vxrt.io',
+    social: {
+      github: 'https://github.com/dokafor',
+      linkedin: 'https://linkedin.com/in/dokafor',
+      twitter: 'https://twitter.com/dokafor_sec'
+    },
+    certifications: ['OSCP', 'OSWE', 'CPTS', 'CRTO', 'eWPT'],
+    skills: ['Web App Security', 'API Testing', 'Network Pentest', 'Burp Suite', 'Python', 'Ruby'],
+    achievements: [
+      { value: '200+', label: 'Penetration Tests' },
+      { value: '500+', label: 'Vulnerabilities' },
+      { value: '25', label: 'CVEs Published' },
+      { value: '7', label: 'Years Experience' }
+    ],
+    expertise: ['Web Application Security', 'API Security', 'Mobile Testing', 'Thick Clients'],
+    recentActivity: [
+      { type: 'report', title: 'Banking Application Security Assessment', date: '2024-03-08' },
+      { type: 'cve', title: 'CVE-2024-1987 - SQL Injection in Payment Gateway', date: '2024-02-25' },
+      { type: 'cert', title: 'OSWE Certification Renewal', date: '2024-02-10' }
+    ],
+    stats: {
+      engagements: 218,
+      vulnsFound: 534,
+      reports: 156,
+      tools: 15
+    }
+  },
+  'elena-volkov': {
+    id: '5',
+    name: 'Elena Volkov',
+    handle: 'evolkov',
+    role: 'Malware Analyst',
+    department: 'Research & Development',
+    bio: 'Elena is an expert in malware reverse engineering and threat intelligence. She has analyzed sophisticated malware families used by nation-state actors and developed detection signatures for enterprise security solutions.',
+    avatar: 'https://ui-avatars.com/api/?name=Elena+Volkov&background=eab308&color=fff',
+    location: 'Berlin, Germany',
+    joinedDate: '2019-11-20',
+    email: 'elena.volkov@vxrt.io',
+    social: {
+      github: 'https://github.com/evolkov',
+      linkedin: 'https://linkedin.com/in/evolkov'
+    },
+    certifications: ['GREM', 'GCFA', 'GCTI', 'OSCP', 'GNFA'],
+    skills: ['Reverse Engineering', 'Malware Analysis', 'Threat Intel', 'IDA Pro', 'Ghidra', 'Python'],
+    achievements: [
+      { value: '150+', label: 'Malware Samples' },
+      { value: '40', label: 'Threat Reports' },
+      { value: '18', label: 'APT Campaigns' },
+      { value: '9', label: 'Years Experience' }
+    ],
+    expertise: ['Reverse Engineering', 'Memory Forensics', 'APT Analysis', 'Threat Hunting'],
+    recentActivity: [
+      { type: 'report', title: 'APT29 Toolset Analysis Report', date: '2024-03-12' },
+      { type: 'tool', title: 'MalwareLab v2.5 - Auto Analysis', date: '2024-02-28' },
+      { type: 'cve', title: 'CVE-2024-2034 - Supply Chain Malware', date: '2024-02-15' }
+    ],
+    stats: {
+      engagements: 76,
+      vulnsFound: 189,
+      reports: 143,
+      tools: 9
+    }
+  },
+  'james-liu': {
+    id: '6',
+    name: 'James Liu',
+    handle: 'jamesliu',
+    role: 'Infrastructure Engineer',
+    department: 'Engineering',
+    bio: 'James designs and maintains secure infrastructure for red team operations and security research. He specializes in cloud architecture, containerization, and automated deployment pipelines.',
+    avatar: 'https://ui-avatars.com/api/?name=James+Liu&background=f97316&color=fff',
+    location: 'Seattle, WA',
+    joinedDate: '2021-02-10',
+    email: 'james.liu@vxrt.io',
+    social: {
+      github: 'https://github.com/jamesliu',
+      linkedin: 'https://linkedin.com/in/jamesliu'
+    },
+    certifications: ['CKA', 'CKAD', 'AWS DevOps', 'Terraform', 'Azure DevOps'],
+    skills: ['Kubernetes', 'Terraform', 'CI/CD', 'AWS', 'Azure', 'Python', 'Go'],
+    achievements: [
+      { value: '50+', label: 'Infrastructure Builds' },
+      { value: '99.9%', label: 'Platform Uptime' },
+      { value: '15', label: 'Automation Tools' },
+      { value: '6', label: 'Years Experience' }
+    ],
+    expertise: ['Cloud Architecture', 'Infrastructure as Code', 'CI/CD Pipelines', 'Observability'],
+    recentActivity: [
+      { type: 'tool', title: 'VXRT-Scanner Infrastructure v3.0', date: '2024-03-05' },
+      { type: 'report', title: 'Multi-Region K8s Deployment', date: '2024-02-20' },
+      { type: 'cert', title: 'AWS DevOps Engineer Pro', date: '2024-01-30' }
+    ],
+    stats: {
+      engagements: 45,
+      vulnsFound: 23,
+      reports: 34,
+      tools: 18
+    }
+  },
+  'amara-diallo': {
+    id: '7',
+    name: 'Amara Diallo',
+    handle: 'amara',
+    role: 'Threat Intelligence Lead',
+    department: 'Threat Intelligence',
+    bio: 'Amara leads the threat intelligence team, tracking APT groups and emerging cyber threats. She has developed intelligence feeds used by Fortune 100 companies and government agencies.',
+    avatar: 'https://ui-avatars.com/api/?name=Amara+Diallo&background=14b8a6&color=fff',
+    location: 'Dakar, Senegal',
+    joinedDate: '2020-05-15',
+    email: 'amara.diallo@vxrt.io',
+    social: {
+      github: 'https://github.com/amara',
+      linkedin: 'https://linkedin.com/in/amara',
+      twitter: 'https://twitter.com/amara_intel'
+    },
+    certifications: ['GCTI', 'CTIA', 'GCFA', 'OSCP', 'Security+'],
+    skills: ['Threat Intel', 'OSINT', 'MITRE ATT&CK', 'Python', 'Maltego', 'Splunk'],
+    achievements: [
+      { value: '100+', label: 'Threat Reports' },
+      { value: '25', label: 'APT Groups Tracked' },
+      { value: '50+', label: 'IOC Feeds' },
+      { value: '7', label: 'Years Experience' }
+    ],
+    expertise: ['Threat Hunting', 'OSINT', 'Geopolitical Analysis', 'Strategic Intelligence'],
+    recentActivity: [
+      { type: 'report', title: 'Q1 2024 Threat Landscape Report', date: '2024-03-15' },
+      { type: 'tool', title: 'ThreatFeed API v2.0', date: '2024-02-28' },
+      { type: 'cve', title: 'CVE-2024-1876 - Nation-State Exploit', date: '2024-02-10' }
+    ],
+    stats: {
+      engagements: 67,
+      vulnsFound: 134,
+      reports: 198,
+      tools: 11
+    }
+  },
+  'ryan-osullivan': {
+    id: '8',
+    name: "Ryan O'Sullivan",
+    handle: 'ryan',
+    role: 'Purple Team Specialist',
+    department: 'Purple Team',
+    bio: 'Ryan bridges offensive and defensive security, helping organizations improve their detection and response capabilities. He has built purple team programs for multiple Fortune 500 companies.',
+    avatar: 'https://ui-avatars.com/api/?name=Ryan+OSullivan&background=6366f1&color=fff',
+    location: 'Dublin, Ireland',
+    joinedDate: '2021-09-01',
+    email: 'ryan.osullivan@vxrt.io',
+    social: {
+      github: 'https://github.com/ryan',
+      linkedin: 'https://linkedin.com/in/ryan',
+      twitter: 'https://twitter.com/ryan_purple'
+    },
+    certifications: ['OSCP', 'CDSA', 'GCIA', 'GCIH', 'Azure Security'],
+    skills: ['Purple Team', 'Detection Engineering', 'SIEM', 'Splunk', 'Sigma', 'Python'],
+    achievements: [
+      { value: '75+', label: 'Purple Exercises' },
+      { value: '200+', label: 'Detections Built' },
+      { value: '40', label: 'Playbooks Created' },
+      { value: '5', label: 'Years Experience' }
+    ],
+    expertise: ['Detection Engineering', 'SIEM Tuning', 'Incident Response', 'Threat Emulation'],
+    recentActivity: [
+      { type: 'report', title: 'Purple Team Exercise - Financial Sector', date: '2024-03-10' },
+      { type: 'tool', title: 'DetectionLab Framework', date: '2024-02-25' },
+      { type: 'cert', title: 'CDSA Certification', date: '2024-02-05' }
+    ],
+    stats: {
+      engagements: 89,
+      vulnsFound: 167,
+      reports: 112,
+      tools: 14
+    }
   }
 };
 
