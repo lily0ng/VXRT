@@ -41,6 +41,14 @@ import { BlogPostDetailPage } from './pages/resources/BlogPostDetailPage';
 import { ToolsAndScriptsPage } from './pages/resources/ToolsAndScriptsPage';
 import { ToolDetailPage } from './pages/resources/ToolDetailPage';
 import { TeamMemberDetailPage } from './pages/TeamMemberDetailPage';
+import { EnterpriseSolutionPage } from './pages/solutions/EnterpriseSolutionPage';
+import { FinancialServicesSolutionPage } from './pages/solutions/FinancialServicesSolutionPage';
+import { HealthcareSolutionPage } from './pages/solutions/HealthcareSolutionPage';
+import { GovernmentDefenseSolutionPage } from './pages/solutions/GovernmentDefenseSolutionPage';
+import { ECommerceSolutionPage } from './pages/solutions/ECommerceSolutionPage';
+import { ManufacturingSolutionPage } from './pages/solutions/ManufacturingSolutionPage';
+import { EnergyUtilitiesSolutionPage } from './pages/solutions/EnergyUtilitiesSolutionPage';
+import { TechnologySolutionPage } from './pages/solutions/TechnologySolutionPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { ContactPage } from './pages/ContactPage';
@@ -352,6 +360,14 @@ function MainLayoutRoutes() {
           
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/solutions/enterprise" element={<EnterpriseSolutionPage />} />
+          <Route path="/solutions/financial-services" element={<FinancialServicesSolutionPage />} />
+          <Route path="/solutions/healthcare" element={<HealthcareSolutionPage />} />
+          <Route path="/solutions/government-defense" element={<GovernmentDefenseSolutionPage />} />
+          <Route path="/solutions/e-commerce" element={<ECommerceSolutionPage />} />
+          <Route path="/solutions/manufacturing" element={<ManufacturingSolutionPage />} />
+          <Route path="/solutions/energy-utilities" element={<EnergyUtilitiesSolutionPage />} />
+          <Route path="/solutions/technology" element={<TechnologySolutionPage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/contact" element={<ContactPage />} />
           

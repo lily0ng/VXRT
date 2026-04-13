@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -77,42 +78,50 @@ export function SolutionsPage() {
             {
               icon: Building2,
               name: 'Enterprise',
-              desc: 'Continuous adversary simulation and red teaming for complex global networks.'
+              desc: 'Continuous adversary simulation and red teaming for complex global networks.',
+              path: '/solutions/enterprise'
             },
             {
               icon: Landmark,
               name: 'Financial Services',
-              desc: 'Rigorous penetration testing meeting strict regulatory compliance requirements.'
+              desc: 'Rigorous penetration testing meeting strict regulatory compliance requirements.',
+              path: '/solutions/financial-services'
             },
             {
               icon: Stethoscope,
               name: 'Healthcare',
-              desc: 'Securing patient data and medical devices against advanced persistent threats.'
+              desc: 'Securing patient data and medical devices against advanced persistent threats.',
+              path: '/solutions/healthcare'
             },
             {
               icon: Shield,
               name: 'Government / Defense',
-              desc: 'Cleared operators executing highly classified offensive assessments.'
+              desc: 'Cleared operators executing highly classified offensive assessments.',
+              path: '/solutions/government-defense'
             },
             {
               icon: ShoppingCart,
               name: 'E-Commerce',
-              desc: 'Protecting payment systems and customer data from sophisticated cyber threats.'
+              desc: 'Protecting payment systems and customer data from sophisticated cyber threats.',
+              path: '/solutions/e-commerce'
             },
             {
               icon: Factory,
               name: 'Manufacturing',
-              desc: 'Industrial control systems and OT security for smart factories.'
+              desc: 'Industrial control systems and OT security for smart factories.',
+              path: '/solutions/manufacturing'
             },
             {
               icon: ZapIcon,
               name: 'Energy & Utilities',
-              desc: 'Critical infrastructure protection against targeted nation-state attacks.'
+              desc: 'Critical infrastructure protection against targeted nation-state attacks.',
+              path: '/solutions/energy-utilities'
             },
             {
               icon: Cpu,
               name: 'Technology',
-              desc: 'Deep security assessments for SaaS platforms and tech startups.'
+              desc: 'Deep security assessments for SaaS platforms and tech startups.',
+              path: '/solutions/technology'
             }].
             map((ind, i) =>
             <motion.div
@@ -123,7 +132,8 @@ export function SolutionsPage() {
               transition={{ delay: i * 0.08, type: 'spring', stiffness: 100 }}
               whileHover={{ y: -8, transition: { duration: 0.2 } }}
             >
-              <Card className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors group cursor-pointer h-full">
+              <Link to={ind.path} className="block">
+                <Card className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors group cursor-pointer h-full">
                 <CardContent className="p-6">
                   {/* Object Animation Container */}
                   <div className="relative w-16 h-16 mb-4 group/icon">
@@ -204,6 +214,7 @@ export function SolutionsPage() {
                   </span>
                 </CardContent>
               </Card>
+              </Link>
             </motion.div>
             )}
           </div>
