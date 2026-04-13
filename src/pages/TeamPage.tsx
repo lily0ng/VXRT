@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { SectionHeading } from '../components/shared/SectionHeading';
 import ProfileCard from '../components/ProfileCard';
 import {
@@ -20,15 +21,17 @@ import {
   Star,
   Building2 } from
 'lucide-react';
-const teamMembers = [
-{
-  name: '0xff0day',
-  title: 'Senior Offensive Security Engineer ( Ethical Hacker )',
-  certs: ['OSCP', 'OSCE', 'CRTO'],
-  initials: '0D',
-  color: 'bg-red-900/50 text-red-400',
-  avatar: 'https://avatars.githubusercontent.com/u/264521594?v=4'
-},
+
+interface TeamMember {
+  name: string;
+  title: string;
+  certs: string[];
+  initials: string;
+  color: string;
+  avatar?: string;
+}
+
+const teamMembers: TeamMember[] = [
 {
   name: 'Sarah Chen',
   title: 'Head of Red Team Ops',
@@ -162,43 +165,56 @@ export function TeamPage() {
           </motion.div>
           
           <div className="mt-16 relative w-full overflow-x-auto pb-8">
-            <div className="min-w-[900px] flex flex-col items-center px-4">
+            <div className="min-w-[1000px] flex flex-col items-center px-4">
               
-              {/* LEVEL 1: LEADERSHIP */}
-              <div className="flex justify-center gap-8 mb-8">
+              {/* LEVEL 1: FOUNDER */}
+              <motion.div
+                initial={{ opacity: 0, y: -30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="relative bg-dark-base border-2 border-exploit-red rounded-xl p-5 min-w-[220px] text-center shadow-lg shadow-exploit-red/20 cursor-pointer group mb-8">
+                {/* Animated glow effect */}
                 <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  className="bg-gradient-to-br from-dark-base to-void-black border-2 border-exploit-red rounded-xl p-5 min-w-[200px] text-center shadow-lg shadow-exploit-red/10 cursor-pointer group">
-                  <div className="w-14 h-14 mx-auto mb-3 rounded-full overflow-hidden border-2 border-exploit-red">
+                  className="absolute inset-0 bg-exploit-red/5 rounded-xl blur-xl -z-10"
+                  animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                {/* Avatar with ring animation */}
+                <div className="relative w-16 h-16 mx-auto mb-3">
+                  <motion.div
+                    className="absolute inset-0 border-2 border-exploit-red/30 rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  />
+                  <div className="absolute inset-1 rounded-full overflow-hidden border-2 border-exploit-red">
                     <img 
                       src="https://avatars.githubusercontent.com/u/264521594?v=4" 
                       alt="0xff" 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h3 className="font-heading font-bold text-ghost-white group-hover:text-exploit-red transition-colors">0xff</h3>
-                  <p className="text-xs text-exploit-red font-mono mt-1">Founder & CEO</p>
-                  <div className="mt-2 text-[10px] text-muted-text">Offensive Security Lead</div>
-                </motion.div>
-              </div>
+                </div>
+                <h3 className="font-heading font-bold text-ghost-white group-hover:text-exploit-red transition-colors">0xff</h3>
+                <p className="text-xs text-exploit-red font-mono mt-1">Founder & CEO</p>
+                <p className="mt-2 text-[10px] text-muted-text">Offensive Security Lead</p>
+              </motion.div>
 
               {/* CONNECTING LINE: Level 1 to 2 */}
-              <svg className="w-full h-12 overflow-visible" style={{ maxWidth: '700px' }}>
+              <svg className="w-full h-16 overflow-visible" style={{ maxWidth: '800px' }}>
                 <motion.line
                   initial={{ pathLength: 0 }}
                   whileInView={{ pathLength: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  x1="50%" y1="0" x2="50%" y2="100%"
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  x1="50%" y1="0" x2="50%" y2="50%"
                   stroke="#c0392b" strokeWidth="2" />
                 <motion.line
                   initial={{ pathLength: 0 }}
                   whileInView={{ pathLength: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
                   x1="12.5%" y1="50%" x2="87.5%" y2="50%"
                   stroke="#3a3a42" strokeWidth="2" />
                 {/* Vertical lines to each department */}
@@ -208,47 +224,51 @@ export function TeamPage() {
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.8 + i * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.9 + i * 0.1 }}
                     x1={`${x}%`} y1="50%" x2={`${x}%`} y2="100%"
                     stroke="#3a3a42" strokeWidth="2" />
                 ))}
               </svg>
 
               {/* LEVEL 2: DEPARTMENT HEADS */}
-              <div className="flex justify-between w-full max-w-5xl gap-4 mb-8">
+              <div className="flex justify-center w-full max-w-6xl gap-6 mb-8">
                 {[
-                  { name: 'Sarah Chen', role: 'Offensive Ops Director', icon: Target },
-                  { name: 'Marcus Webb', role: 'Research Director', icon: Shield },
-                  { name: 'James Liu', role: 'Engineering Lead', icon: Hexagon },
-                  { name: 'Amara Diallo', role: 'Operations Lead', icon: Users }
+                  { name: 'Sarah Chen', role: 'Offensive Ops Director', icon: Target, color: 'text-red-400' },
+                  { name: 'Marcus Webb', role: 'Research Director', icon: Shield, color: 'text-blue-400' },
+                  { name: 'James Liu', role: 'Engineering Lead', icon: Hexagon, color: 'text-orange-400' },
+                  { name: 'Amara Diallo', role: 'Operations Lead', icon: Users, color: 'text-teal-400' }
                 ].map((person, i) => (
                   <motion.div
                     key={person.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.5 + i * 0.1 }}
-                    whileHover={{ scale: 1.03, y: -3 }}
-                    className="bg-dark-base border border-steel-gray rounded-lg p-4 min-w-[180px] text-center cursor-pointer group hover:border-exploit-red/50 transition-all duration-300">
-                    <div className="w-10 h-10 mx-auto mb-2 bg-void-black rounded-full flex items-center justify-center border border-steel-gray group-hover:border-exploit-red transition-colors">
-                      <person.icon className="w-5 h-5 text-muted-text group-hover:text-exploit-red" />
+                    transition={{ delay: 0.6 + i * 0.12, type: 'spring', stiffness: 100 }}
+                    whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }}
+                    className="bg-dark-base border border-steel-gray/50 rounded-lg p-5 min-w-[200px] text-center cursor-pointer group hover:border-exploit-red/50 transition-all duration-300 relative overflow-hidden">
+                    {/* Hover glow */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-exploit-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <div className="relative w-12 h-12 mx-auto mb-3 bg-void-black rounded-full flex items-center justify-center border border-steel-gray group-hover:border-exploit-red/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-exploit-red/20">
+                      <person.icon className={`w-6 h-6 text-muted-text group-hover:${person.color} transition-colors duration-300`} />
                     </div>
-                    <h4 className="font-heading font-bold text-ghost-white text-sm group-hover:text-exploit-red transition-colors">{person.name}</h4>
-                    <p className="text-[10px] text-muted-text mt-1">{person.role}</p>
+                    <h4 className="relative font-heading font-bold text-ghost-white text-sm group-hover:text-exploit-red transition-colors duration-300">{person.name}</h4>
+                    <p className="relative text-[11px] text-muted-text mt-2 group-hover:text-ghost-white/70 transition-colors">{person.role}</p>
                   </motion.div>
                 ))}
               </div>
 
               {/* CONNECTING LINES: Level 2 to 3 */}
-              <svg className="w-full h-16 overflow-visible" style={{ maxWidth: '900px' }}>
+              <svg className="w-full h-12 overflow-visible" style={{ maxWidth: '1000px' }}>
                 {/* Horizontal connector */}
                 <motion.line
                   initial={{ pathLength: 0 }}
                   whileInView={{ pathLength: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
                   x1="10%" y1="0" x2="90%" y2="0"
-                  stroke="#3a3a42" strokeWidth="1" />
+                  stroke="#3a3a42" strokeWidth="2" />
                 {/* Vertical lines to teams */}
                 {[10, 30, 50, 70, 90].map((x, i) => (
                   <motion.line
@@ -256,48 +276,57 @@ export function TeamPage() {
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 1.0 + i * 0.05 }}
+                    transition={{ duration: 0.3, delay: 1.1 + i * 0.08 }}
                     x1={`${x}%`} y1="0" x2={`${x}%`} y2="100%"
-                    stroke="#3a3a42" strokeWidth="1" strokeDasharray="4 2" />
+                    stroke="#3a3a42" strokeWidth="2" />
                 ))}
               </svg>
 
               {/* LEVEL 3: TEAMS */}
-              <div className="grid grid-cols-5 gap-3 w-full max-w-6xl">
+              <div className="grid grid-cols-5 gap-4 w-full max-w-6xl">
                 {[
-                  { name: 'Red Team', members: '8 Operators', color: 'bg-red-900/30' },
-                  { name: 'Penetration Testing', members: '12 Testers', color: 'bg-orange-900/30' },
-                  { name: 'Exploit Dev', members: '6 Researchers', color: 'bg-purple-900/30' },
-                  { name: 'Cloud Security', members: '5 Engineers', color: 'bg-blue-900/30' },
-                  { name: 'Threat Intel', members: '4 Analysts', color: 'bg-teal-900/30' }
+                  { name: 'Red Team', members: '8 Operators', bg: 'bg-red-900/20', border: 'border-red-900/30', hover: 'hover:border-red-500/50' },
+                  { name: 'Penetration Testing', members: '12 Testers', bg: 'bg-orange-900/20', border: 'border-orange-900/30', hover: 'hover:border-orange-500/50' },
+                  { name: 'Exploit Dev', members: '6 Researchers', bg: 'bg-purple-900/20', border: 'border-purple-900/30', hover: 'hover:border-purple-500/50' },
+                  { name: 'Cloud Security', members: '5 Engineers', bg: 'bg-blue-900/20', border: 'border-blue-900/30', hover: 'hover:border-blue-500/50' },
+                  { name: 'Threat Intel', members: '4 Analysts', bg: 'bg-teal-900/20', border: 'border-teal-900/30', hover: 'hover:border-teal-500/50' }
                 ].map((team, i) => (
                   <motion.div
                     key={team.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 1.1 + i * 0.08, type: 'spring', stiffness: 100 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    className={`${team.color} border border-steel-gray/50 rounded-lg p-3 text-center cursor-pointer hover:border-exploit-red/50 transition-all duration-300`}>
-                    <h5 className="font-heading font-semibold text-ghost-white text-xs mb-1">{team.name}</h5>
-                    <p className="text-[10px] text-muted-text">{team.members}</p>
+                    transition={{ delay: 1.2 + i * 0.1, type: 'spring', stiffness: 100 }}
+                    whileHover={{ scale: 1.03, y: -3, transition: { duration: 0.2 } }}
+                    className={`${team.bg} ${team.border} ${team.hover} border rounded-lg p-4 text-center cursor-pointer transition-all duration-300 relative overflow-hidden group`}>
+                    <motion.div
+                      className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <h5 className="relative font-heading font-semibold text-ghost-white text-xs mb-2 group-hover:text-white transition-colors">{team.name}</h5>
+                    <p className="relative text-[10px] text-muted-text group-hover:text-white/70 transition-colors">{team.members}</p>
                   </motion.div>
                 ))}
               </div>
 
-              {/* LEVEL 4: SPECIALISTS */}
-              <div className="mt-8 grid grid-cols-6 gap-2 w-full max-w-5xl">
+              {/* LEVEL 4: SPECIALISTS / CERTIFICATIONS */}
+              <div className="mt-8 grid grid-cols-6 gap-3 w-full max-w-4xl">
                 {[
-                  'OSCP', 'OSCE', 'OSWE', 'CRTO', 'GXPN', 'AWS-SA'
-                ].map((cert, i) => (
+                  { cert: 'OSCP', color: 'border-red-500/30 hover:border-red-500/60' },
+                  { cert: 'OSCE', color: 'border-orange-500/30 hover:border-orange-500/60' },
+                  { cert: 'OSWE', color: 'border-blue-500/30 hover:border-blue-500/60' },
+                  { cert: 'CRTO', color: 'border-purple-500/30 hover:border-purple-500/60' },
+                  { cert: 'GXPN', color: 'border-yellow-500/30 hover:border-yellow-500/60' },
+                  { cert: 'AWS-SA', color: 'border-cyan-500/30 hover:border-cyan-500/60' }
+                ].map((item, i) => (
                   <motion.div
-                    key={cert}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    key={item.cert}
+                    initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 1.4 + i * 0.05 }}
-                    className="bg-void-black border border-border rounded px-2 py-1.5 text-center">
-                    <span className="text-[10px] font-mono text-muted-text">{cert}</span>
+                    transition={{ delay: 1.4 + i * 0.08, type: 'spring', stiffness: 100 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className={`bg-void-black border ${item.color} rounded-lg px-3 py-2 text-center cursor-pointer transition-all duration-300 group`}>
+                    <span className="text-[11px] font-mono text-muted-text group-hover:text-ghost-white transition-colors">{item.cert}</span>
                   </motion.div>
                 ))}
               </div>
@@ -305,134 +334,212 @@ export function TeamPage() {
           </div>
         </section>
 
-        {/* Section 3: Founder Card */}
-        <section className="mb-32">
+        {/* Section 3: Founder Spotlight Card */}
+        <section className="mb-24">
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 20
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0
-            }}
-            viewport={{
-              once: true
-            }}
-            className="bg-dark-base border border-steel-gray/50 rounded-xl overflow-hidden">
-            {/* Top accent bar */}
-            <div className="h-1.5 w-full bg-exploit-red" />
-            
-            <div className="p-8 md:p-12 flex flex-col md:flex-row gap-8">
-              {/* Avatar */}
-              <div
-                className="w-40 h-40 shrink-0 mx-auto md:mx-0 overflow-hidden"
-                style={{
-                  clipPath:
-                  'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                }}>
-                
-                <img 
-                  src="https://avatars.githubusercontent.com/u/264521594?v=4" 
-                  alt="0xff" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-5xl mx-auto"
+          >
+            {/* Main Card */}
+            <div className="relative bg-gradient-to-br from-[#1a1a20] to-[#0f0f12] border border-[#2a2a30] rounded-2xl overflow-hidden">
+              {/* Top Red Border */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-exploit-red to-transparent" />
               
-              {/* Content */}
-              <div className="flex-grow">
-                {/* Header with name and social icons */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                  <div className="text-center md:text-left">
-                    <h2 className="text-4xl font-heading font-bold text-ghost-white mb-2">
-                      0xff
-                    </h2>
-                    <p className="text-exploit-red font-mono text-sm tracking-wider">
-                      Founder & CEO
-                    </p>
-                  </div>
-                  
-                  {/* Social Icons */}
-                  <div className="flex items-center justify-center md:justify-end gap-3">
-                    {[
-                      { icon: <Github size={18} />, href: '#' },
-                      { icon: <Twitter size={18} />, href: '#' },
-                      { icon: <Linkedin size={18} />, href: '#' },
-                      { icon: <Globe size={18} />, href: '#' }
-                    ].map((social, idx) => (
-                      <a
-                        key={idx}
-                        href={social.href}
-                        className="w-9 h-9 flex items-center justify-center bg-void-black border border-steel-gray/50 rounded-lg text-muted-text hover:text-ghost-white hover:border-exploit-red/50 transition-all duration-300">
-                        {social.icon}
-                      </a>
-                    ))}
+              {/* Background Glow */}
+              <motion.div
+                className="absolute -top-40 -right-40 w-80 h-80 bg-exploit-red/5 rounded-full blur-3xl"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 6, repeat: Infinity }}
+              />
+
+              <div className="relative p-8 md:p-10">
+                {/* Header Section */}
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* Avatar */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="relative shrink-0 mx-auto md:mx-0"
+                  >
+                    <div className="relative w-32 h-32 md:w-40 md:h-40">
+                      {/* Animated Ring */}
+                      <motion.div
+                        className="absolute inset-0 border-2 border-exploit-red/30 rounded-full"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                      />
+                      <motion.div
+                        className="absolute inset-1 border border-exploit-red/20 rounded-full"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                      />
+                      {/* Avatar Image */}
+                      <div className="absolute inset-2 rounded-full overflow-hidden border-2 border-exploit-red/50">
+                        <img
+                          src="https://avatars.githubusercontent.com/u/264521594?v=4"
+                          alt="0xff"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      {/* Pulsing Dot */}
+                      <motion.div
+                        className="absolute -bottom-1 -right-1 w-6 h-6 bg-exploit-red rounded-full border-2 border-[#1a1a20]"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Info Section */}
+                  <div className="flex-1 text-center md:text-left">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-1">0xff</h2>
+                      <p className="text-exploit-red font-mono text-sm mb-3">Founder & CEO</p>
+                      <p className="text-muted-text text-sm mb-4">
+                        Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer · Senior Software Engineer
+                      </p>
+                      
+                      {/* Quote */}
+                      <div className="border-l-2 border-exploit-red/50 pl-4 my-4">
+                        <p className="text-ghost-white/80 italic text-sm">
+                          "The quieter you become, the more you are able to hear." — Kali Linux
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    {/* Social Icons */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 }}
+                      className="flex items-center justify-center md:justify-start gap-3 mt-4"
+                    >
+                      {[
+                        { icon: Github, href: '#' },
+                        { icon: Twitter, href: '#' },
+                        { icon: Linkedin, href: '#' },
+                        { icon: Globe, href: '#' }
+                      ].map((social, i) => (
+                        <motion.a
+                          key={i}
+                          href={social.href}
+                          className="w-9 h-9 bg-[#2a2a30] hover:bg-exploit-red/20 border border-[#3a3a40] hover:border-exploit-red/50 rounded-lg flex items-center justify-center transition-all duration-300"
+                          whileHover={{ scale: 1.1, y: -2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <social.icon className="w-4 h-4 text-muted-text hover:text-exploit-red" />
+                        </motion.a>
+                      ))}
+                    </motion.div>
                   </div>
                 </div>
-                
-                {/* Role description */}
-                <p className="text-muted-text text-sm mb-6 text-center md:text-left">
-                  Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer , Senior Software Engineer
-                </p>
-                
-                {/* Quote */}
-                <div className="border-l-2 border-exploit-red pl-4 mb-8">
-                  <p className="text-ghost-white italic">
-                    "The quieter you become, the more you are able to hear." — Kali Linux
-                  </p>
-                </div>
-                
-                {/* Achievements */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                    <span className="text-xs font-mono text-muted-text uppercase tracking-widest">Achievements</span>
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-steel-gray/50 to-transparent my-8" />
+
+                {/* Achievements Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <h3 className="text-xs font-mono text-muted-text uppercase tracking-widest mb-4 text-center">Achievements</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
                       { value: '100+', label: 'Vulnerabilities' },
                       { value: '15+', label: 'CVEs' },
                       { value: '30+', label: 'Hall of Fame' },
                       { value: '$250K+', label: 'Bounties' }
-                    ].map((stat, idx) => (
-                      <div key={idx} className="text-center md:text-left">
-                        <div className="text-2xl font-heading font-bold text-ghost-white">{stat.value}</div>
-                        <div className="text-xs text-muted-text">{stat.label}</div>
-                      </div>
+                    ].map((stat, i) => (
+                      <motion.div
+                        key={stat.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 + i * 0.1 }}
+                        className="text-center"
+                      >
+                        <motion.p
+                          className="text-2xl md:text-3xl font-heading font-bold text-ghost-white"
+                          whileHover={{ scale: 1.1, color: '#c0392b' }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {stat.value}
+                        </motion.p>
+                        <p className="text-xs text-muted-text mt-1">{stat.label}</p>
+                      </motion.div>
                     ))}
                   </div>
-                </div>
-                
-                {/* Certifications */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                    <span className="text-xs font-mono text-muted-text uppercase tracking-widest">Certifications</span>
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {['OSCP', 'OSWE', 'OSEP', 'OSED', 'CRTP', 'CRTO', 'BSCP', 'eWPTX', 'AWS Security', 'AZ-500', 'CKS', 'GPEN/GXPN'].map((cert) =>
-                      <span
+                </motion.div>
+
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-steel-gray/50 to-transparent my-8" />
+
+                {/* Certifications Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <h3 className="text-xs font-mono text-muted-text uppercase tracking-widest mb-4 text-center">Certifications</h3>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {[
+                      'OSCP', 'OSWE', 'OSEP', 'OSED', 'CRTP', 'CRTO', 'BSCP', 
+                      'eWPTX', 'AWS Security', 'AZ-500', 'CKS', 'GPEN/GXPN'
+                    ].map((cert, i) => (
+                      <motion.span
                         key={cert}
-                        className="px-3 py-1.5 bg-void-black border border-steel-gray/50 rounded-lg text-xs font-semibold text-ghost-white hover:border-exploit-red/50 transition-colors">
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.8 + i * 0.05 }}
+                        whileHover={{ 
+                          scale: 1.05, 
+                          backgroundColor: 'rgba(192, 57, 43, 0.2)',
+                          borderColor: 'rgba(192, 57, 43, 0.5)'
+                        }}
+                        className="px-3 py-1.5 bg-[#1f1f24] border border-[#2a2a30] rounded-lg text-xs text-ghost-white font-medium cursor-default transition-all duration-300"
+                      >
                         {cert}
-                      </span>
-                    )}
+                      </motion.span>
+                    ))}
                   </div>
-                </div>
-                
-                {/* Platforms */}
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                    <span className="text-xs font-mono text-muted-text uppercase tracking-widest">Platforms</span>
-                    <div className="h-px flex-1 bg-steel-gray/30" />
-                  </div>
-                  <p className="text-sm text-ghost-white/80">
-                    HackerOne  · Bugcrowd  · Synack Red Team · Intigriti · HTB  · TryHackMe  · PortSwigger · ExploitDB  · VulnHub  · CTFtime  · GitHub Security Lab
-                  </p>
-                </div>
+                </motion.div>
+
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-steel-gray/50 to-transparent my-8" />
+
+                {/* Platforms Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.9 }}
+                >
+                  <h3 className="text-xs font-mono text-muted-text uppercase tracking-widest mb-4 text-center">Platforms</h3>
+                  <motion.p 
+                    className="text-center text-sm text-muted-text"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1 }}
+                  >
+                    HackerOne · Bugcrowd · Synack Red Team · Intigriti · HTB · TryHackMe · PortSwigger · ExploitDB · VulnHub · CTFtime · GitHub Security Lab
+                  </motion.p>
+                </motion.div>
               </div>
             </div>
           </motion.div>
@@ -457,31 +564,32 @@ export function TeamPage() {
                 transition={{ delay: idx * 0.1, type: 'spring', stiffness: 100 }}
                 className="w-full max-w-[320px]"
               >
-                <ProfileCard
-                  name={member.name}
-                  title={member.title}
-                  handle={member.name.toLowerCase().replace(/\s+/g, '')}
-                  status="Online"
-                  contactText="View Profile"
-                  avatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
-                  miniAvatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
-                  certs={member.certs}
-                  showUserInfo={true}
-                  enableTilt={true}
-                  enableMobileTilt={false}
-                  behindGlowEnabled={true}
-                  behindGlowColor="rgba(192, 57, 43, 0.6)"
-                  behindGlowSize="60%"
-                  innerGradient="linear-gradient(180deg, rgba(30, 35, 50, 0.95) 0%, rgba(17, 17, 21, 0.98) 50%, rgba(10, 10, 15, 1) 100%)"
-                  onContactClick={() => console.log(`Contact ${member.name}`)}
-                  className="w-full"
-                />
+                <Link to={`/team/${member.name.toLowerCase().replace(/\s+/g, '-')}`} className="block">
+                  <ProfileCard
+                    name={member.name}
+                    title={member.title}
+                    handle={member.name.toLowerCase().replace(/\s+/g, '')}
+                    status="Online"
+                    contactText="View Profile"
+                    avatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
+                    miniAvatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
+                    certs={member.certs}
+                    showUserInfo={true}
+                    enableTilt={true}
+                    enableMobileTilt={false}
+                    behindGlowEnabled={true}
+                    behindGlowColor="rgba(192, 57, 43, 0.6)"
+                    behindGlowSize="60%"
+                    innerGradient="linear-gradient(180deg, rgba(30, 35, 50, 0.95) 0%, rgba(17, 17, 21, 0.98) 50%, rgba(10, 10, 15, 1) 100%)"
+                    className="w-full cursor-pointer"
+                  />
+                </Link>
               </motion.div>
             )}
           </div>
         </section>
 
-        {/* Section 5: Join the Team CTA */}
+        {/* Section 6: Join the Team CTA */}
         <section className="bg-dark-base rounded-2xl p-8 md:p-12 text-center border border-steel-gray relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-exploit-red to-transparent opacity-50" />
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-4">
@@ -528,7 +636,7 @@ export function TeamPage() {
           </div>
         </section>
 
-        {/* Section 6: Team Culture & Values */}
+        {/* Section 7: Team Culture & Values */}
         <section className="py-20 border-t border-steel-gray/30 mt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

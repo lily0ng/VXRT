@@ -40,6 +40,7 @@ import { SecurityBlogPage } from './pages/resources/SecurityBlogPage';
 import { BlogPostDetailPage } from './pages/resources/BlogPostDetailPage';
 import { ToolsAndScriptsPage } from './pages/resources/ToolsAndScriptsPage';
 import { ToolDetailPage } from './pages/resources/ToolDetailPage';
+import { TeamMemberDetailPage } from './pages/TeamMemberDetailPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { ContactPage } from './pages/ContactPage';
@@ -332,6 +333,7 @@ function MainLayoutRoutes() {
 
           {/* Other Pages */}
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/team/:id" element={<TeamMemberDetailPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           
           {/* Resource Detail Pages */}
