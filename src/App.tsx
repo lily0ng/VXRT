@@ -26,6 +26,14 @@ import { WebAppTestingPage } from './pages/service/WebAppTestingPage';
 import { MobileAppTestingPage } from './pages/service/MobileAppTestingPage';
 import { IncidentResponsePage } from './pages/service/IncidentResponsePage';
 import { SecurityAuditPage } from './pages/service/SecurityAuditPage';
+import { AIPhishingSimulationPage } from './pages/ai-services/AIPhishingSimulationPage';
+import { AdversarialAITestingPage } from './pages/ai-services/AdversarialAITestingPage';
+import { AISocialEngineeringPage } from './pages/ai-services/AISocialEngineeringPage';
+import { AICyberDeceptionPage } from './pages/ai-services/AICyberDeceptionPage';
+import { AIModelHardeningPage } from './pages/ai-services/AIModelHardeningPage';
+import { MLOpsSecurityPage } from './pages/ai-services/MLOpsSecurityPage';
+import { AIInferenceInfraPage } from './pages/ai-services/AIInferenceInfraPage';
+import { LLMSecurityGuardrailsPage } from './pages/ai-services/LLMSecurityGuardrailsPage';
 import { TeamPage } from './pages/TeamPage';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { ResearchPapersPage } from './pages/resources/ResearchPapersPage';
@@ -57,6 +65,8 @@ import { SignInPage } from './pages/SignInPage';
 import { SignUpPage } from './pages/SignUpPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { NotFound } from './pages/NotFound';
+import { AboutPages } from './pages/AboutPages';
+import { InfraDesing } from './pages/InfraDesing';
 import { PortalLayout } from './portal/components/PortalLayout';
 import { Dashboard } from './portal/pages/Dashboard';
 import { Assessments } from './portal/pages/Assessments';
@@ -339,6 +349,16 @@ function MainLayoutRoutes() {
           <Route path="/services/incident-response" element={<IncidentResponsePage />} />
           <Route path="/services/security-audit" element={<SecurityAuditPage />} />
 
+          {/* AI Services Routes */}
+          <Route path="/ai-services/ai-phishing-simulation" element={<AIPhishingSimulationPage />} />
+          <Route path="/ai-services/adversarial-ai-testing" element={<AdversarialAITestingPage />} />
+          <Route path="/ai-services/ai-social-engineering" element={<AISocialEngineeringPage />} />
+          <Route path="/ai-services/ai-cyber-deception" element={<AICyberDeceptionPage />} />
+          <Route path="/ai-services/ai-model-hardening" element={<AIModelHardeningPage />} />
+          <Route path="/ai-services/mlops-security" element={<MLOpsSecurityPage />} />
+          <Route path="/ai-services/ai-inference-infra" element={<AIInferenceInfraPage />} />
+          <Route path="/ai-services/llm-security-guardrails" element={<LLMSecurityGuardrailsPage />} />
+
           {/* Other Pages */}
           <Route path="/team" element={<TeamPage />} />
           <Route path="/team/:id" element={<TeamMemberDetailPage />} />
@@ -357,6 +377,9 @@ function MainLayoutRoutes() {
           <Route path="/resources/blog/:id" element={<BlogPostDetailPage />} />
           <Route path="/resources/tools" element={<ToolsAndScriptsPage />} />
           <Route path="/resources/tools/:id" element={<ToolDetailPage />} />
+          
+          <Route path="/about-pages" element={<AboutPages />} />
+          <Route path="/infra-design" element={<InfraDesing />} />
           
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />

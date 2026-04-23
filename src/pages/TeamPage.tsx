@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { SectionHeading } from '../components/shared/SectionHeading';
-import ProfileCard from '../components/ProfileCard';
 import {
   Hexagon,
   Github,
@@ -406,7 +405,7 @@ export function TeamPage() {
                       <h2 className="text-3xl md:text-4xl font-heading font-bold text-ghost-white mb-1">0xff</h2>
                       <p className="text-exploit-red font-mono text-sm mb-3">Founder & CEO</p>
                       <p className="text-muted-text text-sm mb-4">
-                        Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer · Senior Software Engineer
+                        Senior Offensive Security Engineer · Zero Day Researcher · Red Teamer · Exploit Developer · Cloud Security Engineer · Senior Software Engineer · Cloud Infra System Engineer · AI Agent Systems Architect · Farmer
                       </p>
                       
                       {/* Quote */}
@@ -522,6 +521,63 @@ export function TeamPage() {
                 {/* Divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-steel-gray/50 to-transparent my-8" />
 
+                {/* Skills Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.1 }}
+                >
+                  <h3 className="text-xs font-mono text-muted-text uppercase tracking-widest mb-4 text-center">Skills</h3>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {[
+                      // Hacking & Security
+                      'Offensive Security', 'Penetration Testing', 'Red Teaming', 'Exploit Development',
+                      'Zero Day Research', 'Vulnerability Research', 'Bug Bounty Hunting', 'Malware Analysis',
+                      'Reverse Engineering', 'Binary Exploitation', 'Buffer Overflow', 'ROP Chains',
+                      'Shellcode Development', 'Kernel Exploitation', 'Firmware Analysis', 'IoT Security',
+                      'Web Application Security', 'API Security', 'Mobile Security', 'Wireless Security',
+                      'Network Security', 'Threat Intelligence', 'Security Operations', 'Incident Response',
+                      // Programming & Development
+                      'Python', 'C/C++', 'Assembly (x86/x64/ARM)', 'Rust', 'Go', 'JavaScript/TypeScript',
+                      'Bash/Shell Scripting', 'PowerShell', 'SQL',
+                      'Software Engineering', 'System Programming', 'Kernel Programming',
+                      // AI & Machine Learning
+                      'AI Systems Architecture', 'Machine Learning', 'Deep Learning', 'Neural Networks',
+                      'Natural Language Processing', 'Large Language Models', 'AI Agent Development', 'Prompt Engineering',
+                      'TensorFlow', 'PyTorch', 'Hugging Face',
+                      // Cloud & Infrastructure
+                      'Cloud Security', 'AWS Security', 'Azure Security', 'GCP Security',
+                      'Infrastructure Engineering', 'Kubernetes', 'Docker', 'Terraform',
+                      'DevSecOps', 'Linux System Administration', 'Windows Internals',
+                      // Tools & Frameworks
+                      'Metasploit', 'Burp Suite', 'Wireshark', 'Nmap', 'IDA Pro', 'Ghidra',
+                      'GDB', 'WinDbg', 'Frida', 'Git', 'GitHub Actions',
+                      // Methodologies
+                      'MITRE ATT&CK', 'OWASP Top 10', 'PTES', 'OSSTMM', 'NIST Framework'
+                    ].map((skill, i) => (
+                      <motion.span
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 1.2 + i * 0.03 }}
+                        whileHover={{ 
+                          scale: 1.05, 
+                          backgroundColor: 'rgba(192, 57, 43, 0.2)',
+                          borderColor: 'rgba(192, 57, 43, 0.5)'
+                        }}
+                        className="px-3 py-1.5 bg-[#1f1f24] border border-[#2a2a30] rounded-lg text-xs text-ghost-white font-medium cursor-default transition-all duration-300"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-steel-gray/50 to-transparent my-8" />
+
                 {/* Platforms Section */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -545,7 +601,7 @@ export function TeamPage() {
           </motion.div>
         </section>
 
-        {/* Section 4: Team Grid - Profile Card Style */}
+        {/* Section 4: Team Grid - Custom Card Design */}
         <section className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -554,35 +610,93 @@ export function TeamPage() {
             <SectionHeading title="The Operators" description="Elite Talent" />
           </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-12 justify-items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-12">
             {teamMembers.map((member, idx) =>
               <motion.div
                 key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, type: 'spring', stiffness: 100 }}
-                className="w-full max-w-[320px]"
+                transition={{ delay: idx * 0.08, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative"
               >
                 <Link to={`/team/${member.name.toLowerCase().replace(/\s+/g, '-')}`} className="block">
-                  <ProfileCard
-                    name={member.name}
-                    title={member.title}
-                    handle={member.name.toLowerCase().replace(/\s+/g, '')}
-                    status="Online"
-                    contactText="View Profile"
-                    avatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
-                    miniAvatarUrl={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
-                    certs={member.certs}
-                    showUserInfo={true}
-                    enableTilt={true}
-                    enableMobileTilt={false}
-                    behindGlowEnabled={true}
-                    behindGlowColor="rgba(192, 57, 43, 0.6)"
-                    behindGlowSize="60%"
-                    innerGradient="linear-gradient(180deg, rgba(30, 35, 50, 0.95) 0%, rgba(17, 17, 21, 0.98) 50%, rgba(10, 10, 15, 1) 100%)"
-                    className="w-full cursor-pointer"
-                  />
+                  {/* Card Container */}
+                  <div className="relative bg-gradient-to-br from-[#1a1a20] via-[#0f0f12] to-[#0a0a0e] border border-border/50 rounded-2xl overflow-hidden">
+                    {/* Top Gradient Border */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-exploit-red to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Animated Glow Effect */}
+                    <motion.div
+                      className="absolute -top-20 -right-20 w-40 h-40 bg-exploit-red/5 rounded-full blur-3xl"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    
+                    {/* Content */}
+                    <div className="relative p-6">
+                      {/* Avatar Section */}
+                      <div className="relative w-20 h-20 mx-auto mb-4">
+                        <motion.div
+                          className="absolute inset-0 border-2 border-exploit-red/30 rounded-full"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        />
+                        <div className="absolute inset-1 rounded-full overflow-hidden border-2 border-exploit-red/50">
+                          <img
+                            src={member.avatar || `https://ui-avatars.com/api/?name=${member.initials}&background=random&color=fff`}
+                            alt={member.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        {/* Status Indicator */}
+                        <motion.div
+                          className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-[#1a1a20]"
+                          animate={{ scale: [1, 1.15, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      </div>
+                      
+                      {/* Name & Title */}
+                      <div className="text-center mb-4">
+                        <h3 className="text-lg font-heading font-bold text-ghost-white group-hover:text-exploit-red transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        <p className="text-sm text-muted-text mt-1">{member.title}</p>
+                      </div>
+                      
+                      {/* Certifications */}
+                      <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+                        {member.certs.slice(0, 3).map((cert, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-1 bg-[#0a0a0e] border border-border/50 rounded-md text-[10px] text-muted-text group-hover:border-exploit-red/30 group-hover:text-ghost-white/80 transition-all"
+                          >
+                            {cert}
+                          </span>
+                        ))}
+                        {member.certs.length > 3 && (
+                          <span className="px-2 py-1 bg-exploit-red/10 border border-exploit-red/30 rounded-md text-[10px] text-exploit-red">
+                            +{member.certs.length - 3}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Divider */}
+                      <div className="h-px bg-gradient-to-r from-transparent via-border/50 to-transparent mb-4" />
+                      
+                      {/* Action Button */}
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-exploit-red/10 border border-exploit-red/30 rounded-lg text-sm font-medium text-exploit-red group-hover:bg-exploit-red group-hover:text-white transition-all duration-300"
+                      >
+                        <span>View Profile</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.div>
+                    </div>
+                  </div>
                 </Link>
               </motion.div>
             )}

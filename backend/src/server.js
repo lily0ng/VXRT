@@ -16,6 +16,7 @@ const projectRoutes = require('./routes/projects');
 const userRoutes = require('./routes/users');
 const cloudstackRoutes = require('./routes/cloudstack');
 const monitoringRoutes = require('./routes/monitoring');
+const chatRoutes = require('./routes/chat');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -71,6 +72,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/cloudstack', cloudstackRoutes);
 app.use('/api/monitoring', monitoringRoutes);
+app.use('/api/chat', chatRoutes);
 
 // WebSocket for real-time updates
 const WebSocket = require('ws');

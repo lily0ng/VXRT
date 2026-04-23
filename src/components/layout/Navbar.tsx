@@ -29,7 +29,13 @@ import {
   Layers,
   Smartphone,
   Siren,
-  ClipboardCheck } from
+  ClipboardCheck,
+  Bot,
+  BrainCircuit,
+  Fingerprint,
+  ScanFace,
+  ShieldCheck,
+  Lock } from
 'lucide-react';
 // Dropdown Content Components
 const ProductDropdown = () =>
@@ -206,7 +212,11 @@ const ServicesDropdown = () =>
   </div>;
 
 const ResourcesDropdown = () =>
-<div className="w-[500px] p-6 grid grid-cols-2 gap-4">
+<div className="w-[600px] p-6">
+  <h3 className="text-xs font-heading font-bold text-muted-text uppercase tracking-widest mb-4 pb-2 border-b border-border">
+    Documentation
+  </h3>
+  <div className="grid grid-cols-2 gap-4 mb-6">
     {[
   {
     icon: <FileText size={20} />,
@@ -261,7 +271,41 @@ const ResourcesDropdown = () =>
         </span>
       </Link>
   )}
-  </div>;
+  </div>
+  <h3 className="text-xs font-heading font-bold text-muted-text uppercase tracking-widest mb-4 pb-2 border-b border-border">
+    Infrastructure
+  </h3>
+  <div className="grid grid-cols-2 gap-4">
+    {[
+  {
+    icon: <Server size={20} />,
+    title: 'About Pages',
+    desc: '6 sections overview',
+    path: '/about-pages'
+  },
+  {
+    icon: <Network size={20} />,
+    title: 'Infrastructure Design',
+    desc: '7 architecture diagrams',
+    path: '/infra-design'
+  }].
+  map((item, idx) =>
+  <Link
+    to={item.path}
+    key={idx}
+    className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red">
+    
+        <div className="text-muted-text group-hover:text-ghost-white transition-colors mt-1">
+          {item.icon}
+        </div>
+        <div>
+          <h4 className="text-sm font-bold text-ghost-white mb-1">{item.title}</h4>
+          <p className="text-xs text-muted-text">{item.desc}</p>
+        </div>
+      </Link>
+  )}
+  </div>
+</div>;
 
 const CommunityDropdown = () =>
 <div className="w-[600px] p-6 grid grid-cols-2 gap-6">
@@ -320,6 +364,83 @@ const CommunityDropdown = () =>
   )}
   </div>;
 
+const AIServicesDropdown = () =>
+<div className="w-[700px] p-6">
+    <div className="grid grid-cols-2 gap-6">
+      {/* Red Team AI */}
+      <div>
+        <h3 className="text-xs font-heading font-bold text-exploit-red uppercase tracking-widest mb-4 pb-2 border-b border-border">
+          Red Team AI
+        </h3>
+        <div className="space-y-2">
+          {[
+            { icon: <Bot size={20} />, title: 'AI Phishing Simulation', desc: 'LLM-crafted spear-phishing campaigns' },
+            { icon: <BrainCircuit size={20} />, title: 'Adversarial AI Testing', desc: 'Exploit ML model vulnerabilities' },
+            { icon: <ScanFace size={20} />, title: 'AI Social Engineering', desc: 'Deepfake voice & video attacks' },
+            { icon: <Fingerprint size={20} />, title: 'AI Cyber Deception', desc: 'Adaptive AI honeypots' }
+          ].map((item, idx) => (
+            <Link
+              to={`/ai-services/${item.title.toLowerCase().replace(/ /g, '-')}`}
+              key={idx}
+              className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-exploit-red"
+            >
+              <div className="text-muted-text group-hover:text-ghost-white transition-colors mt-1">
+                {item.icon}
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-ghost-white mb-1">{item.title}</h4>
+                <p className="text-xs text-muted-text">{item.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* AI Infrastructure */}
+      <div>
+        <h3 className="text-xs font-heading font-bold text-blue-400 uppercase tracking-widest mb-4 pb-2 border-b border-border">
+          AI Infrastructure
+        </h3>
+        <div className="space-y-2">
+          {[
+            { icon: <ShieldCheck size={20} />, title: 'AI Model Hardening', desc: 'Defense-in-depth for ML models' },
+            { icon: <Cpu size={20} />, title: 'MLOps Security', desc: 'Secure ML pipelines & CI/CD' },
+            { icon: <Network size={20} />, title: 'AI Inference Infra', desc: 'Harden model serving endpoints' },
+            { icon: <Lock size={20} />, title: 'LLM Security Guardrails', desc: 'Multi-layer LLM protections' }
+          ].map((item, idx) => (
+            <Link
+              to={`/ai-services/${item.title.toLowerCase().replace(/ /g, '-')}`}
+              key={idx}
+              className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-accent border-l-4 border-transparent hover:border-blue-400"
+            >
+              <div className="text-muted-text group-hover:text-ghost-white transition-colors mt-1">
+                {item.icon}
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-ghost-white mb-1">{item.title}</h4>
+                <p className="text-xs text-muted-text">{item.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div className="flex justify-between items-center pt-4 mt-4 border-t border-border">
+      <Link
+        to="/ai-services"
+        className="text-sm text-muted-text hover:text-ghost-white transition-colors"
+      >
+        View all AI services
+      </Link>
+      <Link
+        to="/contact"
+        className="text-sm text-exploit-red hover:text-white transition-colors font-medium"
+      >
+        Book AI assessment
+      </Link>
+    </div>
+  </div>;
+
 export function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -333,6 +454,11 @@ export function Navbar() {
     name: 'Services',
     hasDropdown: true,
     dropdown: <ServicesDropdown />
+  },
+  {
+    name: 'AI Services',
+    hasDropdown: true,
+    dropdown: <AIServicesDropdown />
   },
   {
     name: 'Team',

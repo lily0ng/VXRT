@@ -1,12 +1,8 @@
-import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Badge } from '../components/ui/badge';
 import {
   Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription } from
+  CardContent } from
 '../components/ui/card';
 import { Button } from '../components/ui/button';
 import {
@@ -27,14 +23,21 @@ import {
   Star,
   GitBranch,
   Terminal,
-  Lock,
   ArrowRight,
   Mail,
   Users,
   Trophy,
   Calendar,
-  Zap } from
+  Zap,
+  BookOpen,
+  Database,
+  Bug,
+  Wrench,
+  Server,
+  Network,
+  Activity } from
 'lucide-react';
+import { useState } from 'react';
 const researchPapers = [
 {
   title: 'Bypassing Modern EDR via Direct Syscalls',
@@ -196,6 +199,16 @@ const getSeverityColor = (severity: string) => {
   }
 };
 export function ResourcesPage() {
+  const [activeTab, setActiveTab] = useState('all');
+
+  const navItems = [
+    { id: 'all', label: 'All Resources', icon: BookOpen },
+    { id: 'research', label: 'Research Papers', icon: FileText },
+    { id: 'cve', label: 'CVE Database', icon: Bug },
+    { id: 'tools', label: 'Open Source Tools', icon: Wrench },
+    { id: 'infrastructure', label: 'Infrastructure', icon: Database }
+  ];
+
   return (
     <div className="w-full bg-void-black min-h-screen pb-24">
       {/* Hero Section */}
@@ -206,11 +219,35 @@ export function ResourcesPage() {
             badge="RESOURCE CENTER"
             title="Research. Intelligence. Tools."
             description="Access our public research, vulnerability disclosures, and open-source offensive tooling." />
-          
+        </div>
+      </section>
+
+      {/* Navigation Bar */}
+      <section className="sticky top-0 z-40 bg-void-black/95 backdrop-blur-sm border-b border-border/30">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-2 py-4 overflow-x-auto">
+            {navItems.map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
+                  activeTab === item.id
+                    ? 'bg-exploit-red text-ghost-white shadow-lg shadow-exploit-red/30'
+                    : 'bg-[#1a1a20] text-muted-text hover:text-ghost-white hover:bg-[#25252a]'
+                }`}
+              >
+                <item.icon className="w-4 h-4" />
+                {item.label}
+              </motion.button>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Featured / Latest */}
+      {activeTab === 'all' || activeTab === 'research' ? (
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h3 className="text-2xl font-heading font-bold text-ghost-white mb-8">
@@ -265,8 +302,10 @@ export function ResourcesPage() {
           </div>
         </div>
       </section>
+      ) : null}
 
       {/* Research Papers */}
+      {activeTab === 'all' || activeTab === 'research' ? (
       <section className="py-16 border-t border-steel-gray/30">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -307,30 +346,35 @@ export function ResourcesPage() {
                       {paper.date}
                     </span>
                   </div>
-                  <h4 className="text-xl font-heading font-bold text-ghost-white mb-2">
+                  <h4 className="text-lg font-heading font-bold text-ghost-white mb-2">
                     {paper.title}
                   </h4>
-                  <p className="text-sm font-mono text-exploit-red mb-4">
-                    {paper.authors}
-                  </p>
-                  <p className="text-sm text-muted-gray font-body mb-6 flex-grow">
+                  <p className="text-sm text-muted-gray mb-4 flex-grow">
                     {paper.abstract}
                   </p>
-                  <Button
-                  variant="ghost"
-                  className="w-fit text-ghost-white hover:text-exploit-red p-0 h-auto">
-                  
-                    <FileText className="w-4 h-4 mr-2" /> Read PDF{' '}
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-xs text-muted-gray">
+                      {paper.authors}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-exploit-red hover:text-exploit-red/80">
+                      
+                      <FileText className="w-4 h-4 mr-2" />
+                      Read
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             )}
           </div>
         </div>
       </section>
+      ) : null}
 
       {/* CVE Database */}
+      {activeTab === 'all' || activeTab === 'cve' ? (
       <section className="py-16 border-t border-steel-gray/30">
         <div className="container mx-auto px-4">
           <h3 className="text-2xl font-heading font-bold text-ghost-white mb-8">
@@ -390,8 +434,10 @@ export function ResourcesPage() {
           </div>
         </div>
       </section>
+      ) : null}
 
       {/* Zero-Day Reports & Tools */}
+      {activeTab === 'all' || activeTab === 'tools' ? (
       <section className="py-16 border-t border-steel-gray/30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -427,15 +473,10 @@ export function ResourcesPage() {
                       </div>
                       <Button
                       variant="ghost"
-                      size="icon"
-                      disabled={i % 2 === 0}
-                      className="text-muted-gray hover:text-ghost-white">
-                      
-                        {i % 2 === 0 ?
-                      <Lock className="w-4 h-4" /> :
-
-                      <ExternalLink className="w-4 h-4" />
-                      }
+                      size="sm"
+                      className="text-exploit-red hover:text-exploit-red/80">
+                        
+                        <ArrowRight className="w-4 h-4" />
                       </Button>
                     </CardContent>
                   </Card>
@@ -446,43 +487,44 @@ export function ResourcesPage() {
             {/* Tools */}
             <div>
               <h3 className="text-2xl font-heading font-bold text-ghost-white mb-8">
-                Tools & Scripts
+                Open Source Tools
               </h3>
               <div className="space-y-4">
                 {tools.map((tool, i) =>
-                <Card
-                  key={i}
-                  className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors">
-                  
+                <Card key={i} className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors">
                     <CardContent className="p-5">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex items-center gap-2">
-                          <Code className="w-4 h-4 text-exploit-red" />
-                          <h4 className="font-mono font-bold text-ghost-white">
-                            {tool.name}
-                          </h4>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1 text-xs text-muted-gray font-mono">
-                            <Star className="w-3 h-3" /> {tool.stars}
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-exploit-red/10 rounded-lg flex items-center justify-center">
+                            <Code className="w-5 h-5 text-exploit-red" />
                           </div>
-                          <Badge
-                          variant="outline"
-                          className="border-steel-gray text-xs">
-                          
-                            {tool.lang}
-                          </Badge>
+                          <div>
+                            <h4 className="font-heading font-bold text-ghost-white">
+                              {tool.name}
+                            </h4>
+                            <p className="text-xs text-muted-gray">
+                              {tool.lang}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 text-yellow-500">
+                          <Star className="w-4 h-4 fill-current" />
+                          <span className="text-sm font-medium">
+                            {tool.stars}
+                          </span>
                         </div>
                       </div>
                       <p className="text-sm text-muted-gray mb-4">
                         {tool.desc}
                       </p>
-                      <a
-                      href="#"
-                      className="text-xs font-mono text-exploit-red hover:underline flex items-center gap-1 w-fit">
-                      
-                        View on GitHub <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-steel-gray text-ghost-white hover:border-exploit-red hover:text-exploit-red">
+                        
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View on GitHub
+                      </Button>
                     </CardContent>
                   </Card>
                 )}
@@ -491,6 +533,40 @@ export function ResourcesPage() {
           </div>
         </div>
       </section>
+      ) : null}
+
+      {/* Infrastructure Section */}
+      {activeTab === 'all' || activeTab === 'infrastructure' ? (
+      <section className="py-16 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <h3 className="text-2xl font-heading font-bold text-ghost-white mb-8">
+            Infrastructure Documentation
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: 'IaaS Infrastructure Design', desc: 'Scalable cloud infrastructure architecture', icon: Database },
+              { title: 'AI Infrastructure Design', desc: 'ML and AI workload infrastructure', icon: Zap },
+              { title: 'Data Center Design', desc: 'Global data center infrastructure', icon: Server },
+              { title: 'Network Architecture', desc: 'Secure network topology design', icon: Network },
+              { title: 'Security Layers', desc: 'Multi-layered security architecture', icon: ShieldAlert },
+              { title: 'Monitoring Stack', desc: 'Observability and monitoring tools', icon: Activity }
+            ].map((item, i) => (
+              <Card key={i} className="bg-dark-base border-steel-gray hover:border-exploit-red/50 transition-colors group cursor-pointer">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-exploit-red/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-exploit-red/20 transition-colors">
+                    <item.icon className="w-6 h-6 text-exploit-red" />
+                  </div>
+                  <h4 className="text-lg font-heading font-bold text-ghost-white mb-2 group-hover:text-exploit-red transition-colors">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-muted-gray">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      ) : null}
 
       {/* Newsletter Section */}
       <section className="py-20 border-t border-steel-gray/30">

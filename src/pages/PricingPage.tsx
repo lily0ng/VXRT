@@ -36,7 +36,12 @@ import {
   Building,
   GitBranch,
   Settings,
-  Award
+  Award,
+  Bot,
+  BrainCircuit,
+  Fingerprint,
+  ScanFace,
+  ShieldCheck
 } from 'lucide-react';
 
 const pricingPlans = [
@@ -164,6 +169,55 @@ const serviceAddOns = [
     price: '$500/day',
     icon: Sparkles,
     popular: false
+  },
+  {
+    name: 'AI Phishing Simulation',
+    description: 'LLM-crafted spear-phishing campaigns',
+    price: '$3,500',
+    icon: Bot,
+    popular: true
+  },
+  {
+    name: 'Adversarial AI Testing',
+    description: 'Exploit ML model vulnerabilities',
+    price: '$8,000',
+    icon: BrainCircuit,
+    popular: true
+  },
+  {
+    name: 'AI Social Engineering',
+    description: 'Deepfake voice & video attacks',
+    price: '$5,000',
+    icon: ScanFace,
+    popular: false
+  },
+  {
+    name: 'AI Cyber Deception',
+    description: 'Adaptive AI honeypots',
+    price: '$6,000',
+    icon: Fingerprint,
+    popular: false
+  },
+  {
+    name: 'AI Model Hardening',
+    description: 'Defense-in-depth for ML models',
+    price: '$7,500',
+    icon: ShieldCheck,
+    popular: true
+  },
+  {
+    name: 'MLOps Security Audit',
+    description: 'Secure ML pipelines & CI/CD',
+    price: '$4,500',
+    icon: Server,
+    popular: false
+  },
+  {
+    name: 'LLM Security Guardrails',
+    description: 'Multi-layer LLM protections',
+    price: '$6,500',
+    icon: Lock,
+    popular: false
   }
 ];
 
@@ -183,7 +237,14 @@ const comparisonFeatures = [
   { name: '24/7 Emergency Response', essential: false, professional: false, enterprise: true },
   { name: 'Custom Report Branding', essential: false, professional: true, enterprise: true },
   { name: 'Quarterly Reviews', essential: false, professional: true, enterprise: true },
-  { name: 'Priority Support', essential: false, professional: true, enterprise: true }
+  { name: 'Priority Support', essential: false, professional: true, enterprise: true },
+  { name: 'AI Phishing Simulation', essential: false, professional: false, enterprise: true },
+  { name: 'Adversarial AI Testing', essential: false, professional: false, enterprise: true },
+  { name: 'AI Social Engineering', essential: false, professional: false, enterprise: true },
+  { name: 'AI Cyber Deception', essential: false, professional: false, enterprise: true },
+  { name: 'AI Model Hardening', essential: false, professional: 'Add-on', enterprise: true },
+  { name: 'MLOps Security Audit', essential: false, professional: 'Add-on', enterprise: true },
+  { name: 'LLM Security Guardrails', essential: false, professional: 'Add-on', enterprise: true }
 ];
 
 const faqs = [
@@ -210,6 +271,14 @@ const faqs = [
   {
     question: 'How do we get started?',
     answer: 'Simply click "Get Started" on any plan or contact us directly. We\'ll schedule a scoping call to understand your requirements, define the testing boundaries, and provide a detailed proposal. Once approved, we typically begin testing within 1-2 weeks depending on scope complexity.'
+  },
+  {
+    question: 'What are AI Security Services and who needs them?',
+    answer: 'Our AI Security Services protect your machine learning infrastructure and test resilience against AI-powered attacks. Red Team AI services simulate adversarial attacks (phishing, deepfakes, model exploitation), while AI Infrastructure services harden your ML pipelines, model serving endpoints, and LLM deployments. Essential for any organization deploying AI/ML in production.'
+  },
+  {
+    question: 'How is AI service pricing determined?',
+    answer: 'AI service pricing depends on model complexity, deployment scale, and testing depth. Adversarial AI Testing starts at $8,000 for single models, while AI Phishing Simulation starts at $3,500 per campaign. Enterprise contracts include unlimited AI security assessments. Contact us for a custom quote based on your specific AI stack.'
   }
 ];
 
@@ -234,6 +303,29 @@ const testimonials = [
 export function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  // --- Infrastructure Cost Calculator State ---
+  const [vpsCount, setVpsCount] = useState(2);
+  const [computeHours, setComputeHours] = useState(100);
+  const [k8sClusters, setK8sClusters] = useState(1);
+  const [storageGB, setStorageGB] = useState(500);
+  const [addons, setAddons] = useState({
+    database: false,
+    loadBalancer: false,
+    cdnWaf: false,
+    monitoring: false
+  });
+
+  const vpsPrice = vpsCount * 49;
+  const computePrice = computeHours * 0.015;
+  const k8sPrice = k8sClusters * 199;
+  const storagePrice = storageGB * 0.02;
+  const addonPrice =
+    (addons.database ? 29 : 0) +
+    (addons.loadBalancer ? 19 : 0) +
+    (addons.cdnWaf ? 50 : 0) +
+    (addons.monitoring ? 9 : 0);
+  const totalPrice = vpsPrice + computePrice + k8sPrice + storagePrice + addonPrice;
 
   return (
     <div className="w-full bg-void-black min-h-screen pb-24">
@@ -566,201 +658,218 @@ export function PricingPage() {
               align="center" />
           </motion.div>
 
-          {/* Enhanced Price Calculator */}
+          {/* Infrastructure Cost Calculator — Redesigned */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-12 mb-16 bg-gradient-to-br from-dark-base via-[#111115] to-void-black border border-border rounded-2xl overflow-hidden"
+            className="mt-12 mb-16 bg-gradient-to-br from-dark-base via-[#0c0c10] to-void-black border border-border rounded-2xl overflow-hidden shadow-2xl"
           >
-            {/* Calculator Header */}
-            <div className="bg-gradient-to-r from-exploit-red/20 via-exploit-red/10 to-transparent border-b border-border p-6">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-exploit-red/20 rounded-xl flex items-center justify-center">
-                  <Calculator className="w-6 h-6 text-exploit-red" />
-                </div>
+            {/* Header */}
+            <div className="relative bg-gradient-to-r from-exploit-red/15 via-exploit-red/5 to-transparent border-b border-border p-6 md:p-8">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-exploit-red/5 rounded-full blur-3xl" />
+              <div className="flex items-center gap-4 relative z-10">
+                <motion.div
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  className="w-14 h-14 bg-exploit-red/10 rounded-xl flex items-center justify-center border border-exploit-red/20"
+                >
+                  <Calculator className="w-7 h-7 text-exploit-red" />
+                </motion.div>
                 <div>
-                  <h3 className="text-xl font-heading font-bold text-ghost-white">Infrastructure Cost Calculator</h3>
-                  <p className="text-sm text-muted-text">Estimate your monthly cloud infrastructure costs</p>
+                  <h3 className="text-xl md:text-2xl font-heading font-bold text-ghost-white">Infrastructure Cost Calculator</h3>
+                  <p className="text-sm text-muted-text mt-1">Adjust sliders & toggle add-ons for real-time estimates</p>
                 </div>
               </div>
             </div>
 
             <div className="p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* VPS Calculator */}
-                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
-                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                      <Globe className="w-4 h-4 text-green-500" />
-                    </div>
-                    VPS Instances
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="20"
-                    defaultValue="2"
-                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      const el = document.getElementById('vps-count');
-                      const price = document.getElementById('vps-price');
-                      if (el) el.textContent = val.toString();
-                      if (price) price.textContent = `$${(val * 49).toLocaleString()}`;
-                      window.dispatchEvent(new CustomEvent('priceUpdate'));
-                    }}
-                  />
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-text">Count: <span id="vps-count" className="text-ghost-white font-bold">2</span></span>
-                    <span className="text-green-500 font-bold bg-green-500/10 px-2 py-1 rounded" id="vps-price">$98</span>
+              {/* Primary Sliders Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                {/* VPS */}
+                <div className="space-y-4 bg-[#0a0a0e]/80 rounded-xl p-5 border border-border hover:border-green-500/30 transition-all duration-300 group">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2.5 text-sm font-semibold text-ghost-white">
+                      <div className="w-9 h-9 bg-green-500/15 rounded-lg flex items-center justify-center group-hover:bg-green-500/25 transition-colors">
+                        <Globe className="w-4.5 h-4.5 text-green-400" />
+                      </div>
+                      VPS Instances
+                    </label>
+                    <span className="text-lg font-heading font-bold text-green-400">${vpsPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="relative h-2 bg-[#1a1a20] rounded-full overflow-hidden">
+                    <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-600 to-green-400 rounded-full transition-all duration-200" style={{ width: `${(vpsCount / 20) * 100}%` }} />
+                    <input
+                      type="range" min="0" max="20" value={vpsCount}
+                      onChange={(e) => setVpsCount(parseInt(e.target.value))}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-muted-text">Count: <span className="text-ghost-white font-bold">{vpsCount}</span></span>
+                    <span className="text-green-400/70">$49 / instance</span>
                   </div>
                 </div>
 
-                {/* Compute Calculator */}
-                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
-                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <Server className="w-4 h-4 text-blue-500" />
-                    </div>
-                    Compute Hours
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    step="10"
-                    defaultValue="100"
-                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      const el = document.getElementById('compute-count');
-                      const price = document.getElementById('compute-price');
-                      if (el) el.textContent = val.toString();
-                      if (price) price.textContent = `$${(val * 0.015).toFixed(2)}`;
-                      window.dispatchEvent(new CustomEvent('priceUpdate'));
-                    }}
-                  />
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-text">Hours: <span id="compute-count" className="text-ghost-white font-bold">100</span></span>
-                    <span className="text-blue-500 font-bold bg-blue-500/10 px-2 py-1 rounded" id="compute-price">$1.50</span>
+                {/* Compute */}
+                <div className="space-y-4 bg-[#0a0a0e]/80 rounded-xl p-5 border border-border hover:border-blue-500/30 transition-all duration-300 group">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2.5 text-sm font-semibold text-ghost-white">
+                      <div className="w-9 h-9 bg-blue-500/15 rounded-lg flex items-center justify-center group-hover:bg-blue-500/25 transition-colors">
+                        <Server className="w-4.5 h-4.5 text-blue-400" />
+                      </div>
+                      Compute Hours
+                    </label>
+                    <span className="text-lg font-heading font-bold text-blue-400">${computePrice.toFixed(2)}</span>
+                  </div>
+                  <div className="relative h-2 bg-[#1a1a20] rounded-full overflow-hidden">
+                    <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full transition-all duration-200" style={{ width: `${(computeHours / 1000) * 100}%` }} />
+                    <input
+                      type="range" min="0" max="1000" step="10" value={computeHours}
+                      onChange={(e) => setComputeHours(parseInt(e.target.value))}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-muted-text">Hours: <span className="text-ghost-white font-bold">{computeHours}</span></span>
+                    <span className="text-blue-400/70">$0.015 / hr</span>
                   </div>
                 </div>
 
-                {/* Kubernetes Calculator */}
-                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
-                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                      <Zap className="w-4 h-4 text-purple-500" />
-                    </div>
-                    K8s Clusters
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="10"
-                    defaultValue="1"
-                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      const el = document.getElementById('k8s-count');
-                      const price = document.getElementById('k8s-price');
-                      if (el) el.textContent = val.toString();
-                      if (price) price.textContent = `$${(val * 199).toLocaleString()}`;
-                      window.dispatchEvent(new CustomEvent('priceUpdate'));
-                    }}
-                  />
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-text">Clusters: <span id="k8s-count" className="text-ghost-white font-bold">1</span></span>
-                    <span className="text-purple-500 font-bold bg-purple-500/10 px-2 py-1 rounded" id="k8s-price">$199</span>
+                {/* Kubernetes */}
+                <div className="space-y-4 bg-[#0a0a0e]/80 rounded-xl p-5 border border-border hover:border-purple-500/30 transition-all duration-300 group">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2.5 text-sm font-semibold text-ghost-white">
+                      <div className="w-9 h-9 bg-purple-500/15 rounded-lg flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
+                        <Zap className="w-4.5 h-4.5 text-purple-400" />
+                      </div>
+                      K8s Clusters
+                    </label>
+                    <span className="text-lg font-heading font-bold text-purple-400">${k8sPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="relative h-2 bg-[#1a1a20] rounded-full overflow-hidden">
+                    <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full transition-all duration-200" style={{ width: `${(k8sClusters / 10) * 100}%` }} />
+                    <input
+                      type="range" min="0" max="10" value={k8sClusters}
+                      onChange={(e) => setK8sClusters(parseInt(e.target.value))}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-muted-text">Clusters: <span className="text-ghost-white font-bold">{k8sClusters}</span></span>
+                    <span className="text-purple-400/70">$199 / cluster</span>
                   </div>
                 </div>
 
-                {/* Storage Calculator */}
-                <div className="space-y-4 bg-[#111115]/50 rounded-xl p-4 border border-border hover:border-steel-gray transition-colors">
-                  <label className="flex items-center gap-2 text-sm font-medium text-ghost-white">
-                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                      <Lock className="w-4 h-4 text-orange-500" />
-                    </div>
-                    Storage (GB)
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="10000"
-                    step="100"
-                    defaultValue="500"
-                    className="w-full h-2 bg-steel-gray rounded-lg appearance-none cursor-pointer accent-exploit-red"
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      const el = document.getElementById('storage-count');
-                      const price = document.getElementById('storage-price');
-                      if (el) el.textContent = val.toLocaleString();
-                      if (price) price.textContent = `$${(val * 0.02).toFixed(2)}`;
-                      window.dispatchEvent(new CustomEvent('priceUpdate'));
-                    }}
-                  />
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-text">GB: <span id="storage-count" className="text-ghost-white font-bold">500</span></span>
-                    <span className="text-orange-500 font-bold bg-orange-500/10 px-2 py-1 rounded" id="storage-price">$10.00</span>
+                {/* Storage */}
+                <div className="space-y-4 bg-[#0a0a0e]/80 rounded-xl p-5 border border-border hover:border-orange-500/30 transition-all duration-300 group">
+                  <div className="flex items-center justify-between">
+                    <label className="flex items-center gap-2.5 text-sm font-semibold text-ghost-white">
+                      <div className="w-9 h-9 bg-orange-500/15 rounded-lg flex items-center justify-center group-hover:bg-orange-500/25 transition-colors">
+                        <HardDrive className="w-4.5 h-4.5 text-orange-400" />
+                      </div>
+                      Storage (GB)
+                    </label>
+                    <span className="text-lg font-heading font-bold text-orange-400">${storagePrice.toFixed(2)}</span>
+                  </div>
+                  <div className="relative h-2 bg-[#1a1a20] rounded-full overflow-hidden">
+                    <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full transition-all duration-200" style={{ width: `${(storageGB / 10000) * 100}%` }} />
+                    <input
+                      type="range" min="0" max="10000" step="100" value={storageGB}
+                      onChange={(e) => setStorageGB(parseInt(e.target.value))}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                  </div>
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-muted-text">GB: <span className="text-ghost-white font-bold">{storageGB.toLocaleString()}</span></span>
+                    <span className="text-orange-400/70">$0.02 / GB</span>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Resources */}
-              <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  { icon: Database, name: 'Database', price: 29, color: 'text-pink-500', bg: 'bg-pink-500/10' },
-                  { icon: Network, name: 'Load Balancer', price: 19, color: 'text-cyan-500', bg: 'bg-cyan-500/10' },
-                  { icon: Shield, name: 'CDN & WAF', price: 50, color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
-                  { icon: Activity, name: 'Monitoring', price: 9, color: 'text-violet-500', bg: 'bg-violet-500/10' },
-                ].map((resource) => (
-                  <div key={resource.name} className="flex items-center justify-between p-3 bg-[#111115]/50 rounded-lg border border-border">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-6 h-6 ${resource.bg} rounded flex items-center justify-center`}>
-                        <resource.icon className={`w-3 h-3 ${resource.color}`} />
-                      </div>
-                      <span className="text-sm text-muted-text">{resource.name}</span>
-                    </div>
-                    <span className={`text-sm font-semibold ${resource.color}`}>${resource.price}</span>
-                  </div>
-                ))}
+              {/* Toggleable Add-ons */}
+              <div className="mt-8">
+                <p className="text-sm font-semibold text-ghost-white mb-4 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-exploit-red" />
+                  Optional Add-ons
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { key: 'database' as const, icon: Database, name: 'Database', price: 29, color: 'text-pink-400', bg: 'bg-pink-500/10', activeBg: 'bg-pink-500/20', border: 'border-pink-500/30' },
+                    { key: 'loadBalancer' as const, icon: Network, name: 'Load Balancer', price: 19, color: 'text-cyan-400', bg: 'bg-cyan-500/10', activeBg: 'bg-cyan-500/20', border: 'border-cyan-500/30' },
+                    { key: 'cdnWaf' as const, icon: Shield, name: 'CDN & WAF', price: 50, color: 'text-yellow-400', bg: 'bg-yellow-500/10', activeBg: 'bg-yellow-500/20', border: 'border-yellow-500/30' },
+                    { key: 'monitoring' as const, icon: Activity, name: 'Monitoring', price: 9, color: 'text-violet-400', bg: 'bg-violet-500/10', activeBg: 'bg-violet-500/20', border: 'border-violet-500/30' },
+                  ].map((addon) => {
+                    const isActive = addons[addon.key];
+                    return (
+                      <button
+                        key={addon.key}
+                        onClick={() => setAddons(prev => ({ ...prev, [addon.key]: !prev[addon.key] }))}
+                        className={`relative flex items-center gap-3 p-4 rounded-xl border transition-all duration-300 text-left ${
+                          isActive
+                            ? `${addon.activeBg} ${addon.border} shadow-[0_0_15px_rgba(0,0,0,0.3)]`
+                            : 'bg-[#0a0a0e]/60 border-border hover:border-steel-gray'
+                        }`}
+                      >
+                        <div className={`w-10 h-10 ${isActive ? addon.activeBg : addon.bg} rounded-lg flex items-center justify-center transition-colors`}>
+                          <addon.icon className={`w-5 h-5 ${addon.color}`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-sm font-semibold ${isActive ? 'text-ghost-white' : 'text-muted-text'}`}>{addon.name}</p>
+                          <p className={`text-xs font-bold ${isActive ? addon.color : 'text-muted-text/60'}`}>${addon.price}/mo</p>
+                        </div>
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
+                          isActive ? `${addon.border} ${addon.bg}` : 'border-steel-gray'
+                        }`}>
+                          {isActive && <Check className="w-3 h-3 text-ghost-white" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
-            {/* Total Price Display */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-r from-[#111115] via-dark-base to-[#111115] border-t border-border p-6"
-            >
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="text-center md:text-left">
-                  <p className="text-sm text-muted-text mb-1">Estimated Monthly Cost</p>
-                  <motion.p
-                    className="text-4xl md:text-5xl font-heading font-bold text-exploit-red"
-                    id="total-price"
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    $308.50
-                  </motion.p>
-                  <p className="text-xs text-muted-text mt-1">*Pricing excludes additional resources and taxes</p>
+            {/* Live Total Bar */}
+            <div className="relative bg-gradient-to-r from-[#0c0c10] via-dark-base to-[#0c0c10] border-t border-border p-6 md:p-8">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-exploit-red/30 to-transparent" />
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                {/* Breakdown */}
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  {vpsPrice > 0 && <span className="text-muted-text">VPS: <span className="text-green-400 font-semibold">${vpsPrice.toLocaleString()}</span></span>}
+                  {computePrice > 0 && <span className="text-muted-text">Compute: <span className="text-blue-400 font-semibold">${computePrice.toFixed(2)}</span></span>}
+                  {k8sPrice > 0 && <span className="text-muted-text">K8s: <span className="text-purple-400 font-semibold">${k8sPrice.toLocaleString()}</span></span>}
+                  {storagePrice > 0 && <span className="text-muted-text">Storage: <span className="text-orange-400 font-semibold">${storagePrice.toFixed(2)}</span></span>}
+                  {addonPrice > 0 && <span className="text-muted-text">Add-ons: <span className="text-exploit-red font-semibold">${addonPrice}</span></span>}
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button variant="outline" className="border-steel-gray text-ghost-white hover:bg-steel-gray/20 px-6">
-                    <FileText className="w-4 h-4 mr-2" />
-                    Download Estimate
-                  </Button>
-                  <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-8 py-6 text-lg">
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    Get Started
-                  </Button>
+
+                {/* Total + CTA */}
+                <div className="flex items-center gap-6">
+                  <div className="text-right">
+                    <p className="text-xs text-muted-text uppercase tracking-wider">Estimated Monthly</p>
+                    <motion.p
+                      key={totalPrice}
+                      initial={{ scale: 1.1, color: '#ffffff' }}
+                      animate={{ scale: 1, color: '#c0392b' }}
+                      transition={{ duration: 0.3 }}
+                      className="text-4xl md:text-5xl font-heading font-bold text-exploit-red"
+                    >
+                      ${totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </motion.p>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button variant="outline" className="border-steel-gray text-ghost-white hover:bg-steel-gray/20 px-5">
+                      <FileText className="w-4 h-4 mr-2" />
+                      Export
+                    </Button>
+                    <Button className="bg-exploit-red hover:bg-exploit-red/90 text-ghost-white px-6 py-5 text-base">
+                      <CreditCard className="w-5 h-5 mr-2" />
+                      Get Started
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Product Cards */}
@@ -946,6 +1055,157 @@ export function PricingPage() {
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7.5: AI Services Pricing */}
+      <section className="py-20 border-t border-steel-gray/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}>
+            <SectionHeading
+              badge="AI SECURITY"
+              title="AI Services Pricing"
+              description="Protect your AI/ML stack from next-generation threats"
+              align="center" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto">
+            {[
+              {
+                name: 'AI Phishing Simulation',
+                icon: Bot,
+                price: '$3,500',
+                unit: '/campaign',
+                category: 'Red Team AI',
+                description: 'LLM-crafted spear-phishing campaigns that bypass legacy filters',
+                specs: ['10K+ Simulations', '94% Bypass Rate', 'Per-Employee Scoring', 'Custom Training'],
+                color: 'from-red-500/20 to-red-600/5',
+                borderColor: 'border-red-500/30'
+              },
+              {
+                name: 'Adversarial AI Testing',
+                icon: BrainCircuit,
+                price: '$8,000',
+                unit: '/model',
+                category: 'Red Team AI',
+                description: 'Systematic attacks against your deployed ML models',
+                specs: ['12 Attack Categories', 'Model Extraction Tests', 'Poisoning Simulation', 'Defense Hardening'],
+                color: 'from-orange-500/20 to-orange-600/5',
+                borderColor: 'border-orange-500/30'
+              },
+              {
+                name: 'AI Social Engineering',
+                icon: ScanFace,
+                price: '$5,000',
+                unit: '/campaign',
+                category: 'Red Team AI',
+                description: 'Deepfake voice, video, and synthetic persona attacks',
+                specs: ['Voice Cloning', 'Video Deepfakes', 'Social Media Personas', 'Biometric Bypass'],
+                color: 'from-pink-500/20 to-pink-600/5',
+                borderColor: 'border-pink-500/30'
+              },
+              {
+                name: 'AI Cyber Deception',
+                icon: Fingerprint,
+                price: '$6,000',
+                unit: '/deployment',
+                category: 'Red Team AI',
+                description: 'Adaptive AI honeypots that learn attacker behavior',
+                specs: ['50+ Decoy VMs', 'Real-time Adaptation', 'Behavioral Fingerprinting', 'IOC Export'],
+                color: 'from-rose-500/20 to-rose-600/5',
+                borderColor: 'border-rose-500/30'
+              },
+              {
+                name: 'AI Model Hardening',
+                icon: ShieldCheck,
+                price: '$7,500',
+                unit: '/model',
+                category: 'AI Infrastructure',
+                description: 'Defense-in-depth for ML models from training to inference',
+                specs: ['Differential Privacy', 'Model Encryption', 'TEE Deployment', 'Watermarking'],
+                color: 'from-blue-500/20 to-blue-600/5',
+                borderColor: 'border-blue-500/30'
+              },
+              {
+                name: 'MLOps Security',
+                icon: Server,
+                price: '$4,500',
+                unit: '/pipeline',
+                category: 'AI Infrastructure',
+                description: 'End-to-end security for ML pipelines and CI/CD',
+                specs: ['Secrets Audit', 'Dependency Scan', 'Access Control Review', 'Supply Chain Scan'],
+                color: 'from-cyan-500/20 to-cyan-600/5',
+                borderColor: 'border-cyan-500/30'
+              },
+              {
+                name: 'AI Inference Infra',
+                icon: Network,
+                price: '$5,500',
+                unit: '/endpoint',
+                category: 'AI Infrastructure',
+                description: 'Harden model serving endpoints against abuse and extraction',
+                specs: ['Prompt Injection Tests', 'Rate Limit Audit', 'GPU Isolation', 'Edge Security'],
+                color: 'from-teal-500/20 to-teal-600/5',
+                borderColor: 'border-teal-500/30'
+              },
+              {
+                name: 'LLM Guardrails',
+                icon: Lock,
+                price: '$6,500',
+                unit: '/deployment',
+                category: 'AI Infrastructure',
+                description: 'Multi-layer guardrails for safe and compliant LLM deployments',
+                specs: ['Input Filtering', 'Output Sanitization', 'PII Detection', 'Compliance Rules'],
+                color: 'from-indigo-500/20 to-indigo-600/5',
+                borderColor: 'border-indigo-500/30'
+              }
+            ].map((service, i) => (
+              <motion.div
+                key={service.name}
+                initial={{ opacity: 0, y: 20, rotateX: -10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, type: 'spring', stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
+                className={`bg-gradient-to-br ${service.color} border ${service.borderColor} rounded-xl p-6 relative overflow-hidden group`}>
+                <div className="absolute top-2 right-2 px-2 py-0.5 bg-void-black/60 rounded-full text-[10px] font-semibold text-muted-text">
+                  {service.category}
+                </div>
+                <motion.div
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  className="w-12 h-12 bg-void-black/50 rounded-lg flex items-center justify-center mb-4 transition-transform">
+                  <service.icon className="w-6 h-6 text-ghost-white" />
+                </motion.div>
+                <h3 className="text-lg font-heading font-bold text-ghost-white mb-1">{service.name}</h3>
+                <p className="text-sm text-muted-text mb-4">{service.description}</p>
+                <div className="mb-4">
+                  <motion.span
+                    className="text-2xl font-heading font-bold text-ghost-white"
+                    whileHover={{ color: '#c0392b' }}>
+                    {service.price}
+                  </motion.span>
+                  <span className="text-muted-text text-sm">{service.unit}</span>
+                </div>
+                <ul className="space-y-1.5 mb-4">
+                  {service.specs.map((spec) => (
+                    <li key={spec} className="flex items-center gap-2 text-sm text-muted-text">
+                      <Check className="w-4 h-4 text-green-500 shrink-0" />
+                      {spec}
+                    </li>
+                  ))}
+                </ul>
+                <Link to={`/ai-services/${service.name.toLowerCase().replace(/ /g, '-')}`}>
+                  <Button className="w-full bg-void-black/50 border border-steel-gray hover:bg-exploit-red hover:border-exploit-red text-ghost-white transition-all text-sm">
+                    View Details
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
               </motion.div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { ChatWidget } from '../shared/ChatWidget';
 interface MainLayoutProps {
   children: React.ReactNode;
 }
@@ -10,6 +11,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <ChatWidget />
     </div>);
 
 }
